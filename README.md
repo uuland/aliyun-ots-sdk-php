@@ -51,6 +51,6 @@ Aliyun OTS SDK for PHP，用来通过PHP访问阿里云OTS服务。适用于PHP 
 
 # 帮助和支持 FAQ
 
-阿里云官网论坛: http://bbs.aliyun.com/thread/226.html
-云栖社区: https://yq.aliyun.com/groups/82
-TableStore官网:  http://ots.aliyun.com
+* 阿里云官网论坛: http://bbs.aliyun.com/thread/226.html
+* 云栖社区: https://yq.aliyun.com/groups/82
+* TableStore官网:  http://ots.aliyun.com
