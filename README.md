@@ -3,7 +3,11 @@ Aliyun TableStore SDK for PHP
 
 # 说明
 
-Aliyun OTS SDK for PHP，用来通过PHP访问阿里云OTS服务。适用于PHP 5.3 以及以上版本。
+Aliyun OTS SDK for PHP，用来通过PHP访问阿里云OTS服务。
+
+适用于PHP 5.3 以及以上版本。
+
+当前仅支持Linux，其他系统需要用户自己改造代码支持
 
 # 使用步骤
 
