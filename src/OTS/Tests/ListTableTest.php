@@ -2,15 +2,20 @@
 
 namespace Aliyun\OTS\Tests;
 use Aliyun\OTS;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
+
+$usedTables = array("myTable", "myTable1");
 
 
 class listTableTest extends SDKTestBase
 {
     public function setup()
     {
-        $this->cleanUp();
+    	global $usedTables;
+        $this->cleanUp($usedTables);
     }
 
     /* *
@@ -28,27 +33,28 @@ class listTableTest extends SDKTestBase
      */
     public function testListTableWith1Table()
     {
+    	global $usedTables;
         
         $tablebody = array(
             "table_meta" => array(
-                "table_name" => "myTable",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )  
             ),
 
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )  
             ),
         );
         $this->otsClient->CreateTable($tablebody);
-        $table_name = array("myTable");
+        $table_name = array($usedTables[0]);
         $this->assertEquals($this->otsClient->listTable(array()),$table_name);
     }
     
@@ -58,45 +64,46 @@ class listTableTest extends SDKTestBase
      */
     public function testListTableWith2Tables()
     {
+    	global $usedTables;
         $tablebody = array(
             "table_meta" => array(
-                "table_name" => "myTable",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )  
             ),
 
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )  
             ),
         );
         $tablebody1 = array(
             "table_meta" => array(
-                "table_name" => "myTable1",
+                "table_name" => $usedTables[1],
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )  
             ),
 
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )  
             ),
         );
         $this->otsClient->CreateTable($tablebody);
         $this->otsClient->CreateTable($tablebody1);
-        $table_name = array("myTable","myTable1");
+        $table_name = array($usedTables[0],$usedTables[1]);
         $this->assertEquals($this->otsClient->listTable(array()),$table_name);
     }
 

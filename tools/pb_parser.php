@@ -248,6 +248,7 @@ class PBParser
         while (strlen($string) > 0)
         {
             $next = ($this->_next($string));
+            
             if (strtolower($next) == 'message')
             {
                 $string = trim(substr($string, strlen($next)));
@@ -274,7 +275,7 @@ class PBParser
                 $string = '' . trim(substr($string, $offset['end']));
             }
             else
-            {
+            {	
                 // now a normal field
                 $match = preg_match('/(.*);\s?/', $string, $matches, PREG_OFFSET_CAPTURE);
                 if (!$match)

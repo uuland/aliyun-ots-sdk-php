@@ -3,10 +3,14 @@
 namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
-SDKTestBase::cleanUp();
+$usedTables = array("test5", "test");
+
+SDKTestBase::cleanUp($usedTables);
 
 class DescribeTableTest extends SDKTestBase {
 
@@ -20,18 +24,20 @@ class DescribeTableTest extends SDKTestBase {
      */
 
     public function testIntegerPKInSchema() {
+    	global $usedTables;
+    	
         $tablebody = array(
             "table_meta" => array(
-                "table_name" => "test5",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array(
-                    "PK1" => "INTEGER",
-                    "PK2" => "INTEGER"
+                    "PK1" => ColumnTypeConst::INTEGER,
+                    "PK2" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -40,8 +46,8 @@ class DescribeTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1" => "INTEGER",
-                "PK2" => "INTEGER",
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::INTEGER,
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -54,18 +60,20 @@ class DescribeTableTest extends SDKTestBase {
      */
 
     public function testStringPKInSchema() {
+    	global $usedTables;
+    	
         $tablebody = array(
             "table_meta" => array(
-                "table_name" => "test5",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "STRING"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::STRING
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -74,8 +82,8 @@ class DescribeTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1" => "STRING",
-                "PK2" => "STRING",
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::STRING,
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -89,21 +97,22 @@ class DescribeTableTest extends SDKTestBase {
      */
 
     public function testInvalidPKInSchema() {
+    	global $usedTables;
 
-        $invalidTypes = array('DOUBLE', 'BOOLEAN', 'INF_MIN', 'INF_MAX');
+        $invalidTypes = array(ColumnTypeConst::DOUBLE, ColumnTypeConst::BOOLEAN, ColumnTypeConst::INF_MIN, ColumnTypeConst::INF_MAX);
 
         foreach ($invalidTypes as $type) {
             $request = array(
                 "table_meta" => array(
-                    "table_name" => "test",
+                    "table_name" => $usedTables[1],
                     "primary_key_schema" => array(
                         "PK1" => $type,
                     )
                 ),
                 "reserved_throughput" => array(
                     "capacity_unit" => array(
-                        "read" => 100,
-                        "write" => 100,
+                        "read" => 0,
+                        "write" => 0,
                     )
                 ),
             );

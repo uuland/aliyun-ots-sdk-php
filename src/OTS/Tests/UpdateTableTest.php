@@ -2,17 +2,21 @@
 namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
-SDKTestBase::cleanUp();
+$usedTables = array("myTable1", "myTable2", "myTable3");
+
+SDKTestBase::cleanUp($usedTables);
 SDKTestBase::createInitialTable(
     array(
         "table_meta" => array(
-            "table_name" => "myTable1",
+            "table_name" => $usedTables[0],
             "primary_key_schema" => array(
-                "PK1" => "INTEGER",
-                "PK2" => "STRING",
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::STRING,
             )
         ),
         "reserved_throughput" => array(
@@ -26,10 +30,10 @@ SDKTestBase::createInitialTable(
 SDKTestBase::createInitialTable(
     array(
         "table_meta" => array(
-            "table_name" => "myTable2",
+            "table_name" => $usedTables[1],
             "primary_key_schema" => array(
-                "PK1" => "INTEGER",
-                "PK2" => "STRING",
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::STRING,
             )
         ),
         "reserved_throughput" => array(
@@ -43,10 +47,10 @@ SDKTestBase::createInitialTable(
 SDKTestBase::createInitialTable(
     array(
         "table_meta" => array(
-            "table_name" => "myTable3",
+            "table_name" => $usedTables[2],
             "primary_key_schema" => array(
-                "PK1" => "INTEGER",
-                "PK2" => "STRING",
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::STRING,
             )
         ),
         "reserved_throughput" => array(
@@ -68,9 +72,10 @@ class UpdateTableTest extends SDKTestBase {
      * 创建一个表，CU为（10，20），UpdateTable指定CU为（5，30），DescribeTable期望返回CU为(5, 30)。
      */
     public function testUpdateTable() {
-        $name['table_name'] = "myTable1";
+    	global $usedTables;
+        $name['table_name'] = $usedTables[0];
         $tablename = array(
-            "table_name" => "myTable1",
+            "table_name" => $usedTables[0],
             "reserved_throughput" => array(
                 "capacity_unit" => array(
                     "read" => 5,
@@ -90,9 +95,10 @@ class UpdateTableTest extends SDKTestBase {
      * 只更新 Read CU，DescribeTable 校验返回符合预期。
      */
     public function testCUReadOnly() {
-        $name['table_name'] = "myTable2";
+    	global $usedTables;
+        $name['table_name'] = $usedTables[1];
         $tablename = array(
-            "table_name" => "myTable2",
+            "table_name" => $usedTables[1],
             "reserved_throughput" => array(
                 "capacity_unit" => array(
                     "read" => 100,
@@ -110,9 +116,10 @@ class UpdateTableTest extends SDKTestBase {
      * 只更新 Write CU，DescribeTable 校验返回符合预期。
      */
     public function testCUWriteOnly() {
-        $name['table_name'] = "myTable3";
+    	global $usedTables;
+        $name['table_name'] = $usedTables[2];
         $tablename = array(
-            "table_name" => "myTable3",
+            "table_name" => $usedTables[2],
             "reserved_throughput" => array(
                 "capacity_unit" => array(
                     "write" => 300,

@@ -114,26 +114,123 @@ class ProtoBufferEncoder
 
         return $ret;
     }
+    
+    private function preprocessLogicalOperator($logical_operator) 
+    {
+    	if ( !is_int($logical_operator) )
+    		if ( is_string($logical_operator) ) {
+    			$logical_operator = strtoupper( $logical_operator );
+    			if ( strcmp($logical_operator, "AND") == 0 || strcmp($logical_operator, "LO_AND") == 0 )
+    				$logical_operator = \LogicalOperator::LO_AND;
+    			else if ( strcmp($logical_operator, "OR") == 0 || strcmp($logical_operator, "LO_OR") == 0 )
+    				$logical_operator = \LogicalOperator::LO_OR;
+    			else if ( strcmp($logical_operator, "NOT") == 0 || strcmp($logical_operator, "LO_NOT") == 0 )
+    				$logical_operator = \LogicalOperator::LO_NOT;
+    		}
+    	return $logical_operator;
+    }
+    
+    private function preprocessComparatorType($comparator_type) 
+    {
+    	if ( !is_int($comparator_type) )
+    		if ( is_string($comparator_type) ) {
+    			$comparator_type = strtoupper( $comparator_type );
+    			if ( strcmp($comparator_type, "==") == 0 || strcmp($comparator_type, "EQUAL") == 0 || strcmp($comparator_type, "CT_EQUAL") == 0 )
+    				$comparator_type = \ComparatorType::CT_EQUAL;
+    			else if ( strcmp($comparator_type, "<") == 0 || strcmp($comparator_type, "LESS_THAN") == 0 || strcmp($comparator_type, "CT_LESS_THAN") == 0 )
+    				$comparator_type = \ComparatorType::CT_LESS_THAN;
+    			else if ( strcmp($comparator_type, "<=") == 0 || strcmp($comparator_type, "LESS_EQUAL") == 0 || strcmp($comparator_type, "CT_LESS_EQUAL") == 0 )
+    				$comparator_type = \ComparatorType::CT_LESS_EQUAL;
+    			else if ( strcmp($comparator_type, ">") == 0 || strcmp($comparator_type, "GREATER_THAN") == 0 || strcmp($comparator_type, "CT_GREATER_THAN") == 0 )
+    				$comparator_type = \ComparatorType::CT_GREATER_THAN;
+    			else if ( strcmp($comparator_type, ">=") == 0 || strcmp($comparator_type, "GREATER_EQUAL") == 0 || strcmp($comparator_type, "CT_GREATER_EQUAL") == 0 )
+    				$comparator_type = \ComparatorType::CT_GREATER_EQUAL;
+    		}
+    	return $comparator_type;
+    }
+    
+    private function preprocessRowExistence($condition)
+    {
+    	$value=null;
+    	if ( strcmp($condition, "IGNORE") == 0 )
+    		$value = \RowExistenceExpectation::IGNORE;
+    	else if ( strcmp($condition, "EXPECT_EXIST") == 0 )
+    		$value = \RowExistenceExpectation::EXPECT_EXIST;
+    	else if ( strcmp($condition, "EXPECT_NOT_EXIST") == 0 )
+    		$value = \RowExistenceExpectation::EXPECT_NOT_EXIST;
+    	else {
+    		print "wrong row existence argument: \n".$condition;
+    		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'IGNORE', 'EXPECT_EXIST' or 'EXPECT_NOT_EXIST'.");
+    	}
+    	return $value;
+    }
+    
+    private function preprocessColumnCondition($column_filters)
+    {
+    	$ret = array();
+    	
+    	foreach ($column_filters as $name => $value)
+    	{
+    		if ( strcmp( $name, "logical_operator" ) == 0 || strcmp( $name, "sub_conditions" ) == 0 ) {
+    			// a composite condition
+    			if ( strcmp( $name, "logical_operator" ) == 0 ) {
+    				$value = $this->preprocessLogicalOperator($value);
+    				$ret = array_merge( $ret, array( $name => $value ) );
+    			} else if ( strcmp( $name, "sub_conditions" ) == 0 ) {
+    				$sub_conditions = array();
+    				foreach( $value as $cond ) {
+    					if ( is_array( $cond ) )
+    						array_push( $sub_conditions, $this->preprocessColumnCondition( $cond ) );
+    					else 
+    						throw new \Aliyun\OTS\OTSClientException( "The value of sub_conditions field should be array of array." );
+    				}
+    				$ret = array_merge( $ret, array( "sub_conditions" => $sub_conditions ) );
+    			}
+    		} else if ( strcmp( $name, "column_name" ) == 0 || strcmp( $name, "value" ) == 0 || strcmp( $name, "comparator" ) == 0 || strcmp( $name, "pass_if_missing" ) == 0 ) {
+    			// a relation condition
+    			if ( strcmp( $name, "value" ) == 0 ) {
+    				$ret = array_merge( $ret, array(
+    						$name => $this->preprocessColumnValue( $value )
+    				) ); 
+    			} else if ( strcmp( $name, "comparator" ) == 0 ) {
+    				$ret = array_merge( $ret, array( 
+    						$name => $this->preprocessComparatorType( $value ) ) );
+    			} else 
+    				$ret = array_merge( $ret, array( $name => $value ) );
+    		} else 
+    			throw new \Aliyun\OTS\OTSClientException( "Invalid argument name in column filter -".$name );
+    	}
+    	
+    	return $ret;
+    }
 
     private function preprocessCondition($condition)
     {
-        switch ($condition) {
-            case 'IGNORE':
-                return \RowExistenceExpectation::IGNORE;
-            case 'EXPECT_EXIST':
-                return \RowExistenceExpectation::EXPECT_EXIST;
-            case 'EXPECT_NOT_EXIST':
-                return \RowExistenceExpectation::EXPECT_NOT_EXIST;
-            default:
-                throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'IGNORE', 'EXPECT_EXIST' or 'EXPECT_NOT_EXIST'.");
-        }
+    	$res = null;
+    	if ( is_string($condition) ) {
+    		
+    		$value = $this->preprocessRowExistence($condition);
+	        $res = array( "row_existence" => $value );
+    	} else if ( is_array( $condition ) ) {
+    		if ( isset($condition['row_existence']) && !empty($condition['row_existence']) ) {
+    			
+    			$value = $this->preprocessRowExistence($condition['row_existence']);
+    			$res = array( "row_existence" => $value );
+    			if ( isset($condition['column_filter']) ) {
+    				$res = array_merge( $res, array( "column_filter" => $this->preprocessColumnCondition($condition['column_filter']) ) );
+    			}
+    		} else 
+    			throw new \Aliyun\OTS\OTSClientException("Row existence is compulsory for Condition.");
+    	}
+    	
+    	return $res;
     }
 
     private function preprocessDeleteRowRequest($request)
     {
         $ret = array();
         $ret['table_name'] = $request['table_name'];
-        $ret['condition']['row_existence'] = $this->preprocessCondition($request['condition']);
+        $ret['condition'] = $this->preprocessCondition($request['condition']);
         $ret['primary_key'] = $this->preprocessColumns($request['primary_key']);
         return $ret;
     }
@@ -159,8 +256,7 @@ class ProtoBufferEncoder
         // FIXME handle BINARY type
         $ret = array();
         $ret['table_name'] = $request['table_name'];
-        $ret['condition'] = array();
-        $ret['condition']['row_existence'] = $this->preprocessCondition($request['condition']);
+		$ret['condition'] = $this->preprocessCondition($request['condition']);
         $ret['primary_key'] = $this->preprocessColumns($request['primary_key']);
      
         if (!isset($request['attribute_columns'])) {
@@ -180,6 +276,9 @@ class ProtoBufferEncoder
             $ret['columns_to_get'] = array();
         } else {
             $ret['columns_to_get'] = $request['columns_to_get'];
+        }
+        if (isset($request['column_filter'])) {
+        	$ret['column_filter'] = $this->preprocessColumnCondition($request['column_filter']);
         }
         return $ret;
     }
@@ -214,7 +313,7 @@ class ProtoBufferEncoder
     {
         $ret = array();
         $ret['table_name'] = $request['table_name'];
-        $ret['condition']['row_existence'] = $this->preprocessCondition($request['condition']);
+        $ret['condition'] = $this->preprocessCondition($request['condition']);
         $ret['primary_key'] = $this->preprocessColumns($request['primary_key']);
 
         $attributeColumns = array();
@@ -261,6 +360,9 @@ class ProtoBufferEncoder
         }
         $ret['inclusive_start_primary_key'] = $this->preprocessColumns($request['inclusive_start_primary_key']);
         $ret['exclusive_end_primary_key'] = $this->preprocessColumns($request['exclusive_end_primary_key']);
+        if (isset($request['column_filter'])) {
+        	$ret['column_filter'] = $this->preprocessColumnCondition($request['column_filter']);
+        }
         return $ret;
     }
 
@@ -277,6 +379,9 @@ class ProtoBufferEncoder
                     for ($j = 0; $j < count($request['tables'][$i]['rows']); $j++) {
                         $ret['tables'][$i]['rows'][$j]['primary_key'] = $this->preprocessColumns($request['tables'][$i]['rows'][$j]['primary_key']);
                     }
+                }
+                if (isset($request['tables'][$i]['column_filter'])) {
+                	$ret['tables'][$i]['column_filter'] = $this->preprocessColumnCondition($request['tables'][$i]['column_filter']);
                 }
             }
         }
@@ -381,6 +486,63 @@ class ProtoBufferEncoder
          
         return $pbMessage->SerializeToString();
     }
+    
+    private function encodeColumnCondition($column_filter)
+    {
+    	$res = null;
+    	if ( isset($column_filter['logical_operator']) && isset($column_filter['sub_conditions']) ) {
+    		$compositeCondition = new \CompositeCondition();
+    		$compositeCondition->set_combinator( $column_filter['logical_operator'] );
+    		for ($i=0; $i < count($column_filter['sub_conditions']); $i++) {
+    			$sub_cond = $column_filter['sub_conditions'][$i];
+    			$compositeCondition->set_sub_conditions( $i, $this->encodeColumnCondition( $sub_cond ) );
+    		}
+    		
+    		$columnCondition = new \ColumnCondition();
+    		$columnCondition->set_type( \ColumnConditionType::CCT_COMPOSITE );
+    		
+    		$columnCondition->set_condition( $compositeCondition->SerializeToString() );
+    		$res = $columnCondition;
+    	} else if ( isset($column_filter['column_name']) && isset($column_filter['value']) && isset($column_filter['comparator']) ) {
+    		$relationCondition = new \RelationCondition();
+    		$relationCondition->set_column_name($column_filter['column_name']);
+    		$relationCondition->set_comparator($column_filter['comparator']);
+    		
+    		$columnValue = new \ColumnValue();
+    		$columnValue->set_type($column_filter['value']['type']);
+    		switch($column_filter['value']['type']) {
+    			case \ColumnType::BINARY:
+    				$columnValue->set_v_binary($column_filter['value']['v_binary']);
+    				break;
+    			case \ColumnType::BOOLEAN:
+    				$columnValue->set_v_bool($column_filter['value']['v_bool']);
+    				break;
+    			case \ColumnType::DOUBLE:
+    				$columnValue->set_v_double($column_filter['value']['v_double']);
+    				break;
+    			case \ColumnType::INTEGER:
+    				$columnValue->set_v_int($column_filter['value']['v_int']);
+    				break;
+    			case \ColumnType::STRING:
+    				$columnValue->set_v_string($column_filter['value']['v_string']);
+    				break;
+    			default:
+    				$columnValue->set_v_string($column_filter['value']['v_string']);
+    		}
+    		$relationCondition->set_column_value($columnValue);
+    		if ( !isset($column_filter['pass_if_missing']) )
+    			$relationCondition->set_pass_if_missing(TRUE);
+    		else 
+    			$relationCondition->set_pass_if_missing($column_filter['pass_if_missing']);
+    		
+    		$columnCondition = new \ColumnCondition();
+    		$columnCondition->set_type( \ColumnConditionType::CCT_RELATION );
+    		
+    		$columnCondition->set_condition( $relationCondition->SerializeToString() );
+    		$res = $columnCondition;
+    	}
+    	return $res;
+    }
 
     private function encodeGetRowRequest($request)
     {
@@ -421,6 +583,9 @@ class ProtoBufferEncoder
                 $pbMessage->set_columns_to_get($i, $request['columns_to_get'][$i]);
             }
         }
+        if (isset($request['column_filter'])) {
+        	$pbMessage->set_filter( $this->encodeColumnCondition($request['column_filter']) );
+        }
          
         $pbMessage->set_table_name($request['table_name']);
         return $pbMessage->SerializeToString();
@@ -431,6 +596,8 @@ class ProtoBufferEncoder
         $pbMessage = new PutRowRequest();
         $condition = new Condition();
         $condition->set_row_existence($request['condition']['row_existence']);
+        if ( isset($request['condition']['column_filter']) )
+        	$condition->set_column_condition($this->encodeColumnCondition($request['condition']['column_filter']));
          
         for ($i=0; $i < count($request['primary_key']); $i++)
         {
@@ -507,6 +674,8 @@ class ProtoBufferEncoder
         $pbMessage->set_table_name($request["table_name"]);
         $condition = new Condition();
         $condition->set_row_existence($request['condition']['row_existence']);
+        if ( isset($request['condition']['column_filter']) && !empty($request['condition']['column_filter']) )
+        	$condition->set_column_condition($this->encodeColumnCondition($request['condition']['column_filter']));
         $pbMessage->set_condition($condition);
          
         for ($i=0; $i < count($request['primary_key']); $i++)
@@ -588,6 +757,8 @@ class ProtoBufferEncoder
         $pbMessage->set_table_name($request["table_name"]);
         $condition = new Condition();
         $condition->set_row_existence($request['condition']['row_existence']);
+        if ( isset($request['condition']['column_filter']) )
+        	$condition->set_column_condition($this->encodeColumnCondition($request['condition']['column_filter']));
         $pbMessage->set_condition($condition);
          
         for ($i=0; $i < count($request['primary_key']); $i++)
@@ -669,6 +840,10 @@ class ProtoBufferEncoder
                         $tableInBatchGetRowRequest->set_columns_to_get($c, $request['tables'][$m]['columns_to_get'][$c]);
                     }
                 }
+                
+                if (isset($request['tables'][$m]['column_filter'])) {
+                	$tableInBatchGetRowRequest->set_filter($this->encodeColumnCondition($request['tables'][$m]['column_filter']));
+                }
                 $pbMessage->set_tables($m, $tableInBatchGetRowRequest);
             }
         }
@@ -688,6 +863,8 @@ class ProtoBufferEncoder
                     $putRowItem = new PutRowInBatchWriteRowRequest();
                     $condition = new Condition();
                     $condition->set_row_existence($request['tables'][$m]['put_rows'][$p]['condition']['row_existence']);
+                    if ( isset($request['tables'][$m]['put_rows'][$p]['condition']['column_filter']) )
+                    	$condition->set_column_condition($this->encodeColumnCondition($request['tables'][$m]['put_rows'][$p]['condition']['column_filter']));
                     $putRowItem->set_condition($condition);
  
                     for ($n = 0; $n < count($request['tables'][$m]['put_rows'][$p]['primary_key']); $n++) {
@@ -755,6 +932,8 @@ class ProtoBufferEncoder
                     $updateRowItem = new UpdateRowInBatchWriteRowRequest();
                     $condition = new Condition();
                     $condition->set_row_existence($request['tables'][$m]['update_rows'][$j]['condition']['row_existence']);
+                    if ( isset($request['tables'][$m]['update_rows'][$j]['condition']['column_filter']) )
+                    	$condition->set_column_condition($this->encodeColumnCondition($request['tables'][$m]['update_rows'][$j]['condition']['column_filter']));
                     $updateRowItem->set_condition($condition);
                     for ($b = 0; $b < count($request['tables'][$m]['update_rows'][$j]['primary_key']); $b++) {
                         $pkColumn = new Column();
@@ -828,6 +1007,8 @@ class ProtoBufferEncoder
                     $deleteRowItem = new DeleteRowInBatchWriteRowRequest();
                     $condition = new Condition();
                     $condition->set_row_existence($request['tables'][$m]['delete_rows'][$k]['condition']['row_existence']);
+                    if ( isset($request['tables'][$m]['delete_rows'][$k]['condition']['column_filter']) )
+                    	$condition->set_column_condition($this->encodeColumnCondition($request['tables'][$m]['delete_rows'][$k]['condition']['column_filter']));
                     $deleteRowItem->set_condition($condition);
                     for ($a = 0; $a < count($request['tables'][$m]['delete_rows'][$k]['primary_key']); $a++) {
                         $pkColumn = new Column();
@@ -947,6 +1128,10 @@ class ProtoBufferEncoder
             $pbMessage->set_limit($request['limit']);
         }
         $pbMessage->set_direction($request['direction']);
+        
+        if (isset($request['column_filter'])) {
+        	$pbMessage->set_filter( $this->encodeColumnCondition($request['column_filter']) );
+        }
         return $pbMessage->SerializeToString();
 
     }

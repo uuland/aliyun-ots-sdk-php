@@ -2,10 +2,14 @@
 namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
-SDKTestBase::cleanUp();
+$usedTables = array("myTable");
+
+SDKTestBase::cleanUp($usedTables);
 
 class DeleteTableTest extends SDKTestBase {
 
@@ -16,27 +20,28 @@ class DeleteTableTest extends SDKTestBase {
      */
 
     public function testDeleteTable() {
+    	global $usedTables;
         $tablebody = array(
             "table_meta" => array(
-                "table_name" => "myTable",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
         $this->otsClient->createTable($tablebody);
 
         $request = array(
-                    "table_name" => "myTable"
+                    "table_name" => $usedTables[0]
                 );
         //print_r($this->listtable->ListTable());
         $response = $this->otsClient->deleteTable($request);

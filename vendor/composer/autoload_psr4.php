@@ -11,7 +11,6 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
-    'Aliyun\\OTS\\Tests\\' => array($baseDir . '/src/OTS/Tests'),
     'Aliyun\\OTS\\Retry\\' => array($baseDir . '/src/OTS/Retry'),
     'Aliyun\\OTS\\Handlers\\' => array($baseDir . '/src/OTS/Handlers'),
     'Aliyun\\OTS\\' => array($baseDir . '/src/OTS'),

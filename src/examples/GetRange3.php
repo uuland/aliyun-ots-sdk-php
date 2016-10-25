@@ -4,6 +4,9 @@ require(__DIR__ . "/../../vendor/autoload.php");
 require(__DIR__ . "/ExampleConfig.php");
 
 use Aliyun\OTS\OTSClient as OTSClient;
+use Aliyun\OTS\ColumnTypeConst;
+use Aliyun\OTS\RowExistenceExpectationConst;
+use Aliyun\OTS\DirectionConst;
 
 $otsClient = new OTSClient(array(
     'EndPoint' => EXAMPLE_END_POINT,
@@ -17,8 +20,8 @@ $request = array(
     'table_meta' => array(
         'table_name' => 'MyTable',       // 表名为 MyTable
         'primary_key_schema' => array(
-            'PK0' => 'INTEGER',          // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
-            'PK1' => 'STRING',           // 第二个主键列名称为PK1, 类型为STRING
+            'PK0' => ColumnTypeConst::INTEGER,          // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
+            'PK1' => ColumnTypeConst::STRING,           // 第二个主键列名称为PK1, 类型为STRING
         ),
     ),
     'reserved_throughput' => array(
@@ -35,7 +38,7 @@ sleep(10);
 for ($i = 0; $i < 6000; $i ++) {
     $request = array(
         'table_name' => 'MyTable',
-        'condition' => 'IGNORE',         // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
+        'condition' => RowExistenceExpectationConst::IGNORE,         // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
         'primary_key' => array(          // 主键
             'PK0' => $i,
             'PK1' => 'abc',
@@ -72,7 +75,7 @@ while (!empty($startPK) && $limit > 0) {
 
     $request = array(
         'table_name' => 'MyTable',
-        'direction' => 'FORWARD',                          // 方向可以为 FORWARD 或者 BACKWARD 
+        'direction' => DirectionConst::FORWARD,                          // 方向可以为 FORWARD 或者 BACKWARD 
         'inclusive_start_primary_key' => $startPK,         // 开始主键
         'exclusive_end_primary_key' => $endPK,             // 结束主键
         'limit' => $limit,

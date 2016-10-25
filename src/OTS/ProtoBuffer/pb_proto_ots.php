@@ -259,6 +259,142 @@ class RowExistenceExpectation extends PBEnum
   const EXPECT_EXIST  = 1;
   const EXPECT_NOT_EXIST  = 2;
 }
+class ColumnConditionType extends PBEnum
+{
+  const CCT_RELATION  = 1;
+  const CCT_COMPOSITE  = 2;
+}
+class ComparatorType extends PBEnum
+{
+  const CT_EQUAL  = 1;
+  const CT_NOT_EQUAL  = 2;
+  const CT_GREATER_THAN  = 3;
+  const CT_GREATER_EQUAL  = 4;
+  const CT_LESS_THAN  = 5;
+  const CT_LESS_EQUAL  = 6;
+}
+class RelationCondition extends PBMessage
+{
+  var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
+  public function __construct($reader=null)
+  {
+    parent::__construct($reader);
+    $this->fields["1"] = "ComparatorType";
+    $this->values["1"] = "";
+    $this->fields["2"] = "PBString";
+    $this->values["2"] = "";
+    $this->fields["3"] = "ColumnValue";
+    $this->values["3"] = "";
+    $this->fields["4"] = "PBBool";
+    $this->values["4"] = "";
+  }
+  function comparator()
+  {
+    return $this->_get_value("1");
+  }
+  function set_comparator($value)
+  {
+    return $this->_set_value("1", $value);
+  }
+  function column_name()
+  {
+    return $this->_get_value("2");
+  }
+  function set_column_name($value)
+  {
+    return $this->_set_value("2", $value);
+  }
+  function column_value()
+  {
+    return $this->_get_value("3");
+  }
+  function set_column_value($value)
+  {
+    return $this->_set_value("3", $value);
+  }
+  function pass_if_missing()
+  {
+    return $this->_get_value("4");
+  }
+  function set_pass_if_missing($value)
+  {
+    return $this->_set_value("4", $value);
+  }
+}
+class LogicalOperator extends PBEnum
+{
+  const LO_NOT  = 1;
+  const LO_AND  = 2;
+  const LO_OR  = 3;
+}
+class ColumnCondition extends PBMessage
+{
+  var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
+  public function __construct($reader=null)
+  {
+    parent::__construct($reader);
+    $this->fields["1"] = "ColumnConditionType";
+    $this->values["1"] = "";
+    $this->fields["2"] = "PBString";
+    $this->values["2"] = "";
+  }
+  function type()
+  {
+    return $this->_get_value("1");
+  }
+  function set_type($value)
+  {
+    return $this->_set_value("1", $value);
+  }
+  function condition()
+  {
+    return $this->_get_value("2");
+  }
+  function set_condition($value)
+  {
+    return $this->_set_value("2", $value);
+  }
+}
+class CompositeCondition extends PBMessage
+{
+  var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
+  public function __construct($reader=null)
+  {
+    parent::__construct($reader);
+    $this->fields["1"] = "LogicalOperator";
+    $this->values["1"] = "";
+    $this->fields["2"] = "ColumnCondition";
+    $this->values["2"] = array();
+  }
+  function combinator()
+  {
+    return $this->_get_value("1");
+  }
+  function set_combinator($value)
+  {
+    return $this->_set_value("1", $value);
+  }
+  function sub_conditions($offset)
+  {
+    return $this->_get_arr_value("2", $offset);
+  }
+  function add_sub_conditions()
+  {
+    return $this->_add_arr_value("2");
+  }
+  function set_sub_conditions($index, $value)
+  {
+    $this->_set_arr_value("2", $index, $value);
+  }
+  function remove_last_sub_conditions()
+  {
+    $this->_remove_last_arr_value("2");
+  }
+  function sub_conditions_size()
+  {
+    return $this->_get_arr_size("2");
+  }
+}
 class Condition extends PBMessage
 {
   var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
@@ -267,6 +403,8 @@ class Condition extends PBMessage
     parent::__construct($reader);
     $this->fields["1"] = "RowExistenceExpectation";
     $this->values["1"] = "";
+    $this->fields["2"] = "ColumnCondition";
+    $this->values["2"] = "";
   }
   function row_existence()
   {
@@ -275,6 +413,14 @@ class Condition extends PBMessage
   function set_row_existence($value)
   {
     return $this->_set_value("1", $value);
+  }
+  function column_condition()
+  {
+    return $this->_get_value("2");
+  }
+  function set_column_condition($value)
+  {
+    return $this->_set_value("2", $value);
   }
 }
 class CapacityUnit extends PBMessage
@@ -511,21 +657,21 @@ class DescribeTableResponse extends PBMessage
 }
 class ListTableRequest extends PBMessage
 {
-  var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
-  public function __construct($reader=null)
-  {
-    parent::__construct($reader);
-    $this->fields["1"] = "PBString";
-    $this->values["1"] = "";
-  }
-  function ncvonline()
-  {
-    return $this->_get_value("1");
-  }
-  function set_ncvonline($value)
-  {
-    return $this->_set_value("1", $value);
-  }
+	var $wired_type = PBMessage::WIRED_LENGTH_DELIMITED;
+	public function __construct($reader=null)
+	{
+		parent::__construct($reader);
+		$this->fields["1"] = "PBString";
+		$this->values["1"] = "";
+	}
+	function ncvonline()
+	{
+		return $this->_get_value("1");
+	}
+	function set_ncvonline($value)
+	{
+		return $this->_set_value("1", $value);
+	}
 }
 class ListTableResponse extends PBMessage
 {
@@ -591,6 +737,8 @@ class GetRowRequest extends PBMessage
     $this->values["2"] = array();
     $this->fields["3"] = "PBString";
     $this->values["3"] = array();
+    $this->fields["4"] = "ColumnCondition";
+    $this->values["4"] = "";
   }
   function table_name()
   {
@@ -643,6 +791,14 @@ class GetRowRequest extends PBMessage
   function columns_to_get_size()
   {
     return $this->_get_arr_size("3");
+  }
+  function filter()
+  {
+    return $this->_get_value("4");
+  }
+  function set_filter($value)
+  {
+    return $this->_set_value("4", $value);
   }
 }
 class GetRowResponse extends PBMessage
@@ -1006,6 +1162,8 @@ class TableInBatchGetRowRequest extends PBMessage
     $this->values["2"] = array();
     $this->fields["3"] = "PBString";
     $this->values["3"] = array();
+    $this->fields["4"] = "ColumnCondition";
+    $this->values["4"] = "";
   }
   function table_name()
   {
@@ -1058,6 +1216,14 @@ class TableInBatchGetRowRequest extends PBMessage
   function columns_to_get_size()
   {
     return $this->_get_arr_size("3");
+  }
+  function filter()
+  {
+    return $this->_get_value("4");
+  }
+  function set_filter($value)
+  {
+    return $this->_set_value("4", $value);
   }
 }
 class BatchGetRowRequest extends PBMessage
@@ -1661,6 +1827,8 @@ class GetRangeRequest extends PBMessage
     $this->values["5"] = array();
     $this->fields["6"] = "Column";
     $this->values["6"] = array();
+    $this->fields["7"] = "ColumnCondition";
+    $this->values["7"] = "";
   }
   function table_name()
   {
@@ -1749,6 +1917,14 @@ class GetRangeRequest extends PBMessage
   function exclusive_end_primary_key_size()
   {
     return $this->_get_arr_size("6");
+  }
+  function filter()
+  {
+    return $this->_get_value("7");
+  }
+  function set_filter($value)
+  {
+    return $this->_set_value("7", $value);
   }
 }
 class GetRangeResponse extends PBMessage

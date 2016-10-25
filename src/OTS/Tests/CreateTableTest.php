@@ -3,7 +3,9 @@
 namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
 
@@ -28,16 +30,16 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "myTable",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -50,10 +52,10 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => "myTable",
             "primary_key_schema" => array(
-                "PK1" => "STRING",
-                "PK2" => "INTEGER",
-                "PK3" => "STRING",
-                "PK4" => "INTEGER"
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::INTEGER,
+                "PK3" => ColumnTypeConst::STRING,
+                "PK4" => ColumnTypeConst::INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable($table_name);
@@ -72,16 +74,16 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -105,16 +107,16 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "testU+0053",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -142,16 +144,16 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => $name,
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -178,8 +180,8 @@ class CreateTableTest extends SDKTestBase {
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -203,13 +205,13 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test3",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING"
+                    "PK1" => ColumnTypeConst::STRING
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -218,7 +220,7 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1" => "STRING"
+                "PK1" => ColumnTypeConst::STRING
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -235,16 +237,16 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test4",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "INTEGER",
-                    "PK3" => "STRING",
-                    "PK4" => "INTEGER"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -254,10 +256,10 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1" => "STRING",
-                "PK2" => "INTEGER",
-                "PK3" => "STRING",
-                "PK4" => "INTEGER"
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::INTEGER,
+                "PK3" => ColumnTypeConst::STRING,
+                "PK4" => ColumnTypeConst::INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -272,7 +274,7 @@ class CreateTableTest extends SDKTestBase {
     public function testTooMuchPKInSchema() {
         $key = array();
         for ($i = 1; $i < 1001; $i++) {
-            $key['a' . $i] = "INTEGER";
+            $key['a' . $i] = ColumnTypeConst::INTEGER;
         }
         //print_r($key);die;
         $tablebody = array(
@@ -282,8 +284,8 @@ class CreateTableTest extends SDKTestBase {
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -307,14 +309,14 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test5",
                 "primary_key_schema" => array(
-                    "PK1" => "INTEGER",
-                    "PK2" => "INTEGER"
+                    "PK1" => ColumnTypeConst::INTEGER,
+                    "PK2" => ColumnTypeConst::INTEGER
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -323,8 +325,8 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1"=> "INTEGER",
-                "PK2" => "INTEGER",
+                "PK1"=> ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::INTEGER,
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -341,14 +343,14 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test5",
                 "primary_key_schema" => array(
-                    "PK1" => "STRING",
-                    "PK2" => "STRING"
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::STRING
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -357,8 +359,8 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array(
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array(
-                "PK1"=> "STRING",
-                "PK2"=> "STRING",
+                "PK1"=> ColumnTypeConst::STRING,
+                "PK2"=> ColumnTypeConst::STRING,
             )
         );
         $table_meta = $this->otsClient->describeTable($tablename);
@@ -376,14 +378,14 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test",
                 "primary_key_schema" => array(
-                    "PK1" => "DOUBLE",
-                    "PK2" => "DOUBLE"
+                    "PK1" => ColumnTypeConst::DOUBLE,
+                    "PK2" => ColumnTypeConst::DOUBLE
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -391,14 +393,14 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array(
                 "table_name" => "test",
                 "primary_key_schema" => array(
-                    "PK1" => "BOOELAN",
-                    "PK2" => "BOOELAN"
+                    "PK1" => ColumnTypeConst::BOOLEAN,
+                    "PK2" => ColumnTypeConst::BOOLEAN
                 )
             ),
             "reserved_throughput" => array(
                 "capacity_unit" => array(
-                    "read" => 100,
-                    "write" => 100,
+                    "read" => 0,
+                    "write" => 0,
                 )
             ),
         );
@@ -415,6 +417,9 @@ class CreateTableTest extends SDKTestBase {
         } catch (\Aliyun\OTS\OTSClientException $exc) {
             $c = "Column type must be one of 'INTEGER', 'STRING', 'BOOLEAN', 'DOUBLE', 'BINARY', 'INF_MIN', or 'INF_MAX'.";
             $this->assertEquals($c, $exc->getMessage());
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
+        	$c = "BOOLEAN is an invalid type for the primary key.";
+        	$this->assertContains($c, $exc->getMessage());
         }
     }
     

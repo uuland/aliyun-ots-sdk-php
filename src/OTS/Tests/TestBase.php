@@ -2,6 +2,9 @@
 
 
 namespace Aliyun\OTS\Tests;
+
+include "TestConfig.php";
+
 use Aliyun\OTS;
 
 date_default_timezone_set('Asia/Shanghai');
@@ -29,12 +32,21 @@ class SDKTestBase extends \PHPUnit_Framework_TestCase {
         return new \Aliyun\OTS\OTSClient($sdkTestConfig);
     }
 
-    public function cleanUp() {
-        $otsClient = SDKTestBase::createOTSClient();
-        $tableNames = $otsClient->listTable(array());
-        foreach ($tableNames as $tableName) {
-            $otsClient->deleteTable(array('table_name' => $tableName));
-        }
+    public function cleanUp(array $tables = null) {
+    	if ( $tables != null ) {
+	        $otsClient = SDKTestBase::createOTSClient();
+	        $tableNames = $otsClient->listTable(array());
+	        foreach ($tableNames as $tableName) {
+	        	if ( in_array($tableName, $tables) )
+	            	$otsClient->deleteTable(array('table_name' => $tableName));
+	        }
+    	} else {
+    		$otsClient = SDKTestBase::createOTSClient();
+    		$tableNames = $otsClient->listTable(array());
+    		foreach ($tableNames as $tableName) {
+    			$otsClient->deleteTable(array('table_name' => $tableName));
+    		}
+    	}
     }
 
     public static function putInitialData(array $request) 

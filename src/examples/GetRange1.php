@@ -4,6 +4,9 @@ require(__DIR__ . "/../../vendor/autoload.php");
 require(__DIR__ . "/ExampleConfig.php");
 
 use Aliyun\OTS\OTSClient as OTSClient;
+use Aliyun\OTS\ColumnTypeConst;
+use Aliyun\OTS\RowExistenceExpectationConst;
+use Aliyun\OTS\DirectionConst;
 
 $otsClient = new OTSClient(array(
     'EndPoint' => EXAMPLE_END_POINT,
@@ -19,8 +22,8 @@ $request = array(
     'table_meta' => array(
         'table_name' => 'MyTable',       // 表名为 MyTable
         'primary_key_schema' => array(
-            'PK0' => 'INTEGER',          // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
-            'PK1' => 'STRING',           // 第二个主键列名称为PK1, 类型为STRING
+            'PK0' => ColumnTypeConst::INTEGER,          // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
+            'PK1' => ColumnTypeConst::STRING,           // 第二个主键列名称为PK1, 类型为STRING
         ),
     ),
     'reserved_throughput' => array(
@@ -37,7 +40,7 @@ sleep(10);
 for ($i = 0; $i < 6000; $i ++) {
     $request = array(
         'table_name' => 'MyTable',
-        'condition' => 'IGNORE',         // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
+        'condition' => RowExistenceExpectationConst::IGNORE,         // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
         'primary_key' => array(          // 主键
             'PK0' => $i,
             'PK1' => 'abc',
@@ -56,13 +59,13 @@ for ($i = 0; $i < 6000; $i ++) {
 // 请注意，这个例子运行时PHP占用内存较大，在我们的测试环境中，需要将php.ini中的
 // memory_limit 设置为 256M
 $startPK = array(
-    'PK0' => array('type' => 'INF_MIN'),         // array('type' => 'INF_MIN') 用来表示最小值
-    'PK1' => array('type' => 'INF_MIN'),
+    'PK0' => array('type' => ColumnTypeConst::INF_MIN),         // array('type' => 'INF_MIN') 用来表示最小值
+    'PK1' => array('type' => ColumnTypeConst::INF_MIN),
 );
 
 $endPK = array(
-    'PK0' => array('type' => 'INF_MAX'),         // array('type' => 'INF_MAX') 用来表示最小值
-    'PK1' => array('type' => 'INF_MAX'),
+    'PK0' => array('type' => ColumnTypeConst::INF_MAX),         // array('type' => 'INF_MAX') 用来表示最小值
+    'PK1' => array('type' => ColumnTypeConst::INF_MAX),
 );
 
 // 你同样可以用具体的值来表示 开始主键和结束主键，例如：
@@ -74,7 +77,7 @@ while (!empty($startPK)) {
 
     $request = array(
         'table_name' => 'MyTable',
-        'direction' => 'FORWARD',                          // 方向可以为 FORWARD 或者 BACKWARD 
+        'direction' => DirectionConst::FORWARD,                          // 方向可以为 FORWARD 或者 BACKWARD 
         'inclusive_start_primary_key' => $startPK,         // 开始主键
         'exclusive_end_primary_key' => $endPK,             // 结束主键
     );

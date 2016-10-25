@@ -6,12 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/guzzlehttp/promises/src/functions_include.php',
-    $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
-    $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
-    $baseDir . '/src/OTS/ProtoBuffer/pb_message.php',
-    $baseDir . '/src/OTS/ProtoBuffer/pb_proto_ots.php',
-    $baseDir . '/src/functions.php',
-    $baseDir . '/src/OTS/Tests/TestConfig.php',
-    $baseDir . '/src/OTS/Tests/TestBase.php',
+    'c964ee0ededf28c96ebd9db5099ef910' => $vendorDir . '/guzzlehttp/promises/src/functions_include.php',
+    'a0edc8309cc5e1d60e3047b5df6b7052' => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
+    '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
+    '6d68b44400a427b6c251f9e51f5b70bb' => $baseDir . '/src/OTS/ProtoBuffer/pb_message.php',
+    '1857fba3e733255fc24a5c67d18b22e8' => $baseDir . '/src/OTS/ProtoBuffer/pb_proto_ots.php',
+    '21c259de2f985216705a1e82308f7a76' => $baseDir . '/src/functions.php',
 );

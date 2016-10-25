@@ -3,23 +3,28 @@
 namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
+use Aliyun\OTS\RowExistenceExpectationConst;
+use Aliyun\OTS\ColumnTypeConst;
 
+require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
-SDKTestBase::cleanUp();
+$usedTables = array("myTable");
+
+SDKTestBase::cleanUp($usedTables);
 SDKTestBase::createInitialTable(
     array(
         "table_meta" => array(
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key_schema" => array(
-                "PK1" => "INTEGER",
-                "PK2" => "STRING",
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::STRING,
             )
         ),
         "reserved_throughput" => array(
             "capacity_unit" => array(
-                "read" => 100,
-                "write" => 100,
+                "read" => 0,
+                "write" => 0,
             )
         ),
     )
@@ -35,9 +40,10 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testPutOnlyInUpdateRow() {
+    	global $usedTables;
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 1, "PK2" => "a1"),
             "attribute_columns_to_put" => array(
                 "att1" => 'Zhon',
@@ -48,7 +54,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->updateRow($updateRow);
         $body = array(
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key" => array("PK1" => 1, "PK2" => "a1"),
             "columns_to_get" => array(),
         );
@@ -66,22 +72,23 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testDeleteOnlyInUpdateRow() {
+    	global $usedTables;
         $tablename = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 1, "PK2" => "a1"),
             "attribute_columns" => array("test1" => "name1", "test2" => 256, "test3" => "name2", "test4" => "name3")
         );
         $this->otsClient->putRow($tablename);
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 1, "PK2" => "a1"),
             "attribute_columns_to_delete" => array("att1", "att2", "att3", "att4"),
         );
         $this->otsClient->updateRow($updateRow);
         $body = array(
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key" => array("PK1" => 1, "PK2" => "a1"),
             "columns_to_get" => array(),
         );
@@ -99,9 +106,10 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testEmptyUpdateRow() {
+    	global $usedTables;
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 3, "PK2" => "a3"),
             "attribute_columns_to_put" => array(),
             "attribute_columns_to_put" => array()
@@ -122,10 +130,11 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testPutAndDelete4InUpdateRow() {
+    	global $usedTables;
 
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 3, "PK2" => "a3"),
             "attribute_columns_to_put" => array(
                 "att5" => "cc",
@@ -137,7 +146,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->updateRow($updateRow);
         $body = array(
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key" => array("PK1" => 3, "PK2" => "a3"),
         );
         $getrow = $this->otsClient->getRow($body);
@@ -151,9 +160,10 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testDuplicateDeleteInUpdateRow() {
+    	global $usedTables;
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 3, "PK2" => "a3"),
             "attribute_columns_to_put" => array(
                 "att1" => "cc",
@@ -176,13 +186,14 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testPutAndDelete1000InUpdateRow() {
+    	global $usedTables;
         for ($i = 1; $i < 1001; $i++) {
             $put['a' . $i] = "cc" . $i;
             $delete[] = 'aa' . $i;
         }
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 3, "PK2" => "a3"),
             "attribute_columns_to_put" => $put,
             "attribute_columns_to_delete" => $delete,
@@ -212,9 +223,10 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testExpectExistConditionWhenRowNotExist() {
+    	global $usedTables;
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "EXPECT_EXIST",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
             "primary_key" => array("PK1" => 30, "PK2" => "a30"),
             "attribute_columns_to_put" => array(
                 "att1" => "cc",
@@ -238,16 +250,17 @@ class UpdateRowTest extends SDKTestBase {
      */
 
     public function testExpectExistConditionWhenRowExist() {
+    	global $usedTables;
         $tablename = array(
-            "table_name" => "myTable",
-            "condition" => "IGNORE",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
             "primary_key" => array("PK1" => 100, "PK2" => "a100"),
             "attribute_columns" => array("test1" => "name1", "test2" => 256, "test3" => "name2", "test4" => "name3")
         );
         $this->otsClient->putRow($tablename);
         $updateRow = array(
-            "table_name" => "myTable",
-            "condition" => "EXPECT_EXIST",
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
             "primary_key" => array("PK1" => 100, "PK2" => "a100"),
             "attribute_columns_to_put" => array(
                 "test1" => "cc",
@@ -257,12 +270,78 @@ class UpdateRowTest extends SDKTestBase {
         $this->otsClient->updateRow($updateRow);
         //print_r($a);die;
         $body = array(
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key" => array("PK1" => 100, "PK2" => "a100"),
             "columns_to_get" => array(),
         );
         $c = $this->otsClient->getRow($body);
         $this->assertEquals($c['row']['attribute_columns']['test1'], $updateRow['attribute_columns_to_put']['test1']);
+    }
+    
+    /**
+     * 测试在使用ColumnCondition的情况下，更新数据行是否成功。
+     */
+    public function testUpdateRowWithColumnCondition() {
+    	global $usedTables;
+    	$put_query = array(
+    			"table_name" => $usedTables[0],
+    			"condition" => RowExistenceExpectationConst::IGNORE,
+    			"primary_key" => array("PK1" => 100, "PK2" => "a100"),
+    			"attribute_columns" => array("test1" => "name1", "test2" => 256, "test3" => "name2", "test4" => "name3")
+    	);
+    	$this->otsClient->putRow($put_query);
+    	
+    	$update_query = array(
+    			"table_name" => $usedTables[0],
+    			"condition" => array( 
+    					"row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+    					"column_filter" => array(
+    							"column_name" => "test1",
+    							"value" => "name1",
+    							"comparator" => \ComparatorType::CT_EQUAL
+    					)
+    			),
+    			"primary_key" => array("PK1" => 100, "PK2" => "a100"),
+    			"attribute_columns_to_put" => array(
+    					"test5" => "cc",
+    			)
+    	);
+    	$this->otsClient->updateRow($update_query);
+    	
+    	$get_query = array(
+    			"table_name" => $usedTables[0],
+    			"primary_key" => array("PK1" => 100, "PK2" => "a100"),
+    			"columns_to_get" => array( "test1", "test2", "test3", "test4", "test5" ),
+    	);
+    	$get_row_res = $this->otsClient->getRow($get_query);
+    	$this->assertEquals($get_row_res['row']['attribute_columns']['test1'], "name1");
+    	$this->assertEquals($get_row_res['row']['attribute_columns']['test2'], 256);
+    	$this->assertEquals($get_row_res['row']['attribute_columns']['test3'], "name2");
+    	$this->assertEquals($get_row_res['row']['attribute_columns']['test4'], "name3");
+    	$this->assertEquals($get_row_res['row']['attribute_columns']['test5'], "cc");
+    	
+    	$update_query2 = array(
+    			"table_name" => $usedTables[0],
+    			"condition" => array(
+    					"row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+    					"column_filter" => array(
+    							"column_name" => "test1",
+    							"value" => "name1",
+    							"comparator" => \ComparatorType::CT_NOT_EQUAL
+    					)
+    			),
+    			"primary_key" => array("PK1" => 100, "PK2" => "a100"),
+    			"attribute_columns_to_put" => array(
+    					"test6" => "ddcc",
+    			)
+    	);
+    	try {
+    		$this->otsClient->updateRow($update_query2);
+    		$this->fail('An expected exception has not been raised.');
+    	} catch (\Aliyun\OTS\OTSServerException $exc) {
+    		$c = "Condition check failed.";
+    		$this->assertEquals($c, $exc->getOTSErrorMessage());
+    	}
     }
 
 }
