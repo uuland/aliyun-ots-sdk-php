@@ -269,7 +269,7 @@ class PutRowTest extends SDKTestBase {
     public function testStringValueTooLong() {
     	global $usedTables;
         $name = "";
-        for ($i = 1; $i < (1025 * 1024); $i++) {
+        for ($i = 1; $i < (1025 * 1024 * 5); $i++) {
             $name .="a";
         }
         //echo strlen($a);die;
@@ -283,8 +283,8 @@ class PutRowTest extends SDKTestBase {
             $this->otsClient->putRow($tablename);
             $this->fail('An expected exception has not been raised.');
         } catch (\Aliyun\OTS\OTSServerException $exc) {
-            $c = "The length of attribute column: 'att1' exceeded the MaxLength:65536 with CurrentLength:1049599.";
-            $this->assertEquals($c, $exc->getOTSErrorMessage());
+            $c = "The length of attribute column: 'att1' exceeded the MaxLength:";
+            $this->assertContains($c, $exc->getOTSErrorMessage());
         }
         
     }
