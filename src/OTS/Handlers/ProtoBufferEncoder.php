@@ -24,6 +24,7 @@ use UpdateRowInBatchWriteRowRequest;
 use DeleteRowInBatchWriteRowRequest;
 use LogicalOperatorConst;
 use ComparatorTypeConst;
+use RowExistenceExpectationConst;
 
 class ProtoBufferEncoder
 {
@@ -142,14 +143,14 @@ class ProtoBufferEncoder
     private function preprocessRowExistence($condition)
     {
     	$value=null;
-    	if ( strcmp($condition, "IGNORE") == 0 )
+    	if ( strcmp($condition, RowExistenceExpectationConst::IGNORE) == 0 )
     		$value = \RowExistenceExpectation::IGNORE;
-    	else if ( strcmp($condition, "EXPECT_EXIST") == 0 )
+    	else if ( strcmp($condition, RowExistenceExpectationConst::EXPECT_EXIST) == 0 )
     		$value = \RowExistenceExpectation::EXPECT_EXIST;
-    	else if ( strcmp($condition, "EXPECT_NOT_EXIST") == 0 )
+    	else if ( strcmp($condition, RowExistenceExpectationConst::EXPECT_NOT_EXIST) == 0 )
     		$value = \RowExistenceExpectation::EXPECT_NOT_EXIST;
     	else {
-    		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'IGNORE', 'EXPECT_EXIST' or 'EXPECT_NOT_EXIST'.");
+    		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'RowExistenceExpectationConst::IGNORE', 'RowExistenceExpectationConst::EXPECT_EXIST' or 'RowExistenceExpectationConst::EXPECT_NOT_EXIST'.");
     	}
     	return $value;
     }
