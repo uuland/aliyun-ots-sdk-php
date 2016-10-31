@@ -4,7 +4,6 @@ namespace Aliyun\OTS\Handlers;
 use Aliyun\OTS;
 
 use CreateTableRequest;
-use ListTableRequest;
 use DeleteTableRequest;
 use DescribeTableRequest;
 use UpdateTableRequest;
@@ -23,6 +22,8 @@ use TableInBatchWriteRowRequest;
 use PutRowInBatchWriteRowRequest;
 use UpdateRowInBatchWriteRowRequest;
 use DeleteRowInBatchWriteRowRequest;
+use LogicalOperatorConst;
+use ComparatorTypeConst;
 
 class ProtoBufferEncoder
 {
@@ -116,40 +117,25 @@ class ProtoBufferEncoder
     }
     
     private function preprocessLogicalOperator($logical_operator) 
-    {
-    	if ( !is_int($logical_operator) )
-    		if ( is_string($logical_operator) ) {
-    			$logical_operator = strtoupper( $logical_operator );
-    			if ( strcmp($logical_operator, "AND") == 0 )
-    				$logical_operator = \LogicalOperator::LO_AND;
-    			else if ( strcmp($logical_operator, "OR") == 0 )
-    				$logical_operator = \LogicalOperator::LO_OR;
-    			else if ( strcmp($logical_operator, "NOT") == 0 )
-    				$logical_operator = \LogicalOperator::LO_NOT;
-    			else 
-    				throw new \Aliyun\OTS\OTSClientException("LogicalOperator must be one of 'AND', 'OR' or 'NOT'.");
-    		}
+    {   
+    	if ( !is_int($logical_operator) || 
+    	        ( $logical_operator != LogicalOperatorConst::AND && $logical_operator != LogicalOperatorConst::OR && $logical_operator != LogicalOperatorConst::NOT ) )
+    	    throw new \Aliyun\OTS\OTSClientException("LogicalOperator must be one of 'LogicalOperatorConst::AND', 'LogicalOperatorConst::OR' or 'LogicalOperatorConst::NOT'.");
+    	
     	return $logical_operator;
     }
     
     private function preprocessComparatorType($comparator_type) 
     {
-    	if ( !is_int($comparator_type) )
-    		if ( is_string($comparator_type) ) {
-    			$comparator_type = strtoupper( $comparator_type );
-    			if ( strcmp($comparator_type, "==") == 0 || strcmp($comparator_type, "EQUAL") == 0 )
-    				$comparator_type = \ComparatorType::CT_EQUAL;
-    			else if ( strcmp($comparator_type, "<") == 0 || strcmp($comparator_type, "LESS_THAN") == 0 )
-    				$comparator_type = \ComparatorType::CT_LESS_THAN;
-    			else if ( strcmp($comparator_type, "<=") == 0 || strcmp($comparator_type, "LESS_EQUAL") == 0 )
-    				$comparator_type = \ComparatorType::CT_LESS_EQUAL;
-    			else if ( strcmp($comparator_type, ">") == 0 || strcmp($comparator_type, "GREATER_THAN") == 0 )
-    				$comparator_type = \ComparatorType::CT_GREATER_THAN;
-    			else if ( strcmp($comparator_type, ">=") == 0 || strcmp($comparator_type, "GREATER_EQUAL") == 0 )
-    				$comparator_type = \ComparatorType::CT_GREATER_EQUAL;
-    			else 
-    				throw new \Aliyun\OTS\OTSClientException("Comparator must be one of 'EQUAL', 'LESS_THAN', 'LESS_EQUAL', 'GREATER_THAN' or 'GREATER_EQUAL'.");
-    		}
+    	if ( !is_int($comparator_type) || 
+    	        ( $comparator_type != ComparatorTypeConst::EQUAL && 
+    	                $comparator_type != ComparatorTypeConst::NOT_EQUAL && 
+    	                $comparator_type != ComparatorTypeConst::GREATER_THAN && 
+    	                $comparator_type != ComparatorTypeConst::GREATER_EQUAL &&
+    	                $comparator_type != ComparatorTypeConst::LESS_THAN &&
+    	                $comparator_type != ComparatorTypeConst::LESS_EQUAL ) )
+    	    throw new \Aliyun\OTS\OTSClientException("Comparator must be one of 'ComparatorTypeConst::EQUAL', 'ComparatorTypeConst::NOT_EQUAL', 'ComparatorTypeConst::LESS_THAN', 'ComparatorTypeConst::LESS_EQUAL', 'ComparatorTypeConst::GREATER_THAN' or 'ComparatorTypeConst::GREATER_EQUAL'.");
+ 
     	return $comparator_type;
     }
     
