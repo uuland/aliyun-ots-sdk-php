@@ -126,6 +126,8 @@ class ProtoBufferEncoder
     				$logical_operator = \LogicalOperator::LO_OR;
     			else if ( strcmp($logical_operator, "NOT") == 0 || strcmp($logical_operator, "LO_NOT") == 0 )
     				$logical_operator = \LogicalOperator::LO_NOT;
+    			else 
+    				throw new \Aliyun\OTS\OTSClientException("LogicalOperator must be one of 'AND', 'OR' or 'NOT'.");
     		}
     	return $logical_operator;
     }
@@ -145,6 +147,8 @@ class ProtoBufferEncoder
     				$comparator_type = \ComparatorType::CT_GREATER_THAN;
     			else if ( strcmp($comparator_type, ">=") == 0 || strcmp($comparator_type, "GREATER_EQUAL") == 0 || strcmp($comparator_type, "CT_GREATER_EQUAL") == 0 )
     				$comparator_type = \ComparatorType::CT_GREATER_EQUAL;
+    			else 
+    				throw new \Aliyun\OTS\OTSClientException("Comparator must be one of 'EQUAL', 'LESS_THAN', 'LESS_EQUAL', 'GREATER_THAN' or 'GREATER_EQUAL'.");
     		}
     	return $comparator_type;
     }
@@ -159,7 +163,6 @@ class ProtoBufferEncoder
     	else if ( strcmp($condition, "EXPECT_NOT_EXIST") == 0 )
     		$value = \RowExistenceExpectation::EXPECT_NOT_EXIST;
     	else {
-    		print "wrong row existence argument: \n".$condition;
     		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'IGNORE', 'EXPECT_EXIST' or 'EXPECT_NOT_EXIST'.");
     	}
     	return $value;
@@ -168,7 +171,7 @@ class ProtoBufferEncoder
     private function preprocessColumnCondition($column_filters)
     {
     	$ret = array();
-    	
+        	
     	foreach ($column_filters as $name => $value)
     	{
     		if ( strcmp( $name, "logical_operator" ) == 0 || strcmp( $name, "sub_conditions" ) == 0 ) {
@@ -255,8 +258,8 @@ class ProtoBufferEncoder
     {
         // FIXME handle BINARY type
         $ret = array();
-        $ret['table_name'] = $request['table_name'];
-		$ret['condition'] = $this->preprocessCondition($request['condition']);
+        $ret['table_name']  = $request['table_name'];
+		$ret['condition']   = $this->preprocessCondition($request['condition']);
         $ret['primary_key'] = $this->preprocessColumns($request['primary_key']);
      
         if (!isset($request['attribute_columns'])) {
