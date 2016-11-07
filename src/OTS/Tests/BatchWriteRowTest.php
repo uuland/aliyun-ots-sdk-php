@@ -18,7 +18,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -102,7 +102,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -151,26 +151,26 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ) 
                 ) 
-        )
+        );
         // tables
         
-        ;
+        
         $this->otsClient->batchWriteRow ( $batchWrite );
         for($i = 1; $i < 5; $i ++) {
             $body = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "primary_key" => array (
                             "PK1" => $i,
                             "PK2" => "a" . $i 
                     ),
                     "columns_to_get" => array () 
             );
-            $a [] = $this->otsClient->getRow ( $body );
+            $a[] = $this->otsClient->getRow ( $body );
         }
         $this->assertEquals ( count ( $a ), 4 );
         for($c = 0; $c < count ( $a ); $c ++) {
-            $this->assertEquals ( $a [$c] ['row'] ['primary_key_columns'], $batchWrite ['tables'] [0] ['put_rows'] [$c] ['primary_key'] );
-            $this->assertEquals ( $a [$c] ['row'] ['attribute_columns'], $batchWrite ['tables'] [0] ['put_rows'] [$c] ['attribute_columns'] );
+            $this->assertEquals ( $a[$c]['row']['primary_key_columns'], $batchWrite['tables'][0]['put_rows'][$c]['primary_key'] );
+            $this->assertEquals ( $a[$c]['row']['attribute_columns'], $batchWrite['tables'][0]['put_rows'][$c]['attribute_columns'] );
         }
     }
     
@@ -183,7 +183,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -232,15 +232,15 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ) 
                 ) 
-        )
+        );
         // tables
         
-        ;
+        
         $this->otsClient->batchWriteRow ( $batchWrite );
         $batchWrite1 = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "update_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -295,30 +295,30 @@ class BatchWriteRowTest extends SDKTestBase {
                                                 ) 
                                         ) 
                                 ) 
-                        )
-                        // //////添加多行插入 put_rows
-                        
-                         
-                ) 
+                        ) 
+                )
+                // //////添加多行插入 put_rows
+                
+                 
         );
         $this->otsClient->batchWriteRow ( $batchWrite1 );
         for($i = 1; $i < 5; $i ++) {
             $body = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "primary_key" => array (
                             "PK1" => $i,
                             "PK2" => "a" . $i 
                     ),
                     "columns_to_get" => array () 
             );
-            $a [] = $this->otsClient->getRow ( $body );
+            $a[] = $this->otsClient->getRow ( $body );
         }
         $this->assertEquals ( count ( $a ), 4 );
         for($c = 0; $c < count ( $a ); $c ++) {
             // print_r($a[$c]['row']['primary_key_columns']);
             // print_r($batchWrite1['tables'][0]['update_rows'][0]['attribute_columns_to_put']);
-            $this->assertEquals ( $a [$c] ['row'] ['primary_key_columns'], $batchWrite ['tables'] [0] ['put_rows'] [$c] ['primary_key'] );
-            $this->assertEquals ( $a [$c] ['row'] ['attribute_columns'], $batchWrite1 ['tables'] [0] ['update_rows'] [$c] ['attribute_columns_to_put'] );
+            $this->assertEquals ( $a[$c]['row']['primary_key_columns'], $batchWrite['tables'][0]['put_rows'][$c]['primary_key'] );
+            $this->assertEquals ( $a[$c]['row']['attribute_columns'], $batchWrite1['tables'][0]['update_rows'][$c]['attribute_columns_to_put'] );
         }
     }
     
@@ -331,7 +331,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -380,15 +380,15 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ) 
                 ) 
-        )
+        );
         // tables
         
-        ;
+        
         $this->otsClient->batchWriteRow ( $batchWrite );
         $batchWrite1 = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "delete_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -419,29 +419,29 @@ class BatchWriteRowTest extends SDKTestBase {
                                                 ) 
                                         ) 
                                 ) 
-                        )
-                        // //////添加多行插入 put_rows
-                        
-                         
-                ) 
+                        ) 
+                )
+                // //////添加多行插入 put_rows
+                
+                 
         );
         $getrow = $this->otsClient->batchWriteRow ( $batchWrite1 );
         // print_r($getrow);die;
         for($i = 1; $i < 5; $i ++) {
             $body = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "primary_key" => array (
                             "PK1" => $i,
                             "PK2" => "a" . $i 
                     ),
                     "columns_to_get" => array () 
             );
-            $a [] = $this->otsClient->getRow ( $body );
+            $a[] = $this->otsClient->getRow ( $body );
         }
         $this->assertEquals ( count ( $a ), 4 );
         for($c = 0; $c < count ( $a ); $c ++) {
-            $this->assertEmpty ( $a [$c] ['row'] ['primary_key_columns'] );
-            $this->assertEmpty ( $a [$c] ['row'] ['attribute_columns'] );
+            $this->assertEmpty ( $a[$c]['row']['primary_key_columns'] );
+            $this->assertEmpty ( $a[$c]['row']['attribute_columns'] );
         }
     }
     
@@ -452,7 +452,7 @@ class BatchWriteRowTest extends SDKTestBase {
     public function testPutUpdateDeleteInBatchWriteRow() {
         global $usedTables;
         for($i = 1; $i < 9; $i ++) {
-            $put [] = array (
+            $put[] = array (
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -467,19 +467,19 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => $put 
                         ) 
                 ) 
-        )
+        );
         // tables
         
-        ;
+        
         $this->otsClient->batchWriteRow ( $batchWrite );
         $batchWrite1 = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -616,7 +616,7 @@ class BatchWriteRowTest extends SDKTestBase {
         );
         $getrow = $this->otsClient->batchWriteRow ( $batchWrite1 );
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 100,
@@ -630,20 +630,20 @@ class BatchWriteRowTest extends SDKTestBase {
                 ) 
         );
         $a = $this->otsClient->getRange ( $getRange );
-        $this->assertEquals ( count ( $a ['rows'] ), 8 );
-        for($i = 0; $i < count ( $a ['rows'] ); $i ++) {
-            $row = $a ['rows'] [$i];
-            $pk1 = $row ['primary_key_columns'] ['PK1'];
-            $columns = $row ['attribute_columns'];
+        $this->assertEquals ( count ( $a['rows'] ), 8 );
+        for($i = 0; $i < count ( $a['rows'] ); $i ++) {
+            $row = $a['rows'][$i];
+            $pk1 = $row['primary_key_columns']['PK1'];
+            $columns = $row['attribute_columns'];
             $this->assertEquals ( $pk1, $i + 5 );
             // 1-4 rows deleted
             if ($pk1 >= 5 && $pk1 <= 8) {
                 // 5-8 rows updated
-                $this->assertEquals ( $columns ['att1'], 'Zhon' );
+                $this->assertEquals ( $columns['att1'], 'Zhon' );
             } elseif ($pk1 >= 9 && $pk1 <= 12) {
                 // 9-12 rows put
-                $this->assertEquals ( $columns ['att1'], 'name' );
-                $this->assertEquals ( $columns ['att2'], 256 );
+                $this->assertEquals ( $columns['att1'], 'name' );
+                $this->assertEquals ( $columns['att2'], 256 );
             } else {
                 $this->fail ( "Deleted rows read." );
             }
@@ -657,7 +657,7 @@ class BatchWriteRowTest extends SDKTestBase {
     public function testPut1000UpdateDeleteInBatchWriteRow() {
         global $usedTables;
         for($i = 1; $i < 1000; $i ++) {
-            $a [] = array (
+            $a[] = array (
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -673,7 +673,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => $a,
                                 "update_rows" => array (
                                         array (
@@ -889,7 +889,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "columns_to_get" => array () 
             );
-            $getrow [] = $this->otsClient->getRow ( $body );
+            $getrow[] = $this->otsClient->getRow ( $body );
         }
         $primary = array (
                 "PK1" => 1,
@@ -901,8 +901,8 @@ class BatchWriteRowTest extends SDKTestBase {
         );
         $this->assertEquals ( count ( $getrow ), 4 );
         for($i = 0; $i < count ( $getrow ); $i ++) {
-            $this->assertEquals ( $getrow [$i] ['row'] ['primary_key_columns'], $primary );
-            $this->assertEquals ( $getrow [$i] ['row'] ['attribute_columns'], $columns );
+            $this->assertEquals ( $getrow[$i]['row']['primary_key_columns'], $primary );
+            $this->assertEquals ( $getrow[$i]['row']['attribute_columns'], $columns );
         }
     }
     
@@ -915,7 +915,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -989,8 +989,8 @@ class BatchWriteRowTest extends SDKTestBase {
                 ) 
         );
         $writerow = $this->otsClient->batchWriteRow ( $batchWrite );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['is_ok'], 0 );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['error'], array (
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['is_ok'], 0 );
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['error'], array (
                 "code" => "OTSConditionCheckFail",
                 "message" => "Condition check failed." 
         ) );
@@ -1031,7 +1031,7 @@ class BatchWriteRowTest extends SDKTestBase {
         
         foreach ( $pkOfRows as $pk ) {
             $this->otsClient->deleteRow ( array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => $pk 
             ) );
@@ -1040,7 +1040,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -1114,13 +1114,13 @@ class BatchWriteRowTest extends SDKTestBase {
                 ) 
         );
         $writerow = $this->otsClient->batchWriteRow ( $batchWrite );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['is_ok'], 0 );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [1] ['is_ok'], 0 );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['error'], array (
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['is_ok'], 0 );
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][1]['is_ok'], 0 );
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['error'], array (
                 "code" => "OTSConditionCheckFail",
                 "message" => "Condition check failed." 
         ) );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [1] ['error'], array (
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][1]['error'], array (
                 "code" => "OTSConditionCheckFail",
                 "message" => "Condition check failed." 
         ) );
@@ -1134,7 +1134,7 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [1],
+                        "table_name" => $usedTables[1],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::INTEGER,
                                 "PK2" => ColumnTypeConst::STRING 
@@ -1152,7 +1152,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWrite = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -1193,7 +1193,7 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ),
                         array (
-                                "table_name" => $usedTables [1],
+                                "table_name" => $usedTables[1],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => RowExistenceExpectationConst::IGNORE,
@@ -1237,13 +1237,13 @@ class BatchWriteRowTest extends SDKTestBase {
         );
         $writerow = $this->otsClient->batchWriteRow ( $batchWrite );
         // print_r($writerow);die;
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['is_ok'], 0 );
-        $this->assertEquals ( $writerow ['tables'] [1] ['update_rows'] [0] ['is_ok'], 0 );
-        $this->assertEquals ( $writerow ['tables'] [0] ['update_rows'] [0] ['error'], array (
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['is_ok'], 0 );
+        $this->assertEquals ( $writerow['tables'][1]['update_rows'][0]['is_ok'], 0 );
+        $this->assertEquals ( $writerow['tables'][0]['update_rows'][0]['error'], array (
                 "code" => "OTSConditionCheckFail",
                 "message" => "Condition check failed." 
         ) );
-        $this->assertEquals ( $writerow ['tables'] [1] ['update_rows'] [0] ['error'], array (
+        $this->assertEquals ( $writerow['tables'][1]['update_rows'][0]['error'], array (
                 "code" => "OTSConditionCheckFail",
                 "message" => "Condition check failed." 
         ) );
@@ -1255,7 +1255,7 @@ class BatchWriteRowTest extends SDKTestBase {
      */
     public function testP1000TablesInBatchWriteRow() {
         for($i = 1; $i < 1001; $i ++) {
-            $res [] = array (
+            $res[] = array (
                     "table_name" => 'test' . $i,
                     "put_rows" => array (
                             array (
@@ -1292,10 +1292,10 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         $tables = $this->otsClient->listTable ( array () );
         for($i = 0; $i < 2; ++ $i) {
-            if (! in_array ( $usedTables [$i], $tables )) {
+            if (! in_array ( $usedTables[$i], $tables )) {
                 $tablemeta = array (
                         "table_meta" => array (
-                                "table_name" => $usedTables [$i],
+                                "table_name" => $usedTables[$i],
                                 "primary_key_schema" => array (
                                         "PK1" => ColumnTypeConst::INTEGER,
                                         "PK2" => ColumnTypeConst::STRING 
@@ -1313,7 +1313,7 @@ class BatchWriteRowTest extends SDKTestBase {
             }
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
-                        "table_name" => $usedTables [$i],
+                        "table_name" => $usedTables[$i],
                         "condition" => RowExistenceExpectationConst::IGNORE,
                         "primary_key" => array (
                                 "PK1" => $k,
@@ -1334,7 +1334,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWriteData = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -1401,7 +1401,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetQuery = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -1430,17 +1430,17 @@ class BatchWriteRowTest extends SDKTestBase {
                 ) 
         );
         $batchGetRes = $this->otsClient->batchGetRow ( $batchGetQuery );
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [0] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][0]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][0]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 109 );
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa109" );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr1'], 109 );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr2'], "aa109" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 990 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr1'], 990 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'][2]['row']['attribute_columns'] ), 0 );
     }
     
     /**
@@ -1451,14 +1451,14 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         $tables = $this->otsClient->listTable ( array () );
         for($i = 0; $i < 2; ++ $i) {
-            if (in_array ( $usedTables [$i], $tables )) {
+            if (in_array ( $usedTables[$i], $tables )) {
                 $this->otsClient->deleteTable ( array (
-                        "table_name" => $usedTables [$i] 
+                        "table_name" => $usedTables[$i] 
                 ) );
             }
             $tablemeta = array (
                     "table_meta" => array (
-                            "table_name" => $usedTables [$i],
+                            "table_name" => $usedTables[$i],
                             "primary_key_schema" => array (
                                     "PK1" => ColumnTypeConst::INTEGER,
                                     "PK2" => ColumnTypeConst::STRING 
@@ -1475,7 +1475,7 @@ class BatchWriteRowTest extends SDKTestBase {
             $this->waitForTableReady ();
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
-                        "table_name" => $usedTables [$i],
+                        "table_name" => $usedTables[$i],
                         "condition" => RowExistenceExpectationConst::IGNORE,
                         "primary_key" => array (
                                 "PK1" => $k,
@@ -1495,7 +1495,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWriteData = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -1588,7 +1588,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetQuery = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -1617,17 +1617,17 @@ class BatchWriteRowTest extends SDKTestBase {
                 ) 
         );
         $batchGetRes = $this->otsClient->batchGetRow ( $batchGetQuery );
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [0] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][0]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][0]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 109 );
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa109" );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr1'], 109 );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr2'], "aa109" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 990 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr1'], 990 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'][2]['row']['attribute_columns'] ), 0 );
     }
     
     /**
@@ -1638,10 +1638,10 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         $tables = $this->otsClient->listTable ( array () );
         for($i = 0; $i < 2; ++ $i) {
-            if (! in_array ( $usedTables [$i], $tables )) {
+            if (! in_array ( $usedTables[$i], $tables )) {
                 $tablemeta = array (
                         "table_meta" => array (
-                                "table_name" => $usedTables [$i],
+                                "table_name" => $usedTables[$i],
                                 "primary_key_schema" => array (
                                         "PK1" => ColumnTypeConst::INTEGER,
                                         "PK2" => ColumnTypeConst::STRING 
@@ -1659,7 +1659,7 @@ class BatchWriteRowTest extends SDKTestBase {
             }
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
-                        "table_name" => $usedTables [$i],
+                        "table_name" => $usedTables[$i],
                         "condition" => RowExistenceExpectationConst::IGNORE,
                         "primary_key" => array (
                                 "PK1" => $k,
@@ -1679,7 +1679,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWriteData = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -1741,7 +1741,7 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ),
                         array (
-                                "table_name" => $usedTables [1],
+                                "table_name" => $usedTables[1],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -1824,7 +1824,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetQuery = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -1851,7 +1851,7 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ),
                         array (
-                                "table_name" => $usedTables [1],
+                                "table_name" => $usedTables[1],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -1882,30 +1882,30 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetRes = $this->otsClient->batchGetRow ( $batchGetQuery );
         
         // to verify the first updated table
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [0] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][0]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][0]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 109 );
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa109" );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr1'], 109 );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr2'], "aa109" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 990 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr1'], 990 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'][2]['row']['attribute_columns'] ), 0 );
         
         // to verify the second updated table
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [1] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [1] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][1]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][1]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][1]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 119 );
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa119" );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][0]['row']['attribute_columns']['attr1'], 119 );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][0]['row']['attribute_columns']['attr2'], "aa119" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 1000 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [1] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][1]['row']['attribute_columns']['attr1'], 1000 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][1]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [1] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][1]['rows'][2]['row']['attribute_columns'] ), 0 );
     }
     
     /**
@@ -1916,14 +1916,14 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         $tables = $this->otsClient->listTable ( array () );
         for($i = 0; $i < 2; ++ $i) {
-            if (in_array ( $usedTables [$i], $tables )) {
+            if (in_array ( $usedTables[$i], $tables )) {
                 $this->otsClient->deleteTable ( array (
-                        "table_name" => $usedTables [$i] 
+                        "table_name" => $usedTables[$i] 
                 ) );
             }
             $tablemeta = array (
                     "table_meta" => array (
-                            "table_name" => $usedTables [$i],
+                            "table_name" => $usedTables[$i],
                             "primary_key_schema" => array (
                                     "PK1" => ColumnTypeConst::INTEGER,
                                     "PK2" => ColumnTypeConst::STRING 
@@ -1940,7 +1940,7 @@ class BatchWriteRowTest extends SDKTestBase {
             $this->waitForTableReady ();
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
-                        "table_name" => $usedTables [$i],
+                        "table_name" => $usedTables[$i],
                         "condition" => RowExistenceExpectationConst::IGNORE,
                         "primary_key" => array (
                                 "PK1" => $k,
@@ -1960,7 +1960,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchWriteData = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -2047,7 +2047,7 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ),
                         array (
-                                "table_name" => $usedTables [1],
+                                "table_name" => $usedTables[1],
                                 "put_rows" => array (
                                         array (
                                                 "condition" => array (
@@ -2130,7 +2130,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetQuery = array (
                 "tables" => array (
                         array (
-                                "table_name" => $usedTables [0],
+                                "table_name" => $usedTables[0],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -2157,7 +2157,7 @@ class BatchWriteRowTest extends SDKTestBase {
                                 ) 
                         ),
                         array (
-                                "table_name" => $usedTables [1],
+                                "table_name" => $usedTables[1],
                                 "columns_to_get" => array (
                                         "attr1",
                                         "attr2" 
@@ -2188,28 +2188,28 @@ class BatchWriteRowTest extends SDKTestBase {
         $batchGetRes = $this->otsClient->batchGetRow ( $batchGetQuery );
         
         // to verify the first updated table
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [0] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][0]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][0]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 109 );
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa109" );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr1'], 109 );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][0]['row']['attribute_columns']['attr2'], "aa109" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 990 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [0] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr1'], 990 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][0]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [0] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][0]['rows'][2]['row']['attribute_columns'] ), 0 );
         
         // to verify the second updated table
-        $this->assertEquals ( count ( $batchGetRes ['tables'] [1] ['rows'] ), 3 );
-        for($i = 0; $i < count ( $batchGetRes ['tables'] [1] ['rows'] ); $i ++) {
-            $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [$i] ['is_ok'], 1 );
+        $this->assertEquals ( count ( $batchGetRes['tables'][1]['rows'] ), 3 );
+        for($i = 0; $i < count ( $batchGetRes['tables'][1]['rows'] ); $i ++) {
+            $this->assertEquals ( $batchGetRes['tables'][1]['rows'][$i]['is_ok'], 1 );
         }
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [0] ['row'] ['attribute_columns'] ['attr1'], 119 );
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [0] ['row'] ['attribute_columns'] ['attr2'], "aa119" );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][0]['row']['attribute_columns']['attr1'], 119 );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][0]['row']['attribute_columns']['attr2'], "aa119" );
         
-        $this->assertEquals ( $batchGetRes ['tables'] [1] ['rows'] [1] ['row'] ['attribute_columns'] ['attr1'], 1000 );
-        $this->assertFalse ( isset ( $batchGetRes ['tables'] [1] ['rows'] [1] ['row'] ['attribute_columns'] ['attr2'] ) );
+        $this->assertEquals ( $batchGetRes['tables'][1]['rows'][1]['row']['attribute_columns']['attr1'], 1000 );
+        $this->assertFalse ( isset ( $batchGetRes['tables'][1]['rows'][1]['row']['attribute_columns']['attr2'] ) );
         
         $this->assertEquals ( count ( $batchGetRes ['tables'] [1] ['rows'] [2] ['row'] ['attribute_columns'] ), 0 );
     }

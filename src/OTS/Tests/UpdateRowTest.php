@@ -16,7 +16,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -40,7 +40,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testPutOnlyInUpdateRow() {
         global $usedTables;
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -55,7 +55,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->updateRow ( $updateRow );
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 1,
                         "PK2" => "a1" 
@@ -67,7 +67,7 @@ class UpdateRowTest extends SDKTestBase {
         // print_r($updateRow['attribute_columns_to_put']);
         // print_r($getrow);
         // die;
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'], $updateRow ['attribute_columns_to_put'] );
+        $this->assertEquals ( $getrow['row']['attribute_columns'], $updateRow['attribute_columns_to_put'] );
     }
     
     /*
@@ -77,7 +77,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testDeleteOnlyInUpdateRow() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -92,7 +92,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -107,7 +107,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->updateRow ( $updateRow );
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 1,
                         "PK2" => "a1" 
@@ -116,10 +116,10 @@ class UpdateRowTest extends SDKTestBase {
         );
         $getrow = $this->otsClient->getRow ( $body );
         // print_r($getrow);die;
-        $this->assertArrayNotHasKey ( "att1", $getrow ['row'] ['attribute_columns'] );
-        $this->assertArrayNotHasKey ( "att2", $getrow ['row'] ['attribute_columns'] );
-        $this->assertArrayNotHasKey ( "att3", $getrow ['row'] ['attribute_columns'] );
-        $this->assertArrayNotHasKey ( "att4", $getrow ['row'] ['attribute_columns'] );
+        $this->assertArrayNotHasKey ( "att1", $getrow['row']['attribute_columns'] );
+        $this->assertArrayNotHasKey ( "att2", $getrow['row']['attribute_columns'] );
+        $this->assertArrayNotHasKey ( "att3", $getrow['row']['attribute_columns'] );
+        $this->assertArrayNotHasKey ( "att4", $getrow['row']['attribute_columns'] );
     }
     
     /*
@@ -129,7 +129,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testEmptyUpdateRow() {
         global $usedTables;
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 3,
@@ -155,7 +155,7 @@ class UpdateRowTest extends SDKTestBase {
         global $usedTables;
         
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 3,
@@ -176,14 +176,14 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->updateRow ( $updateRow );
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 3,
                         "PK2" => "a3" 
                 ) 
         );
         $getrow = $this->otsClient->getRow ( $body );
-        $this->assertEquals ( $updateRow ['attribute_columns_to_put'], $getrow ['row'] ['attribute_columns'] );
+        $this->assertEquals ( $updateRow['attribute_columns_to_put'], $getrow['row']['attribute_columns'] );
         // $getrowlist = $this->otsClient->getRow($body);
     }
     
@@ -194,7 +194,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testDuplicateDeleteInUpdateRow() {
         global $usedTables;
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 3,
@@ -223,11 +223,11 @@ class UpdateRowTest extends SDKTestBase {
     public function testPutAndDelete1000InUpdateRow() {
         global $usedTables;
         for($i = 1; $i < 1001; $i ++) {
-            $put ['a' . $i] = "cc" . $i;
-            $delete [] = 'aa' . $i;
+            $put['a' . $i] = "cc" . $i;
+            $delete[] = 'aa' . $i;
         }
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 3,
@@ -261,7 +261,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowNotExist() {
         global $usedTables;
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
                 "primary_key" => array (
                         "PK1" => 30,
@@ -291,7 +291,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 100,
@@ -306,7 +306,7 @@ class UpdateRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $updateRow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
                 "primary_key" => array (
                         "PK1" => 100,
@@ -322,7 +322,7 @@ class UpdateRowTest extends SDKTestBase {
         $this->otsClient->updateRow ( $updateRow );
         // print_r($a);die;
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 100,
                         "PK2" => "a100" 
@@ -330,7 +330,7 @@ class UpdateRowTest extends SDKTestBase {
                 "columns_to_get" => array () 
         );
         $c = $this->otsClient->getRow ( $body );
-        $this->assertEquals ( $c ['row'] ['attribute_columns'] ['test1'], $updateRow ['attribute_columns_to_put'] ['test1'] );
+        $this->assertEquals ( $c['row']['attribute_columns']['test1'], $updateRow['attribute_columns_to_put']['test1'] );
     }
     
     /**
@@ -339,7 +339,7 @@ class UpdateRowTest extends SDKTestBase {
     public function testUpdateRowWithColumnCondition() {
         global $usedTables;
         $put_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 100,
@@ -355,7 +355,7 @@ class UpdateRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $put_query );
         
         $update_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => array (
                         "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
                         "column_filter" => array (
@@ -375,7 +375,7 @@ class UpdateRowTest extends SDKTestBase {
         $this->otsClient->updateRow ( $update_query );
         
         $get_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 100,
                         "PK2" => "a100" 
@@ -389,14 +389,14 @@ class UpdateRowTest extends SDKTestBase {
                 ) 
         );
         $get_row_res = $this->otsClient->getRow ( $get_query );
-        $this->assertEquals ( $get_row_res ['row'] ['attribute_columns'] ['test1'], "name1" );
-        $this->assertEquals ( $get_row_res ['row'] ['attribute_columns'] ['test2'], 256 );
-        $this->assertEquals ( $get_row_res ['row'] ['attribute_columns'] ['test3'], "name2" );
-        $this->assertEquals ( $get_row_res ['row'] ['attribute_columns'] ['test4'], "name3" );
-        $this->assertEquals ( $get_row_res ['row'] ['attribute_columns'] ['test5'], "cc" );
+        $this->assertEquals ( $get_row_res['row']['attribute_columns']['test1'], "name1" );
+        $this->assertEquals ( $get_row_res['row']['attribute_columns']['test2'], 256 );
+        $this->assertEquals ( $get_row_res['row']['attribute_columns']['test3'], "name2" );
+        $this->assertEquals ( $get_row_res['row']['attribute_columns']['test4'], "name3" );
+        $this->assertEquals ( $get_row_res['row']['attribute_columns']['test5'], "cc" );
         
         $update_query2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => array (
                         "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
                         "column_filter" => array (

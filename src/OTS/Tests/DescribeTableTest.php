@@ -28,7 +28,7 @@ class DescribeTableTest extends SDKTestBase {
         
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [0],
+                        "table_name" => $usedTables[0],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::INTEGER,
                                 "PK2" => ColumnTypeConst::INTEGER 
@@ -42,16 +42,16 @@ class DescribeTableTest extends SDKTestBase {
                 ) 
         );
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::INTEGER 
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -63,7 +63,7 @@ class DescribeTableTest extends SDKTestBase {
         
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [0],
+                        "table_name" => $usedTables[0],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::STRING,
                                 "PK2" => ColumnTypeConst::STRING 
@@ -77,16 +77,16 @@ class DescribeTableTest extends SDKTestBase {
                 ) 
         );
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::STRING,
                         "PK2" => ColumnTypeConst::STRING 
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -107,7 +107,7 @@ class DescribeTableTest extends SDKTestBase {
         foreach ( $invalidTypes as $type ) {
             $request = array (
                     "table_meta" => array (
-                            "table_name" => $usedTables [1],
+                            "table_name" => $usedTables[1],
                             "primary_key_schema" => array (
                                     "PK1" => $type 
                             ) 

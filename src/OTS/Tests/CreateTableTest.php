@@ -11,7 +11,7 @@ class CreateTableTest extends SDKTestBase {
     public function setup() {
         $table_name = $this->otsClient->listTable ( array () );
         for($i = 0; $i < count ( $table_name ); $i ++) {
-            $tablename ['table_name'] = $table_name [$i];
+            $tablename['table_name'] = $table_name[$i];
             $this->otsClient->deleteTable ( $tablename );
         }
     }
@@ -46,7 +46,7 @@ class CreateTableTest extends SDKTestBase {
         // $tablename['mytable'] = 111;
         $this->assertEquals ( $this->otsClient->listTable ( array () ), $tablename );
         // $this->assertContains();
-        $table_name ['table_name'] = "myTable";
+        $table_name['table_name'] = "myTable";
         $teturn = array (
                 "table_name" => "myTable",
                 "primary_key_schema" => array (
@@ -57,7 +57,7 @@ class CreateTableTest extends SDKTestBase {
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $table_name );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
         // $this->otsClient->deleteTable($table_name);
     }
     
@@ -204,15 +204,15 @@ class CreateTableTest extends SDKTestBase {
                 ) 
         );
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::STRING 
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -239,9 +239,9 @@ class CreateTableTest extends SDKTestBase {
         );
         
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::STRING,
                         "PK2" => ColumnTypeConst::INTEGER,
@@ -250,7 +250,7 @@ class CreateTableTest extends SDKTestBase {
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -260,7 +260,7 @@ class CreateTableTest extends SDKTestBase {
     public function testTooMuchPKInSchema() {
         $key = array ();
         for($i = 1; $i < 1001; $i ++) {
-            $key ['a' . $i] = ColumnTypeConst::INTEGER;
+            $key['a' . $i] = ColumnTypeConst::INTEGER;
         }
         // print_r($key);die;
         $tablebody = array (
@@ -305,16 +305,16 @@ class CreateTableTest extends SDKTestBase {
                 ) 
         );
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::INTEGER 
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -338,16 +338,16 @@ class CreateTableTest extends SDKTestBase {
                 ) 
         );
         $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
-        $tablename ['table_name'] = $tablebody ['table_meta'] ['table_name'];
+        $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody ['table_meta'] ['table_name'],
+                "table_name" => $tablebody['table_meta']['table_name'],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::STRING,
                         "PK2" => ColumnTypeConst::STRING 
                 ) 
         );
         $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta ['table_meta'] );
+        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
     }
     
     /*
@@ -407,7 +407,7 @@ class CreateTableTest extends SDKTestBase {
     public function tearDown() {
         $table_name = $this->otsClient->listTable ( array () );
         for($i = 0; $i < count ( $table_name ); $i ++) {
-            $tablename ['table_name'] = $table_name [$i];
+            $tablename['table_name'] = $table_name[$i];
             $this->otsClient->deleteTable ( $tablename );
         }
     }

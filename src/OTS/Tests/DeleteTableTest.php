@@ -24,7 +24,7 @@ class DeleteTableTest extends SDKTestBase {
         global $usedTables;
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [0],
+                        "table_name" => $usedTables[0],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::STRING,
                                 "PK2" => ColumnTypeConst::INTEGER,
@@ -42,7 +42,7 @@ class DeleteTableTest extends SDKTestBase {
         $this->otsClient->createTable ( $tablebody );
         
         $request = array (
-                "table_name" => $usedTables [0] 
+                "table_name" => $usedTables[0] 
         );
         // print_r($this->listtable->ListTable());
         $response = $this->otsClient->deleteTable ( $request );

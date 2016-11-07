@@ -10,46 +10,44 @@ use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\LogicalOperatorConst;
 
 $otsClient = new OTSClient ( array (
-        'EndPoint' => EXAMPLE_END_POINT,
-        'AccessKeyID' => EXAMPLE_ACCESS_KEY_ID,
-        'AccessKeySecret' => EXAMPLE_ACCESS_KEY_SECRET,
-        'InstanceName' => EXAMPLE_INSTANCE_NAME 
+    'EndPoint' => EXAMPLE_END_POINT,
+    'AccessKeyID' => EXAMPLE_ACCESS_KEY_ID,
+    'AccessKeySecret' => EXAMPLE_ACCESS_KEY_SECRET,
+    'InstanceName' => EXAMPLE_INSTANCE_NAME 
 ) );
 
 $request = array (
-        'table_meta' => array (
-                'table_name' => 'MyTable', // 表名为 MyTable
-                'primary_key_schema' => array (
-                        'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
-                        'PK1' => ColumnTypeConst::STRING 
-                ) // 第二个主键列名称为PK1, 类型为STRING
- 
-        ),
-        'reserved_throughput' => array (
-                'capacity_unit' => array (
-                        'read' => 0,
-                        'write' => 0 
-                ) 
+    'table_meta' => array (
+        'table_name' => 'MyTable', // 表名为 MyTable
+        'primary_key_schema' => array (
+            'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
+            'PK1' => ColumnTypeConst::STRING 
+        ) // 第二个主键列名称为PK1, 类型为STRING
+    ),
+    'reserved_throughput' => array (
+        'capacity_unit' => array (
+            'read' => 0,
+            'write' => 0 
         ) 
+    ) 
 );
 $otsClient->createTable ( $request );
 sleep ( 10 );
 
 for($i = 0; $i < 6000; $i ++) {
     $request = array (
-            'table_name' => 'MyTable',
-            'condition' => RowExistenceExpectationConst::IGNORE, // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
-            'primary_key' => array ( // 主键
-                    'PK0' => $i,
-                    'PK1' => 'abc' 
-            ),
-            'attribute_columns' => array ( // 属性
-                    'attr0' => 456, // INTEGER类型
-                    'attr1' => 'Hangzhou', // STRING类型
-                    'attr2' => 3.14, // DOUBLE类型
-                    'attr3' => true 
-            ) // BOOLEAN类型
- 
+        'table_name' => 'MyTable',
+        'condition' => RowExistenceExpectationConst::IGNORE, // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
+        'primary_key' => array ( // 主键
+            'PK0' => $i,
+            'PK1' => 'abc' 
+        ),
+        'attribute_columns' => array ( // 属性
+            'attr0' => 456, // INTEGER类型
+            'attr1' => 'Hangzhou', // STRING类型
+            'attr2' => 3.14, // DOUBLE类型
+            'attr3' => true 
+        ) // BOOLEAN类型
     );
     $otsClient->putRow ( $request );
 }
@@ -58,13 +56,13 @@ for($i = 0; $i < 6000; $i ++) {
 // memory_limit 设置为 256M
 
 $startPK = array (
-        'PK0' => 0,
-        'PK1' => 'aaa' 
+    'PK0' => 0,
+    'PK1' => 'aaa' 
 );
 
 $endPK = array (
-        'PK0' => 9999,
-        'PK1' => 'zzz' 
+    'PK0' => 9999,
+    'PK1' => 'zzz' 
 );
 
 $limit = 5500; // 假设我们需要获取 6000行数据的前 5500 条
@@ -72,26 +70,26 @@ $limit = 5500; // 假设我们需要获取 6000行数据的前 5500 条
 while ( ! empty ( $startPK ) && $limit > 0 ) {
     
     $request = array (
-            'table_name' => 'MyTable',
-            'direction' => DirectionConst::FORWARD, // 方向可以为 FORWARD 或者 BACKWARD
-            'inclusive_start_primary_key' => $startPK, // 开始主键
-            'exclusive_end_primary_key' => $endPK, // 结束主键
-            'limit' => $limit,
-            'column_filter' => array (
-                    'logical_operator' => LogicalOperatorConst::AND,
-                    'sub_conditions' => array (
-                            array (
-                                    'column_name' => 'attr0',
-                                    'value' => 456,
-                                    'comparator' => ComparatorTypeConst::EQUAL 
-                            ),
-                            array (
-                                    'column_name' => 'attr1',
-                                    'value' => 'Hangzhou',
-                                    'comparator' => ComparatorTypeConst::GREATER_EQUAL 
-                            ) 
-                    ) 
+        'table_name' => 'MyTable',
+        'direction' => DirectionConst::FORWARD, // 方向可以为 FORWARD 或者 BACKWARD
+        'inclusive_start_primary_key' => $startPK, // 开始主键
+        'exclusive_end_primary_key' => $endPK, // 结束主键
+        'limit' => $limit,
+        'column_filter' => array (
+            'logical_operator' => LogicalOperatorConst::AND,
+            'sub_conditions' => array (
+                array (
+                    'column_name' => 'attr0',
+                    'value' => 456,
+                    'comparator' => ComparatorTypeConst::EQUAL 
+                ),
+                array (
+                    'column_name' => 'attr1',
+                    'value' => 'Hangzhou',
+                    'comparator' => ComparatorTypeConst::GREATER_EQUAL 
+                ) 
             ) 
+        ) 
     );
     
     $response = $otsClient->getRange ( $request );

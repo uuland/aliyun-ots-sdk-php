@@ -34,7 +34,7 @@ class listTableTest extends SDKTestBase {
         
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [0],
+                        "table_name" => $usedTables[0],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::STRING,
                                 "PK2" => ColumnTypeConst::INTEGER,
@@ -52,7 +52,7 @@ class listTableTest extends SDKTestBase {
         );
         $this->otsClient->CreateTable ( $tablebody );
         $table_name = array (
-                $usedTables [0] 
+                $usedTables[0] 
         );
         $this->assertEquals ( $this->otsClient->listTable ( array () ), $table_name );
     }
@@ -65,7 +65,7 @@ class listTableTest extends SDKTestBase {
         global $usedTables;
         $tablebody = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [0],
+                        "table_name" => $usedTables[0],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::STRING,
                                 "PK2" => ColumnTypeConst::INTEGER,
@@ -83,7 +83,7 @@ class listTableTest extends SDKTestBase {
         );
         $tablebody1 = array (
                 "table_meta" => array (
-                        "table_name" => $usedTables [1],
+                        "table_name" => $usedTables[1],
                         "primary_key_schema" => array (
                                 "PK1" => ColumnTypeConst::STRING,
                                 "PK2" => ColumnTypeConst::INTEGER,
@@ -102,8 +102,8 @@ class listTableTest extends SDKTestBase {
         $this->otsClient->CreateTable ( $tablebody );
         $this->otsClient->CreateTable ( $tablebody1 );
         $table_name = array (
-                $usedTables [0],
-                $usedTables [1] 
+                $usedTables[0],
+                $usedTables[1] 
         );
         $this->assertEquals ( $this->otsClient->listTable ( array () ), $table_name );
     }

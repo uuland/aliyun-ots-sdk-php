@@ -17,7 +17,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -32,7 +32,7 @@ SDKTestBase::createInitialTable ( array (
 ) );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -47,7 +47,7 @@ SDKTestBase::createInitialTable ( array (
 ) );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -70,9 +70,9 @@ class UpdateTableTest extends SDKTestBase {
      */
     public function testUpdateTable() {
         global $usedTables;
-        $name ['table_name'] = $usedTables [0];
+        $name['table_name'] = $usedTables[0];
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "reserved_throughput" => array (
                         "capacity_unit" => array (
                                 "read" => 5,
@@ -83,7 +83,7 @@ class UpdateTableTest extends SDKTestBase {
         $this->otsClient->updateTable ( $tablename );
         
         $capacity_unit = $this->otsClient->describeTable ( $name );
-        $this->assertEquals ( $capacity_unit ['capacity_unit_details'] ['capacity_unit'], $tablename ['reserved_throughput'] ['capacity_unit'] );
+        $this->assertEquals ( $capacity_unit['capacity_unit_details']['capacity_unit'], $tablename['reserved_throughput']['capacity_unit'] );
     }
     
     /*
@@ -92,9 +92,9 @@ class UpdateTableTest extends SDKTestBase {
      */
     public function testCUReadOnly() {
         global $usedTables;
-        $name ['table_name'] = $usedTables [1];
+        $name['table_name'] = $usedTables[1];
         $tablename = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "reserved_throughput" => array (
                         "capacity_unit" => array (
                                 "read" => 100 
@@ -104,8 +104,8 @@ class UpdateTableTest extends SDKTestBase {
         $this->otsClient->updateTable ( $tablename );
         
         $capacity_unit = $this->otsClient->describeTable ( $name );
-        $this->assertEquals ( $capacity_unit ['capacity_unit_details'] ['capacity_unit'] ['read'], 100 );
-        $this->assertEquals ( $capacity_unit ['capacity_unit_details'] ['capacity_unit'] ['write'], 20 );
+        $this->assertEquals ( $capacity_unit['capacity_unit_details']['capacity_unit']['read'], 100 );
+        $this->assertEquals ( $capacity_unit['capacity_unit_details']['capacity_unit']['write'], 20 );
     }
     /*
      * CUWriteOnly
@@ -113,9 +113,9 @@ class UpdateTableTest extends SDKTestBase {
      */
     public function testCUWriteOnly() {
         global $usedTables;
-        $name ['table_name'] = $usedTables [2];
+        $name['table_name'] = $usedTables[2];
         $tablename = array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "reserved_throughput" => array (
                         "capacity_unit" => array (
                                 "write" => 300 
@@ -124,8 +124,8 @@ class UpdateTableTest extends SDKTestBase {
         );
         $this->otsClient->updateTable ( $tablename );
         $capacity_unit = $this->otsClient->describeTable ( $name );
-        $this->assertEquals ( $capacity_unit ['capacity_unit_details'] ['capacity_unit'] ['read'], 10 );
-        $this->assertEquals ( $capacity_unit ['capacity_unit_details'] ['capacity_unit'] ['write'], 300 );
+        $this->assertEquals ( $capacity_unit['capacity_unit_details']['capacity_unit']['read'], 10 );
+        $this->assertEquals ( $capacity_unit['capacity_unit_details']['capacity_unit'] ['write'], 300 );
     }
 }
 

@@ -20,7 +20,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -36,7 +36,7 @@ SDKTestBase::createInitialTable ( array (
 
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER 
                 ) 
@@ -51,7 +51,7 @@ SDKTestBase::createInitialTable ( array (
 
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER 
                 ) 
@@ -66,7 +66,7 @@ SDKTestBase::createInitialTable ( array (
 
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [3],
+                "table_name" => $usedTables[3],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING,
@@ -95,7 +95,7 @@ class GetRangeTest extends SDKTestBase {
         
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -110,7 +110,7 @@ class GetRangeTest extends SDKTestBase {
         }
         
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "limit" => 10,
                 "inclusive_start_primary_key" => array (
@@ -143,9 +143,9 @@ class GetRangeTest extends SDKTestBase {
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowone );
-        $this->assertEquals ( $tables ['rows'] [1], $rowtwo );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowone );
+        $this->assertEquals ( $tables['rows'][1], $rowtwo );
     }
     
     /*
@@ -158,7 +158,7 @@ class GetRangeTest extends SDKTestBase {
         
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -172,7 +172,7 @@ class GetRangeTest extends SDKTestBase {
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::BACKWARD,
                 "limit" => 10,
                 "inclusive_start_primary_key" => array (
@@ -206,9 +206,9 @@ class GetRangeTest extends SDKTestBase {
         );
         $tables = $this->otsClient->getRange ( $getRange );
         // print_r($tables);die;
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowtwo );
-        $this->assertEquals ( $tables ['rows'] [1], $rowone );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowtwo );
+        $this->assertEquals ( $tables['rows'][1], $rowone );
     }
     
     /*
@@ -221,7 +221,7 @@ class GetRangeTest extends SDKTestBase {
         
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -235,7 +235,7 @@ class GetRangeTest extends SDKTestBase {
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 10,
@@ -274,9 +274,9 @@ class GetRangeTest extends SDKTestBase {
         );
         $tables = $this->otsClient->getRange ( $getRange );
         // print_r($tables);die;
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowone );
-        $this->assertEquals ( $tables ['rows'] [1], $rowtwo );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowone );
+        $this->assertEquals ( $tables['rows'][1], $rowtwo );
     }
     
     /*
@@ -288,7 +288,7 @@ class GetRangeTest extends SDKTestBase {
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -302,7 +302,7 @@ class GetRangeTest extends SDKTestBase {
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::BACKWARD,
                 "limit" => 10,
                 "inclusive_start_primary_key" => array (
@@ -340,9 +340,9 @@ class GetRangeTest extends SDKTestBase {
         );
         $tables = $this->otsClient->getRange ( $getRange );
         // print_r($tables);die;
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowtwo );
-        $this->assertEquals ( $tables ['rows'] [1], $rowone );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowtwo );
+        $this->assertEquals ( $tables['rows'][1], $rowone );
     }
     
     /*
@@ -354,7 +354,7 @@ class GetRangeTest extends SDKTestBase {
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [3],
+                    "table_name" => $usedTables[3],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -372,7 +372,7 @@ class GetRangeTest extends SDKTestBase {
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [3],
+                "table_name" => $usedTables[3],
                 "direction" => DirectionConst::BACKWARD,
                 "columns_to_get" => array (
                         "att1",
@@ -418,11 +418,11 @@ array (
         );
         $tables = $this->otsClient->getRange ( $getRange );
         // print_r($tables);die;
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEmpty ( $tables ['rows'] [0] ['primary_key_columns'] );
-        $this->assertEmpty ( $tables ['rows'] [1] ['primary_key_columns'] );
-        $this->assertEquals ( $tables ['rows'] [0] ['attribute_columns'], $rowone );
-        $this->assertEquals ( $tables ['rows'] [1] ['attribute_columns'], $rowtwo );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEmpty ( $tables['rows'][0]['primary_key_columns'] );
+        $this->assertEmpty ( $tables['rows'][1]['primary_key_columns'] );
+        $this->assertEquals ( $tables['rows'][0]['attribute_columns'], $rowone );
+        $this->assertEquals ( $tables['rows'][1]['attribute_columns'], $rowtwo );
     }
     
     /*
@@ -434,7 +434,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [3],
+                    "table_name" => $usedTables[3],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -452,7 +452,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [3],
+                "table_name" => $usedTables[3],
                 "direction" => DirectionConst::BACKWARD,
                 "columns_to_get" => array (),
                 "limit" => 10,
@@ -506,9 +506,9 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowtwo );
-        $this->assertEquals ( $tables ['rows'] [1], $rowone );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowtwo );
+        $this->assertEquals ( $tables['rows'][1], $rowone );
     }
     
     /*
@@ -520,7 +520,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [3],
+                    "table_name" => $usedTables[3],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -538,7 +538,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [3],
+                "table_name" => $usedTables[3],
                 "direction" => DirectionConst::BACKWARD,
                 "columns_to_get" => array (
                         "PK1",
@@ -589,9 +589,9 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEquals ( $tables ['rows'] [0], $rowtwo );
-        $this->assertEquals ( $tables ['rows'] [1], $rowone );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEquals ( $tables['rows'][0], $rowtwo );
+        $this->assertEquals ( $tables['rows'][1], $rowone );
     }
     
     /*
@@ -603,7 +603,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -617,10 +617,10 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         for($i = 0; $i < 1001; $i ++) {
-            $a [] = 'a' . $i;
+            $a[] = 'a' . $i;
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => $a,
                 "limit" => 10,
@@ -646,7 +646,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -660,7 +660,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (
                         "att1",
@@ -677,11 +677,11 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
-        $this->assertEmpty ( $tables ['rows'] [0] ['primary_key_columns'] );
-        $this->assertEmpty ( $tables ['rows'] [1] ['primary_key_columns'] );
-        $this->assertEquals ( $tables ['rows'] [0] ['attribute_columns'] ['att1'], 1 );
-        $this->assertEquals ( $tables ['rows'] [1] ['attribute_columns'] ['att1'], 2 );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
+        $this->assertEmpty ( $tables['rows'][0]['primary_key_columns'] );
+        $this->assertEmpty ( $tables['rows'][1]['primary_key_columns'] );
+        $this->assertEquals ( $tables['rows'][0]['attribute_columns']['att1'], 1 );
+        $this->assertEquals ( $tables['rows'][1]['attribute_columns']['att1'], 2 );
     }
     
     /*
@@ -693,7 +693,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 21; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -706,7 +706,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 10,
@@ -725,7 +725,7 @@ array (
         );
         $tables = $this->otsClient->getRange ( $getRange );
         for($i = 1; $i < 11; $i ++) {
-            $row [] = array (
+            $row[] = array (
                     "primary_key_columns" => array (
                             "PK1" => $i,
                             "PK2" => "a" . $i 
@@ -735,15 +735,15 @@ array (
                     ) 
             );
         }
-        for($i = 0; $i < count ( $tables ['rows'] ); $i ++) {
-            $this->assertEquals ( $tables ['rows'] [$i], $row [$i] );
+        for($i = 0; $i < count ( $tables['rows'] ); $i ++) {
+            $this->assertEquals ( $tables['rows'][$i], $row[$i] );
         }
         $primary = array (
                 "PK1" => 11,
                 "PK2" => "a11" 
         );
-        $this->assertEquals ( $tables ['next_start_primary_key'], $primary );
-        $this->assertEquals ( count ( $tables ['rows'] ), 10 );
+        $this->assertEquals ( $tables['next_start_primary_key'], $primary );
+        $this->assertEquals ( count ( $tables['rows'] ), 10 );
     }
     
     /*
@@ -755,7 +755,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 2; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [0],
+                    "table_name" => $usedTables[0],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i,
@@ -768,7 +768,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 1,
@@ -795,7 +795,7 @@ array (
                         "att1" => 1 
                 ) 
         );
-        $this->assertEquals ( $tables ['rows'] [0], $row );
+        $this->assertEquals ( $tables['rows'][0], $row );
     }
     
     /*
@@ -869,7 +869,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 5001; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [1],
+                    "table_name" => $usedTables[1],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -879,7 +879,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -893,7 +893,7 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
     }
     
     /*
@@ -905,7 +905,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 5002; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [1],
+                    "table_name" => $usedTables[1],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -915,7 +915,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -929,7 +929,7 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange );
-        $this->assertNotEmpty ( $tables ['next_start_primary_key'] );
+        $this->assertNotEmpty ( $tables['next_start_primary_key'] );
     }
     
     /*
@@ -941,7 +941,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 15001; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [1],
+                    "table_name" => $usedTables[1],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -951,7 +951,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -966,7 +966,7 @@ array (
         );
         $this->otsClient->getRange ( $getRange );
         $getRange1 = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -981,7 +981,7 @@ array (
         );
         $this->otsClient->getRange ( $getRange1 );
         $getRange2 = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -996,7 +996,7 @@ array (
         );
         $this->otsClient->getRange ( $getRange2 );
         $getRange3 = array (
-                "table_name" => $usedTables [1],
+                "table_name" => $usedTables[1],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -1010,7 +1010,7 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange3 );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
     }
     
     /*
@@ -1022,7 +1022,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 10001; $i ++) {
             $tablename = array (
-                    "table_name" => $usedTables [2],
+                    "table_name" => $usedTables[2],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -1032,7 +1032,7 @@ array (
             $this->otsClient->putRow ( $tablename );
         }
         $getRange = array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -1049,7 +1049,7 @@ array (
         // $primary = array("PK1" => 5001);
         // $this->assertEquals($tables['next_start_primary_key'], $primary);
         $getRange1 = array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (),
                 "limit" => 5000,
@@ -1063,7 +1063,7 @@ array (
                 ) 
         );
         $tables = $this->otsClient->getRange ( $getRange1 );
-        $this->assertEmpty ( $tables ['next_start_primary_key'] );
+        $this->assertEmpty ( $tables['next_start_primary_key'] );
     }
     
     /**
@@ -1073,7 +1073,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 10001; $i ++) {
             $putdata = array (
-                    "table_name" => $usedTables [2],
+                    "table_name" => $usedTables[2],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -1087,7 +1087,7 @@ array (
         }
         
         $getRange = array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "direction" => DirectionConst::FORWARD,
                 "columns_to_get" => array (
                         "att1",
@@ -1119,7 +1119,7 @@ array (
                 ) 
         );
         $getRangeRes = $this->otsClient->getRange ( $getRange );
-        $this->assertNotEmpty ( $tables ['next_start_primary_key'] );
+        $this->assertNotEmpty ( $tables['next_start_primary_key'] );
     }
     
     /**
@@ -1129,7 +1129,7 @@ array (
         global $usedTables;
         for($i = 1; $i < 10001; $i ++) {
             $putdata = array (
-                    "table_name" => $usedTables [2],
+                    "table_name" => $usedTables[2],
                     "condition" => RowExistenceExpectationConst::IGNORE,
                     "primary_key" => array (
                             "PK1" => $i 
@@ -1143,7 +1143,7 @@ array (
         }
         
         $getRange = array (
-                "table_name" => $usedTables [2],
+                "table_name" => $usedTables[2],
                 "direction" => DirectionConst::BACKWARD,
                 "columns_to_get" => array (
                         "att1",

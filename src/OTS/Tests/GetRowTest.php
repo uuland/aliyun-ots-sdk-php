@@ -16,7 +16,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::STRING,
                         "PK2" => ColumnTypeConst::INTEGER,
@@ -34,7 +34,7 @@ SDKTestBase::createInitialTable ( array (
 SDKTestBase::waitForTableReady ();
 
 SDKTestBase::putInitialData ( array (
-        "table_name" => $usedTables [0],
+        "table_name" => $usedTables[0],
         "condition" => RowExistenceExpectationConst::IGNORE,
         "primary_key" => array (
                 "PK1" => "a1",
@@ -60,7 +60,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -75,7 +75,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -92,11 +92,11 @@ class GetRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $getrow = $this->otsClient->getRow ( $body );
-        $this->assertEmpty ( $getrow ['row'] ['primary_key_columns'] );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr1'], 1 );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr2'], "aa" );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr3'], "tas" );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr4'], 11 );
+        $this->assertEmpty ( $getrow['row']['primary_key_columns'] );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr1'], 1 );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr2'], "aa" );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr3'], "tas" );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr4'], 11 );
     }
     
     /*
@@ -108,7 +108,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -117,7 +117,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -134,14 +134,14 @@ class GetRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $getrow = $this->otsClient->getRow ( $body );
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'] ['PK1'], "a1" );
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'] ['PK2'], 1 );
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'] ['PK3'], "a11" );
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'] ['PK4'], 11 );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr1'], 1 );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr2'], "aa" );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr3'], "tas" );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'] ['attr4'], 11 );
+        $this->assertEquals ( $getrow['row']['primary_key_columns']['PK1'], "a1" );
+        $this->assertEquals ( $getrow['row']['primary_key_columns']['PK2'], 1 );
+        $this->assertEquals ( $getrow['row']['primary_key_columns']['PK3'], "a11" );
+        $this->assertEquals ( $getrow['row']['primary_key_columns']['PK4'], 11 );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr1'], 1 );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr2'], "aa" );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr3'], "tas" );
+        $this->assertEquals ( $getrow['row']['attribute_columns']['attr4'], 11 );
     }
     
     /*
@@ -152,7 +152,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -162,7 +162,7 @@ class GetRowTest extends SDKTestBase {
                 "columns_to_get" => array () 
         );
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -179,8 +179,8 @@ class GetRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $getrow = $this->otsClient->getRow ( $body );
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'], $tablename ['primary_key'] );
-        $this->assertEquals ( $getrow ['row'] ['attribute_columns'], $tablename ['attribute_columns'] );
+        $this->assertEquals ( $getrow['row']['primary_key_columns'], $tablename['primary_key'] );
+        $this->assertEquals ( $getrow['row']['attribute_columns'], $tablename['attribute_columns'] );
     }
     
     /*
@@ -191,7 +191,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -206,7 +206,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -223,10 +223,10 @@ class GetRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $getrow = $this->otsClient->getRow ( $body );
-        $this->assertArrayHasKey ( "PK1", $getrow ['row'] ['primary_key_columns'] );
-        $this->assertArrayHasKey ( "PK2", $getrow ['row'] ['primary_key_columns'] );
-        $this->assertArrayHasKey ( "attr1", $getrow ['row'] ['attribute_columns'] );
-        $this->assertArrayHasKey ( "attr2", $getrow ['row'] ['attribute_columns'] );
+        $this->assertArrayHasKey ( "PK1", $getrow['row']['primary_key_columns'] );
+        $this->assertArrayHasKey ( "PK2", $getrow['row']['primary_key_columns'] );
+        $this->assertArrayHasKey ( "attr1", $getrow['row']['attribute_columns'] );
+        $this->assertArrayHasKey ( "attr2", $getrow['row']['attribute_columns'] );
     }
     
     /*
@@ -237,11 +237,11 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         for($a = 1; $a < 1000; $a ++) {
-            $b [] = 'a' . $a;
+            $b[] = 'a' . $a;
         }
         // echo $b;
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -262,7 +262,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a1",
                         "PK2" => 1,
@@ -275,7 +275,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -294,7 +294,7 @@ class GetRowTest extends SDKTestBase {
         $getrow = $this->otsClient->getRow ( $body );
         // if (is_array($getrow)) {
         // print_r($getrow);die;
-        $this->assertEquals ( $getrow ['row'] ['primary_key_columns'] ["PK1"], $body ['primary_key'] ['PK1'] );
+        $this->assertEquals ( $getrow['row']['primary_key_columns']["PK1"], $body['primary_key']['PK1'] );
         // }
     }
     
@@ -305,7 +305,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $putdata1 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -321,7 +321,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $putdata2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a2",
@@ -339,7 +339,7 @@ class GetRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $putdata1 );
         $this->otsClient->putRow ( $putdata2 );
         $querybody = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a2",
                         "PK2" => 2,
@@ -369,10 +369,10 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $getrowres = $this->otsClient->getRow ( $querybody );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK1"], $putdata2 ['primary_key'] ['PK1'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK2"], $putdata2 ['primary_key'] ['PK2'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK3"], $putdata2 ['primary_key'] ['PK3'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK4"], $putdata2 ['primary_key'] ['PK4'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK1"], $putdata2['primary_key']['PK1'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK2"], $putdata2['primary_key']['PK2'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK3"], $putdata2['primary_key']['PK3'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK4"], $putdata2['primary_key']['PK4'] );
     }
     
     /**
@@ -382,7 +382,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $putdata1 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -398,7 +398,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $putdata2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "aa2",
@@ -416,7 +416,7 @@ class GetRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $putdata1 );
         $this->otsClient->putRow ( $putdata2 );
         $querybody = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "aa2",
                         "PK2" => 2,
@@ -442,10 +442,10 @@ class GetRowTest extends SDKTestBase {
         );
         $getrowres = $this->otsClient->getRow ( $querybody );
         
-        $this->assertEquals ( $getrowres ['row'] ['attribute_columns'] ["attr1"], $putdata2 ['attribute_columns'] ['attr1'] );
-        $this->assertEquals ( $getrowres ['row'] ['attribute_columns'] ["attr2"], $putdata2 ['attribute_columns'] ['attr2'] );
-        $this->assertEquals ( $getrowres ['row'] ['attribute_columns'] ["attr3"], $putdata2 ['attribute_columns'] ['attr3'] );
-        $this->assertEquals ( $getrowres ['row'] ['attribute_columns'] ["attr4"], $putdata2 ['attribute_columns'] ['attr4'] );
+        $this->assertEquals ( $getrowres['row']['attribute_columns']["attr1"], $putdata2['attribute_columns']['attr1'] );
+        $this->assertEquals ( $getrowres['row']['attribute_columns']["attr2"], $putdata2['attribute_columns']['attr2'] );
+        $this->assertEquals ( $getrowres['row']['attribute_columns']["attr3"], $putdata2['attribute_columns']['attr3'] );
+        $this->assertEquals ( $getrowres['row']['attribute_columns']["attr4"], $putdata2['attribute_columns']['attr4'] );
     }
     
     /**
@@ -455,7 +455,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $putdata1 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -471,7 +471,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $putdata2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a2",
@@ -489,7 +489,7 @@ class GetRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $putdata1 );
         $this->otsClient->putRow ( $putdata2 );
         $querybody = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a2",
                         "PK2" => 2,
@@ -520,8 +520,8 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $getrowres = $this->otsClient->getRow ( $querybody );
-        $this->assertEquals ( count ( $getrowres ['row'] ['primary_key_columns'] ), 0 );
-        $this->assertEquals ( count ( $getrowres ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $getrowres['row']['primary_key_columns'] ), 0 );
+        $this->assertEquals ( count ( $getrowres['row']['attribute_columns'] ), 0 );
     }
     
     /**
@@ -531,7 +531,7 @@ class GetRowTest extends SDKTestBase {
         global $usedTables;
         
         $putdata1 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a1",
@@ -547,7 +547,7 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $putdata2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "a2",
@@ -565,7 +565,7 @@ class GetRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $putdata1 );
         $this->otsClient->putRow ( $putdata2 );
         $querybody = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => "a2",
                         "PK2" => 2,
@@ -610,10 +610,10 @@ class GetRowTest extends SDKTestBase {
                 ) 
         );
         $getrowres = $this->otsClient->getRow ( $querybody );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK1"], $putdata2 ['primary_key'] ['PK1'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK2"], $putdata2 ['primary_key'] ['PK2'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK3"], $putdata2 ['primary_key'] ['PK3'] );
-        $this->assertEquals ( $getrowres ['row'] ['primary_key_columns'] ["PK4"], $putdata2 ['primary_key'] ['PK4'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK1"], $putdata2['primary_key']['PK1'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK2"], $putdata2['primary_key']['PK2'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns']["PK3"], $putdata2['primary_key']['PK3'] );
+        $this->assertEquals ( $getrowres['row']['primary_key_columns'] ["PK4"], $putdata2 ['primary_key'] ['PK4'] );
     }
 }
 

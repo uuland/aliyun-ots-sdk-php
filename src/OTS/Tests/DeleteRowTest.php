@@ -16,7 +16,7 @@ $usedTables = array (
 SDKTestBase::cleanUp ( $usedTables );
 SDKTestBase::createInitialTable ( array (
         "table_meta" => array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                         "PK1" => ColumnTypeConst::INTEGER,
                         "PK2" => ColumnTypeConst::STRING 
@@ -64,7 +64,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testColumnInPK() {
         global $usedTables;
         $deleterow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => "aaa",
@@ -91,7 +91,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowNotExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -104,7 +104,7 @@ class DeleteRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $deleterow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
                 "primary_key" => array (
                         "PK1" => 2,
@@ -128,7 +128,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -141,7 +141,7 @@ class DeleteRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $deleterow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -150,7 +150,7 @@ class DeleteRowTest extends SDKTestBase {
         );
         $this->otsClient->deleteRow ( $deleterow );
         $body = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 1,
                         "PK2" => "a1" 
@@ -159,8 +159,8 @@ class DeleteRowTest extends SDKTestBase {
         );
         $getrow = $this->otsClient->getRow ( $body );
         // print_r($getrow);die;
-        $this->assertEmpty ( $getrow ['row'] ['primary_key_columns'] );
-        $this->assertEmpty ( $getrow ['row'] ['attribute_columns'] );
+        $this->assertEmpty ( $getrow['row']['primary_key_columns'] );
+        $this->assertEmpty ( $getrow['row']['attribute_columns'] );
     }
     
     /*
@@ -172,7 +172,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectNotExistConditionWhenRowNotExist() {
         global $usedTables;
         $deleterow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -194,7 +194,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectNotExistConditionWhenRowExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -207,7 +207,7 @@ class DeleteRowTest extends SDKTestBase {
         );
         $this->otsClient->putRow ( $tablename );
         $deleterow = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -229,7 +229,7 @@ class DeleteRowTest extends SDKTestBase {
     public function testDeleteRowWithColumnCondition() {
         global $usedTables;
         $put_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -243,7 +243,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $put_query );
         
         $delete_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => array (
                         "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
                         "column_filter" => array (
@@ -260,7 +260,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->deleteRow ( $delete_query );
         
         $get_query = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "primary_key" => array (
                         "PK1" => 1,
                         "PK2" => "a1" 
@@ -271,10 +271,10 @@ class DeleteRowTest extends SDKTestBase {
                 ) 
         );
         $get_row_res = $this->otsClient->getRow ( $get_query );
-        $this->assertEquals ( count ( $get_row_res ['row'] ['attribute_columns'] ), 0 );
+        $this->assertEquals ( count ( $get_row_res['row']['attribute_columns'] ), 0 );
         
         $put_query2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => RowExistenceExpectationConst::IGNORE,
                 "primary_key" => array (
                         "PK1" => 1,
@@ -288,7 +288,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->putRow ( $put_query2 );
         
         $delete_query2 = array (
-                "table_name" => $usedTables [0],
+                "table_name" => $usedTables[0],
                 "condition" => array (
                         "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
                         "column_filter" => array (
