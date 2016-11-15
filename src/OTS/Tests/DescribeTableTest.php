@@ -9,14 +9,14 @@ require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
 $usedTables = array (
-        "test5",
-        "test" 
+    "test5",
+    "test"
 );
 
-SDKTestBase::cleanUp ( $usedTables );
+SDKTestBase::cleanUp ($usedTables);
 class DescribeTableTest extends SDKTestBase {
     public function setup() {
-        $this->cleanUp ();
+       $this->cleanUp ();
     }
     
     /*
@@ -27,31 +27,31 @@ class DescribeTableTest extends SDKTestBase {
         global $usedTables;
         
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[0],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::INTEGER,
-                                "PK2" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[0],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::INTEGER,
+                    "PK2" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::INTEGER 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::INTEGER
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -62,31 +62,31 @@ class DescribeTableTest extends SDKTestBase {
         global $usedTables;
         
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[0],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::STRING 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[0],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::STRING
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::STRING,
-                        "PK2" => ColumnTypeConst::STRING 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::STRING
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -98,34 +98,34 @@ class DescribeTableTest extends SDKTestBase {
         global $usedTables;
         
         $invalidTypes = array (
-                ColumnTypeConst::DOUBLE,
-                ColumnTypeConst::BOOLEAN,
-                ColumnTypeConst::INF_MIN,
-                ColumnTypeConst::INF_MAX 
+            ColumnTypeConst::DOUBLE,
+            ColumnTypeConst::BOOLEAN,
+            ColumnTypeConst::INF_MIN,
+            ColumnTypeConst::INF_MAX
         );
         
-        foreach ( $invalidTypes as $type ) {
+        foreach ($invalidTypes as $type) {
             $request = array (
-                    "table_meta" => array (
-                            "table_name" => $usedTables[1],
-                            "primary_key_schema" => array (
-                                    "PK1" => $type 
-                            ) 
-                    ),
-                    "reserved_throughput" => array (
-                            "capacity_unit" => array (
-                                    "read" => 0,
-                                    "write" => 0 
-                            ) 
-                    ) 
+                "table_meta" => array (
+                    "table_name" => $usedTables[1],
+                    "primary_key_schema" => array (
+                        "PK1" => $type
+                    )
+                ),
+                "reserved_throughput" => array (
+                    "capacity_unit" => array (
+                        "read" => 0,
+                        "write" => 0
+                    )
+                )
             );
             
             try {
-                $this->otsClient->createTable ( $request );
-                $this->fail ( 'An expected exception has not been raised.' );
-            } catch ( \Aliyun\OTS\OTSServerException $e ) {
+                $this->otsClient->createTable ($request);
+                $this->fail ('An expected exception has not been raised.');
+            } catch (\Aliyun\OTS\OTSServerException $e) {
                 $c = "$type is an invalid type for the primary key.";
-                $this->assertEquals ( $c, $e->getOTSErrorMessage () );
+                $this->assertEquals ($c, $e->getOTSErrorMessage ());
             }
         }
     }

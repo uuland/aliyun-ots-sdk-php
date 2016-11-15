@@ -9,13 +9,13 @@ require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
 $usedTables = array (
-        "myTable",
-        "myTable1" 
+    "myTable",
+    "myTable1"
 );
 class listTableTest extends SDKTestBase {
     public function setup() {
         global $usedTables;
-        $this->cleanUp ( $usedTables );
+        $this->cleanUp ($usedTables);
     }
     
     /*
@@ -23,7 +23,7 @@ class listTableTest extends SDKTestBase {
      * 在没有表的情况下 ListTable，期望返回0个Table Name
      */
     public function testListTableWith0Table() {
-        $this->assertEmpty ( $this->otsClient->listTable ( array () ) );
+        $this->assertEmpty ($this->otsClient->listTable (array ()));
     }
     /*
      * ListTableWith1Table
@@ -33,28 +33,28 @@ class listTableTest extends SDKTestBase {
         global $usedTables;
         
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[0],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[0],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->otsClient->CreateTable ( $tablebody );
+        $this->otsClient->CreateTable ($tablebody);
         $table_name = array (
-                $usedTables[0] 
+            $usedTables[0]
         );
-        $this->assertEquals ( $this->otsClient->listTable ( array () ), $table_name );
+        $this->assertEquals ($this->otsClient->listTable (array ()), $table_name);
     }
     
     /*
@@ -64,52 +64,52 @@ class listTableTest extends SDKTestBase {
     public function testListTableWith2Tables() {
         global $usedTables;
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[0],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[0],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         $tablebody1 = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[1],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[1],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->otsClient->CreateTable ( $tablebody );
-        $this->otsClient->CreateTable ( $tablebody1 );
+        $this->otsClient->CreateTable ($tablebody);
+        $this->otsClient->CreateTable ($tablebody1);
         $table_name = array (
-                $usedTables[0],
-                $usedTables[1] 
+            $usedTables[0],
+            $usedTables[1]
         );
-        $this->assertEquals ( $this->otsClient->listTable ( array () ), $table_name );
+        $this->assertEquals ($this->otsClient->listTable (array ()), $table_name);
     }
     public function testListTable40Times() {
         for($i = 0; $i < 40; $i ++) {
-            $this->otsClient->listTable ( array () );
+            $this->otsClient->listTable (array () );
         }
     }
 }

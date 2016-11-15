@@ -9,10 +9,10 @@ require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
 $usedTables = array (
-        "myTable" 
+    "myTable"
 );
 
-SDKTestBase::cleanUp ( $usedTables );
+SDKTestBase::cleanUp ($usedTables);
 class DeleteTableTest extends SDKTestBase {
     
     /*
@@ -23,31 +23,31 @@ class DeleteTableTest extends SDKTestBase {
     public function testDeleteTable() {
         global $usedTables;
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $usedTables[0],
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $usedTables[0],
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->otsClient->createTable ( $tablebody );
+        $this->otsClient->createTable ($tablebody);
         
         $request = array (
-                "table_name" => $usedTables[0] 
+            "table_name" => $usedTables[0]
         );
         // print_r($this->listtable->ListTable());
-        $response = $this->otsClient->deleteTable ( $request );
-        $this->assertEquals ( $response, array () );
-        $this->assertEmpty ( $this->otsClient->listTable ( array () ) );
+        $response = $this->otsClient->deleteTable ($request);
+        $this->assertEquals ($response, array ());
+        $this->assertEmpty ($this->otsClient->listTable (array ()));
     }
     
     /*
@@ -57,15 +57,15 @@ class DeleteTableTest extends SDKTestBase {
      */
     public function testDeleteTableEmpty() {
         $request = array (
-                "table_name" => "" 
+            "table_name" => ""
         );
         
         try {
-            $this->otsClient->deleteTable ( $request );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteTable ($request);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid table name: ''.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -76,15 +76,15 @@ class DeleteTableTest extends SDKTestBase {
      */
     public function testNotExiteTableName() {
         $request = array (
-                "table_name" => "TableThatNotExisting" 
+            "table_name" => "TableThatNotExisting"
         );
         
         try {
-            $this->otsClient->deleteTable ( $request );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteTable ($request);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Requested table does not exist.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
 }

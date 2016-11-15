@@ -10,25 +10,25 @@ require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 
 $usedTables = array (
-        "myTable" 
+    "myTable"
 );
 
-SDKTestBase::cleanUp ( $usedTables );
-SDKTestBase::createInitialTable ( array (
-        "table_meta" => array (
-                "table_name" => $usedTables[0],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING 
-                ) 
-        ),
-        "reserved_throughput" => array (
-                "capacity_unit" => array (
-                        "read" => 0,
-                        "write" => 0 
-                ) 
-        ) 
-) );
+SDKTestBase::cleanUp ($usedTables);
+SDKTestBase::createInitialTable (array (
+    "table_meta" => array (
+        "table_name" => $usedTables[0],
+        "primary_key_schema" => array (
+            "PK1" => ColumnTypeConst::INTEGER,
+            "PK2" => ColumnTypeConst::STRING
+        )
+    ),
+    "reserved_throughput" => array (
+        "capacity_unit" => array (
+            "read" => 0,
+            "write" => 0
+        )
+    )
+));
 SDKTestBase::waitForTableReady ();
 class DeleteRowTest extends SDKTestBase {
     
@@ -40,19 +40,19 @@ class DeleteRowTest extends SDKTestBase {
     public function testTableNameOfZeroLength() {
         global $usedTables;
         $deleterow = array (
-                "table_name" => "",
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => "",
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $deleterow );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($deleterow);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid table name: ''.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -64,22 +64,22 @@ class DeleteRowTest extends SDKTestBase {
     public function testColumnInPK() {
         global $usedTables;
         $deleterow = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => "aaa",
-                        "PK2" => "cc",
-                        "PK3" => "ccd",
-                        "PK4" => "cds",
-                        "PK5" => "11s" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => "aaa",
+                "PK2" => "cc",
+                "PK3" => "ccd",
+                "PK4" => "cds",
+                "PK5" => "11s"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $deleterow );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($deleterow);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "The number of primary key columns must be in range: [1, 4].";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -91,32 +91,32 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowNotExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "attribute_columns" => array (
-                        "att1" => "asds",
-                        "att2" => "sdsd" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "attribute_columns" => array (
+                "att1" => "asds",
+                "att2" => "sdsd"
+            )
         );
-        $this->otsClient->putRow ( $tablename );
+        $this->otsClient->putRow ($tablename);
         $deleterow = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
-                "primary_key" => array (
-                        "PK1" => 2,
-                        "PK2" => "a2" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+            "primary_key" => array (
+                "PK1" => 2,
+                "PK2" => "a2"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $deleterow );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($deleterow);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Condition check failed.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -128,39 +128,39 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectExistConditionWhenRowExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "attribute_columns" => array (
-                        "att1" => "asds",
-                        "att2" => "sdsd" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "attribute_columns" => array (
+                "att1" => "asds",
+                "att2" => "sdsd"
+            )
         );
-        $this->otsClient->putRow ( $tablename );
+        $this->otsClient->putRow ($tablename);
         $deleterow = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
-        $this->otsClient->deleteRow ( $deleterow );
+        $this->otsClient->deleteRow ($deleterow);
         $body = array (
-                "table_name" => $usedTables[0],
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "columns_to_get" => array () 
+            "table_name" => $usedTables[0],
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "columns_to_get" => array ()
         );
-        $getrow = $this->otsClient->getRow ( $body );
+        $getrow = $this->otsClient->getRow ($body);
         // print_r($getrow);die;
-        $this->assertEmpty ( $getrow['row']['primary_key_columns'] );
-        $this->assertEmpty ( $getrow['row']['attribute_columns'] );
+        $this->assertEmpty ($getrow['row']['primary_key_columns']);
+        $this->assertEmpty ($getrow['row']['attribute_columns']);
     }
     
     /*
@@ -172,19 +172,19 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectNotExistConditionWhenRowNotExist() {
         global $usedTables;
         $deleterow = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $deleterow );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($deleterow);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid condition: EXPECT_NOT_EXIST while deleting row.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     /*
@@ -194,32 +194,32 @@ class DeleteRowTest extends SDKTestBase {
     public function testExpectNotExistConditionWhenRowExist() {
         global $usedTables;
         $tablename = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "attribute_columns" => array (
-                        "att1" => "asds",
-                        "att2" => "sdsd" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "attribute_columns" => array (
+                "att1" => "asds",
+                "att2" => "sdsd"
+            )
         );
-        $this->otsClient->putRow ( $tablename );
+        $this->otsClient->putRow ($tablename);
         $deleterow = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $deleterow );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($deleterow);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid condition: EXPECT_NOT_EXIST while deleting row.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -229,83 +229,83 @@ class DeleteRowTest extends SDKTestBase {
     public function testDeleteRowWithColumnCondition() {
         global $usedTables;
         $put_query = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "attribute_columns" => array (
-                        "att1" => "asds",
-                        "att2" => "sdsd" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "attribute_columns" => array (
+                "att1" => "asds",
+                "att2" => "sdsd"
+            )
         );
-        $this->otsClient->putRow ( $put_query );
+        $this->otsClient->putRow ($put_query);
         
         $delete_query = array (
-                "table_name" => $usedTables[0],
-                "condition" => array (
-                        "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
-                        "column_filter" => array (
-                                "column_name" => "attr1",
-                                "value" => "asds",
-                                "comparator" => ComparatorTypeConst::EQUAL 
-                        ) 
-                ),
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => array (
+                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "column_filter" => array (
+                    "column_name" => "attr1",
+                    "value" => "asds",
+                    "comparator" => ComparatorTypeConst::EQUAL
+                )
+            ),
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
-        $this->otsClient->deleteRow ( $delete_query );
+        $this->otsClient->deleteRow ($delete_query);
         
         $get_query = array (
-                "table_name" => $usedTables[0],
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "columns_to_get" => array (
-                        "attr1",
-                        "attr2" 
-                ) 
+            "table_name" => $usedTables[0],
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "columns_to_get" => array (
+                "attr1",
+                "attr2"
+            )
         );
-        $get_row_res = $this->otsClient->getRow ( $get_query );
-        $this->assertEquals ( count ( $get_row_res['row']['attribute_columns'] ), 0 );
+        $get_row_res = $this->otsClient->getRow ($get_query);
+        $this->assertEquals (count ($get_row_res['row']['attribute_columns']), 0);
         
         $put_query2 = array (
-                "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ),
-                "attribute_columns" => array (
-                        "att1" => "asds",
-                        "att2" => "sdsd" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => RowExistenceExpectationConst::IGNORE,
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            ),
+            "attribute_columns" => array (
+                "att1" => "asds",
+                "att2" => "sdsd"
+            )
         );
-        $this->otsClient->putRow ( $put_query2 );
+        $this->otsClient->putRow ($put_query2);
         
         $delete_query2 = array (
-                "table_name" => $usedTables[0],
-                "condition" => array (
-                        "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
-                        "column_filter" => array (
-                                "column_name" => "att1",
-                                "value" => "asdsddd",
-                                "comparator" => ComparatorTypeConst::EQUAL 
-                        ) 
-                ),
-                "primary_key" => array (
-                        "PK1" => 1,
-                        "PK2" => "a1" 
-                ) 
+            "table_name" => $usedTables[0],
+            "condition" => array (
+                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "column_filter" => array (
+                    "column_name" => "att1",
+                    "value" => "asdsddd",
+                    "comparator" => ComparatorTypeConst::EQUAL
+                )
+            ),
+            "primary_key" => array (
+                "PK1" => 1,
+                "PK2" => "a1"
+            )
         );
         try {
-            $this->otsClient->deleteRow ( $delete_query2 );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->deleteRow ($delete_query2);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $a = $exc->getMessage ();
             $c = "Condition check failed.";
             $this->assertContains ( $c, $a );

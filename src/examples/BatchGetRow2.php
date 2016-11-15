@@ -6,136 +6,136 @@ use Aliyun\OTS\OTSClient as OTSClient;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
-$otsClient = new OTSClient ( array(
+$otsClient = new OTSClient (array (
     'EndPoint' => EXAMPLE_END_POINT,
     'AccessKeyID' => EXAMPLE_ACCESS_KEY_ID,
     'AccessKeySecret' => EXAMPLE_ACCESS_KEY_SECRET,
     'InstanceName' => EXAMPLE_INSTANCE_NAME
-) );
+));
 
-$request = array(
-    'table_meta' => array(
+$request = array (
+    'table_meta' => array (
         'table_name' => 'MyTable', // 表名为 MyTable
-        'primary_key_schema' => array(
+        'primary_key_schema' => array (
             'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
             'PK1' => ColumnTypeConst::STRING
         )
     ), // 第二个主键列名称为PK1, 类型为STRING
     
-    'reserved_throughput' => array(
-        'capacity_unit' => array(
+    'reserved_throughput' => array (
+        'capacity_unit' => array (
             'read' => 0, // 预留读写吞吐量设置为：0个读CU，和0个写CU
             'write' => 0
         )
     )
 );
-$otsClient->createTable ( $request );
-sleep ( 10 );
+$otsClient->createTable ($request);
+sleep (10);
 
-$request = array(
+$request = array (
     'table_name' => 'MyTable',
     'condition' => RowExistenceExpectationConst::IGNORE,
-    'primary_key' => array(
+    'primary_key' => array (
         'PK0' => 1,
         'PK1' => 'Zhejiang'
     ),
-    'attribute_columns' => array(
+    'attribute_columns' => array (
         'attr1' => 'Hangzhou'
     )
 );
-$response = $otsClient->putRow ( $request );
+$response = $otsClient->putRow ($request);
 
-$request = array(
+$request = array (
     'table_name' => 'MyTable',
     'condition' => RowExistenceExpectationConst::IGNORE,
-    'primary_key' => array(
+    'primary_key' => array (
         'PK0' => 2,
         'PK1' => 'Jiangsu'
     ),
-    'attribute_columns' => array(
+    'attribute_columns' => array (
         'attr1' => 'Nanjing'
     )
 );
-$response = $otsClient->putRow ( $request );
+$response = $otsClient->putRow ($request);
 
-$request = array(
+$request = array (
     'table_name' => 'MyTable',
     'condition' => RowExistenceExpectationConst::IGNORE,
-    'primary_key' => array(
+    'primary_key' => array (
         'PK0' => 3,
         'PK1' => 'Guangdong'
     ),
-    'attribute_columns' => array(
+    'attribute_columns' => array (
         'attr1' => 'Shenzhen'
     )
 );
-$response = $otsClient->putRow ( $request );
+$response = $otsClient->putRow ($request);
 
-$request = array(
-    'tables' => array(
-        array(
+$request = array (
+    'tables' => array (
+        array (
             'table_name' => 'MyTable1', // 第一个表
-            'rows' => array(
-                array(
-                    'primary_key' => array(
+            'rows' => array (
+                array (
+                    'primary_key' => array (
                         'PK0' => 1,
                         'PK1' => 'Zhejiang'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 2,
                         'PK1' => 'Jiangsu'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 3,
                         'PK1' => 'Guangdong'
                     )
                 )
             )
         ),
-        array(
+        array (
             'table_name' => 'MyTable2', // 第二个表
-            'rows' => array(
-                array(
-                    'primary_key' => array(
+            'rows' => array (
+                array (
+                    'primary_key' => array (
                         'PK0' => 4,
                         'PK1' => 'a'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 5,
                         'PK1' => 'b'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 6,
                         'PK1' => 'c'
                     )
                 )
             )
         ),
-        array(
+        array (
             'table_name' => 'MyTable3', // 第三个表
-            'rows' => array(
-                array(
-                    'primary_key' => array(
+            'rows' => array (
+                array (
+                    'primary_key' => array (
                         'PK0' => 7,
                         'PK1' => 'd'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 8,
                         'PK1' => 'e'
                     )
                 ),
-                array(
-                    'primary_key' => array(
+                array (
+                    'primary_key' => array (
                         'PK0' => 9,
                         'PK1' => 'f'
                     )
@@ -144,8 +144,8 @@ $request = array(
         )
     )
 );
-$response = $otsClient->batchGetRow ( $request );
-print json_encode ( $response );
+$response = $otsClient->batchGetRow ($request);
+print json_encode ($response);
 
 /* 样例输出：
 {

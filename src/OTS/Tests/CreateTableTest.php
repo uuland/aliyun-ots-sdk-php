@@ -9,10 +9,10 @@ require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
 class CreateTableTest extends SDKTestBase {
     public function setup() {
-        $table_name = $this->otsClient->listTable ( array () );
-        for($i = 0; $i < count ( $table_name ); $i ++) {
+        $table_name = $this->otsClient->listTable (array ());
+        for($i = 0; $i < count ($table_name); $i ++) {
             $tablename['table_name'] = $table_name[$i];
-            $this->otsClient->deleteTable ( $tablename );
+            $this->otsClient->deleteTable ($tablename);
         }
     }
     
@@ -23,41 +23,41 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testCreateTable() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "myTable",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "myTable",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->otsClient->createTable ( $tablebody );
+        $this->otsClient->createTable ($tablebody);
         $tablename = array (
-                "myTable" 
+            "myTable"
         );
         // $tablename['mytable'] = 111;
-        $this->assertEquals ( $this->otsClient->listTable ( array () ), $tablename );
+        $this->assertEquals ($this->otsClient->listTable (array ()), $tablename);
         // $this->assertContains();
         $table_name['table_name'] = "myTable";
         $teturn = array (
-                "table_name" => "myTable",
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::STRING,
-                        "PK2" => ColumnTypeConst::INTEGER,
-                        "PK3" => ColumnTypeConst::STRING,
-                        "PK4" => ColumnTypeConst::INTEGER 
-                ) 
+            "table_name" => "myTable",
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::INTEGER,
+                "PK3" => ColumnTypeConst::STRING,
+                "PK4" => ColumnTypeConst::INTEGER
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $table_name );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($table_name);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
         // $this->otsClient->deleteTable($table_name);
     }
     
@@ -67,28 +67,28 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testTableNameOfZeroLength() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid table name: ''.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -98,28 +98,28 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testTableNameWithUnicode() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "testU+0053",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "testU+0053",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid table name: '{$tablebody['table_meta']['table_name']}'.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -133,28 +133,28 @@ class CreateTableTest extends SDKTestBase {
             $name .= "a";
         }
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => $name,
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => $name,
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "Invalid table name: '{$tablebody['table_meta']['table_name']}'.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -164,23 +164,23 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testNoPKInSchema() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test2",
-                        "primary_key_schema" => array () 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test2",
+                "primary_key_schema" => array ()
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "The number of primary key columns must be in range: [1, 4]."; // TODO make right expect
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -190,29 +190,29 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testOnePKInSchema() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test3",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test3",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::STRING 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::STRING
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -221,36 +221,36 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testFourPKInSchema() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test4",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::INTEGER,
-                                "PK3" => ColumnTypeConst::STRING,
-                                "PK4" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test4",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::INTEGER,
+                    "PK3" => ColumnTypeConst::STRING,
+                    "PK4" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::STRING,
-                        "PK2" => ColumnTypeConst::INTEGER,
-                        "PK3" => ColumnTypeConst::STRING,
-                        "PK4" => ColumnTypeConst::INTEGER 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::INTEGER,
+                "PK3" => ColumnTypeConst::STRING,
+                "PK4" => ColumnTypeConst::INTEGER
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -264,23 +264,23 @@ class CreateTableTest extends SDKTestBase {
         }
         // print_r($key);die;
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test",
-                        "primary_key_schema" => $key 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test",
+                "primary_key_schema" => $key
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "The number of primary key columns must be in range: [1, 4].";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
     }
     
@@ -290,31 +290,31 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testIntegerPKInSchema() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test5",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::INTEGER,
-                                "PK2" => ColumnTypeConst::INTEGER 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test5",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::INTEGER,
+                    "PK2" => ColumnTypeConst::INTEGER
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::INTEGER 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::INTEGER,
+                "PK2" => ColumnTypeConst::INTEGER
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -323,31 +323,31 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testStringPKInSchema() {
         $tablebody = array (
-                "table_meta" => array (
-                        "table_name" => "test5",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::STRING,
-                                "PK2" => ColumnTypeConst::STRING 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test5",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::STRING,
+                    "PK2" => ColumnTypeConst::STRING
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
-        $this->assertEmpty ( $this->otsClient->createTable ( $tablebody ) );
+        $this->assertEmpty ($this->otsClient->createTable ($tablebody));
         $tablename['table_name'] = $tablebody['table_meta']['table_name'];
         $teturn = array (
-                "table_name" => $tablebody['table_meta']['table_name'],
-                "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::STRING,
-                        "PK2" => ColumnTypeConst::STRING 
-                ) 
+            "table_name" => $tablebody['table_meta']['table_name'],
+            "primary_key_schema" => array (
+                "PK1" => ColumnTypeConst::STRING,
+                "PK2" => ColumnTypeConst::STRING
+            )
         );
-        $table_meta = $this->otsClient->describeTable ( $tablename );
-        $this->assertEquals ( $teturn, $table_meta['table_meta'] );
+        $table_meta = $this->otsClient->describeTable ($tablename);
+        $this->assertEquals ($teturn, $table_meta['table_meta']);
     }
     
     /*
@@ -357,58 +357,59 @@ class CreateTableTest extends SDKTestBase {
      */
     public function testInvalidPKInSchema() {
         $tablebody1 = array (
-                "table_meta" => array (
-                        "table_name" => "test",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::DOUBLE,
-                                "PK2" => ColumnTypeConst::DOUBLE 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::DOUBLE,
+                    "PK2" => ColumnTypeConst::DOUBLE
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         $tablebody2 = array (
-                "table_meta" => array (
-                        "table_name" => "test",
-                        "primary_key_schema" => array (
-                                "PK1" => ColumnTypeConst::BOOLEAN,
-                                "PK2" => ColumnTypeConst::BOOLEAN 
-                        ) 
-                ),
-                "reserved_throughput" => array (
-                        "capacity_unit" => array (
-                                "read" => 0,
-                                "write" => 0 
-                        ) 
-                ) 
+            "table_meta" => array (
+                "table_name" => "test",
+                "primary_key_schema" => array (
+                    "PK1" => ColumnTypeConst::BOOLEAN,
+                    "PK2" => ColumnTypeConst::BOOLEAN
+                )
+            ),
+            "reserved_throughput" => array (
+                "capacity_unit" => array (
+                    "read" => 0,
+                    "write" => 0
+                )
+            )
         );
         try {
-            $this->otsClient->createTable ( $tablebody1 );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->otsClient->createTable ($tablebody1);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "DOUBLE is an invalid type for the primary key.";
-            $this->assertEquals ( $c, $exc->getOTSErrorMessage () );
+            $this->assertEquals ($c, $exc->getOTSErrorMessage ());
         }
         try {
-            $this->otsClient->createTable ( $tablebody2 );
-            $this->fail ( 'An expected exception has not been raised.' );
-        } catch ( \Aliyun\OTS\OTSClientException $exc ) {
+            $this->otsClient->createTable ($tablebody2);
+            $this->fail ('An expected exception has not been raised.');
+        } catch (\Aliyun\OTS\OTSClientException $exc) {
             $c = "Column type must be one of 'INTEGER', 'STRING', 'BOOLEAN', 'DOUBLE', 'BINARY', 'INF_MIN', or 'INF_MAX'.";
-            $this->assertEquals ( $c, $exc->getMessage () );
-        } catch ( \Aliyun\OTS\OTSServerException $exc ) {
+            $this->assertEquals ($c, $exc->getMessage ());
+        } catch (\Aliyun\OTS\OTSServerException $exc) {
             $c = "BOOLEAN is an invalid type for the primary key.";
-            $this->assertContains ( $c, $exc->getMessage () );
+            $this->assertContains ($c, $exc->getMessage ());
         }
     }
+    
     public function tearDown() {
-        $table_name = $this->otsClient->listTable ( array () );
-        for($i = 0; $i < count ( $table_name ); $i ++) {
+        $table_name = $this->otsClient->listTable (array ());
+        for($i = 0; $i < count ($table_name); $i ++) {
             $tablename['table_name'] = $table_name[$i];
-            $this->otsClient->deleteTable ( $tablename );
+            $this->otsClient->deleteTable ($tablename );
         }
     }
 }
