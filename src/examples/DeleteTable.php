@@ -16,8 +16,8 @@ $request = array (
     'table_meta' => array (
         'table_name' => 'MyTable', // 表名为 MyTable
         'primary_key_schema' => array (
-            'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
-            'PK1' => ColumnTypeConst::STRING
+            'PK0' => ColumnTypeConst::CONST_INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
+            'PK1' => ColumnTypeConst::CONST_STRING
         ) // 第二个主键列名称为PK1, 类型为STRING
 
     ),

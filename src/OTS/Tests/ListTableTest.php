@@ -36,10 +36,10 @@ class listTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             
@@ -67,10 +67,10 @@ class listTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             
@@ -85,10 +85,10 @@ class listTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             

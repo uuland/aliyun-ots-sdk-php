@@ -26,10 +26,10 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "myTable",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -50,10 +50,10 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => "myTable",
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::STRING,
-                "PK2" => ColumnTypeConst::INTEGER,
-                "PK3" => ColumnTypeConst::STRING,
-                "PK4" => ColumnTypeConst::INTEGER
+                "PK1" => ColumnTypeConst::CONST_STRING,
+                "PK2" => ColumnTypeConst::CONST_INTEGER,
+                "PK3" => ColumnTypeConst::CONST_STRING,
+                "PK4" => ColumnTypeConst::CONST_INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable ($table_name);
@@ -70,10 +70,10 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -101,10 +101,10 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "testU+0053",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -136,10 +136,10 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $name,
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -193,7 +193,7 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test3",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING
+                    "PK1" => ColumnTypeConst::CONST_STRING
                 )
             ),
             "reserved_throughput" => array (
@@ -208,7 +208,7 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::STRING
+                "PK1" => ColumnTypeConst::CONST_STRING
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -224,10 +224,10 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test4",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -243,10 +243,10 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::STRING,
-                "PK2" => ColumnTypeConst::INTEGER,
-                "PK3" => ColumnTypeConst::STRING,
-                "PK4" => ColumnTypeConst::INTEGER
+                "PK1" => ColumnTypeConst::CONST_STRING,
+                "PK2" => ColumnTypeConst::CONST_INTEGER,
+                "PK3" => ColumnTypeConst::CONST_STRING,
+                "PK4" => ColumnTypeConst::CONST_INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -260,7 +260,7 @@ class CreateTableTest extends SDKTestBase {
     public function testTooMuchPKInSchema() {
         $key = array ();
         for($i = 1; $i < 1001; $i ++) {
-            $key['a' . $i] = ColumnTypeConst::INTEGER;
+            $key['a' . $i] = ColumnTypeConst::CONST_INTEGER;
         }
         // print_r($key);die;
         $tablebody = array (
@@ -293,8 +293,8 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test5",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::INTEGER,
-                    "PK2" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_INTEGER,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -309,8 +309,8 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::INTEGER,
-                "PK2" => ColumnTypeConst::INTEGER
+                "PK1" => ColumnTypeConst::CONST_INTEGER,
+                "PK2" => ColumnTypeConst::CONST_INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -326,8 +326,8 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test5",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::STRING
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_STRING
                 )
             ),
             "reserved_throughput" => array (
@@ -342,8 +342,8 @@ class CreateTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::STRING,
-                "PK2" => ColumnTypeConst::STRING
+                "PK1" => ColumnTypeConst::CONST_STRING,
+                "PK2" => ColumnTypeConst::CONST_STRING
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -360,8 +360,8 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::DOUBLE,
-                    "PK2" => ColumnTypeConst::DOUBLE
+                    "PK1" => ColumnTypeConst::CONST_DOUBLE,
+                    "PK2" => ColumnTypeConst::CONST_DOUBLE
                 )
             ),
             "reserved_throughput" => array (
@@ -375,8 +375,8 @@ class CreateTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "test",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::BOOLEAN,
-                    "PK2" => ColumnTypeConst::BOOLEAN
+                    "PK1" => ColumnTypeConst::CONST_BOOLEAN,
+                    "PK2" => ColumnTypeConst::CONST_BOOLEAN
                 )
             ),
             "reserved_throughput" => array (

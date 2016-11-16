@@ -22,9 +22,9 @@ use TableInBatchWriteRowRequest;
 use PutRowInBatchWriteRowRequest;
 use UpdateRowInBatchWriteRowRequest;
 use DeleteRowInBatchWriteRowRequest;
-use LogicalOperatorConst;
-use ComparatorTypeConst;
-use RowExistenceExpectationConst;
+use Aliyun\OTS\LogicalOperatorConst;
+use Aliyun\OTS\ComparatorTypeConst;
+use Aliyun\OTS\RowExistenceExpectationConst;
 
 class ProtoBufferEncoder
 {
@@ -120,8 +120,8 @@ class ProtoBufferEncoder
     private function preprocessLogicalOperator($logical_operator) 
     {   
     	if ( !is_int($logical_operator) || 
-    	        ( $logical_operator != LogicalOperatorConst::AND && $logical_operator != LogicalOperatorConst::OR && $logical_operator != LogicalOperatorConst::NOT ) )
-    	    throw new \Aliyun\OTS\OTSClientException("LogicalOperator must be one of 'LogicalOperatorConst::AND', 'LogicalOperatorConst::OR' or 'LogicalOperatorConst::NOT'.");
+    	        ( $logical_operator != LogicalOperatorConst::CONST_AND && $logical_operator != LogicalOperatorConst::CONST_OR && $logical_operator != LogicalOperatorConst::CONST_NOT ) )
+    	    throw new \Aliyun\OTS\OTSClientException("LogicalOperator must be one of 'LogicalOperatorConst::CONST_AND', 'LogicalOperatorConst::CONST_OR' or 'LogicalOperatorConst::CONST_NOT'.");
     	
     	return $logical_operator;
     }
@@ -129,13 +129,13 @@ class ProtoBufferEncoder
     private function preprocessComparatorType($comparator_type) 
     {
     	if ( !is_int($comparator_type) || 
-    	        ( $comparator_type != ComparatorTypeConst::EQUAL && 
-    	                $comparator_type != ComparatorTypeConst::NOT_EQUAL && 
-    	                $comparator_type != ComparatorTypeConst::GREATER_THAN && 
-    	                $comparator_type != ComparatorTypeConst::GREATER_EQUAL &&
-    	                $comparator_type != ComparatorTypeConst::LESS_THAN &&
-    	                $comparator_type != ComparatorTypeConst::LESS_EQUAL ) )
-    	    throw new \Aliyun\OTS\OTSClientException("Comparator must be one of 'ComparatorTypeConst::EQUAL', 'ComparatorTypeConst::NOT_EQUAL', 'ComparatorTypeConst::LESS_THAN', 'ComparatorTypeConst::LESS_EQUAL', 'ComparatorTypeConst::GREATER_THAN' or 'ComparatorTypeConst::GREATER_EQUAL'.");
+    	        ( $comparator_type != ComparatorTypeConst::CONST_EQUAL && 
+    	                $comparator_type != ComparatorTypeConst::CONST_NOT_EQUAL && 
+    	                $comparator_type != ComparatorTypeConst::CONST_GREATER_THAN && 
+    	                $comparator_type != ComparatorTypeConst::CONST_GREATER_EQUAL &&
+    	                $comparator_type != ComparatorTypeConst::CONST_LESS_THAN &&
+    	                $comparator_type != ComparatorTypeConst::CONST_LESS_EQUAL ) )
+    	    throw new \Aliyun\OTS\OTSClientException("Comparator must be one of 'ComparatorTypeConst::CONST_EQUAL', 'ComparatorTypeConst::CONST_NOT_EQUAL', 'ComparatorTypeConst::CONST_LESS_THAN', 'ComparatorTypeConst::CONST_LESS_EQUAL', 'ComparatorTypeConst::CONST_GREATER_THAN' or 'ComparatorTypeConst::CONST_GREATER_EQUAL'.");
  
     	return $comparator_type;
     }
@@ -143,14 +143,14 @@ class ProtoBufferEncoder
     private function preprocessRowExistence($condition)
     {
     	$value=null;
-    	if ( strcmp($condition, RowExistenceExpectationConst::IGNORE) == 0 )
+    	if ( strcmp($condition, RowExistenceExpectationConst::CONST_IGNORE) == 0 )
     		$value = \RowExistenceExpectation::IGNORE;
-    	else if ( strcmp($condition, RowExistenceExpectationConst::EXPECT_EXIST) == 0 )
+    	else if ( strcmp($condition, RowExistenceExpectationConst::CONST_EXPECT_EXIST) == 0 )
     		$value = \RowExistenceExpectation::EXPECT_EXIST;
-    	else if ( strcmp($condition, RowExistenceExpectationConst::EXPECT_NOT_EXIST) == 0 )
+    	else if ( strcmp($condition, RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST) == 0 )
     		$value = \RowExistenceExpectation::EXPECT_NOT_EXIST;
     	else {
-    		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'RowExistenceExpectationConst::IGNORE', 'RowExistenceExpectationConst::EXPECT_EXIST' or 'RowExistenceExpectationConst::EXPECT_NOT_EXIST'.");
+    		throw new \Aliyun\OTS\OTSClientException("Condition must be one of 'RowExistenceExpectationConst::CONST_IGNORE', 'RowExistenceExpectationConst::CONST_EXPECT_EXIST' or 'RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST'.");
     	}
     	return $value;
     }
