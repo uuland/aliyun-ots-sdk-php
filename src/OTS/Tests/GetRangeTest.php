@@ -22,8 +22,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -38,7 +38,7 @@ SDKTestBase::createInitialTable (array (
         "table_meta" => array (
                 "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER
+                        "PK1" => ColumnTypeConst::CONST_INTEGER
                 )
         ),
         "reserved_throughput" => array (
@@ -53,7 +53,7 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[2],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER
+            "PK1" => ColumnTypeConst::CONST_INTEGER
         )
     ),
     "reserved_throughput" => array (
@@ -68,10 +68,10 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[3],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING,
-            "PK3" => ColumnTypeConst::INTEGER,
-            "PK4" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING,
+            "PK3" => ColumnTypeConst::CONST_INTEGER,
+            "PK4" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -96,7 +96,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -111,7 +111,7 @@ class GetRangeTest extends SDKTestBase {
         
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => 1,
@@ -159,7 +159,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -173,7 +173,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => 2,
@@ -222,7 +222,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -236,15 +236,15 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MIN
+                    'type' => ColumnTypeConst::CONST_INF_MIN
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MIN
+                    'type' => ColumnTypeConst::CONST_INF_MIN
                 )
             ),
             "exclusive_end_primary_key" => array (
@@ -289,7 +289,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -303,14 +303,14 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "exclusive_end_primary_key" => array (
@@ -355,7 +355,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[3],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i,
@@ -373,7 +373,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[3],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "columns_to_get" => array (
                 "att1",
                 "att2",
@@ -383,16 +383,16 @@ class GetRangeTest extends SDKTestBase {
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK3" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK4" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "exclusive_end_primary_key" => array (
@@ -435,7 +435,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[3],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i,
@@ -453,21 +453,21 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[3],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "columns_to_get" => array (),
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK3" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK4" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "exclusive_end_primary_key" => array (
@@ -521,7 +521,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[3],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i,
@@ -539,7 +539,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[3],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "columns_to_get" => array (
                 "PK1",
                 "PK2",
@@ -549,16 +549,16 @@ class GetRangeTest extends SDKTestBase {
             "limit" => 10,
             "inclusive_start_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK3" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK4" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "exclusive_end_primary_key" => array (
@@ -604,7 +604,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -621,7 +621,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => $a,
             "limit" => 10,
             "inclusive_start_primary_key" => array (
@@ -647,7 +647,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 3; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -661,7 +661,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (
                 "att1",
                 "att1"
@@ -694,7 +694,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 21; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -707,7 +707,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 10,
             "inclusive_start_primary_key" => array (
@@ -716,10 +716,10 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -756,7 +756,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 2; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -769,7 +769,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 1,
             "inclusive_start_primary_key" => array (
@@ -778,10 +778,10 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 ),
                 "PK2" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -807,10 +807,10 @@ class GetRangeTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -838,10 +838,10 @@ class GetRangeTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => "testU+0053",
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::INTEGER,
-                    "PK3" => ColumnTypeConst::STRING,
-                    "PK4" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER,
+                    "PK3" => ColumnTypeConst::CONST_STRING,
+                    "PK4" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -870,7 +870,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 5001; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[1],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -880,7 +880,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -888,7 +888,7 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -906,7 +906,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 5002; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[1],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -916,7 +916,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -924,7 +924,7 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -942,7 +942,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 15001; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[1],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -952,7 +952,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -960,14 +960,14 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
         $this->otsClient->getRange ($getRange);
         $getRange1 = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -975,14 +975,14 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
         $this->otsClient->getRange ($getRange1);
         $getRange2 = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -990,14 +990,14 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
         $this->otsClient->getRange ($getRange2);
         $getRange3 = array (
             "table_name" => $usedTables[1],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -1005,7 +1005,7 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -1023,7 +1023,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 10001; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[2],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -1033,7 +1033,7 @@ class GetRangeTest extends SDKTestBase {
         }
         $getRange = array (
             "table_name" => $usedTables[2],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -1041,7 +1041,7 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -1050,7 +1050,7 @@ class GetRangeTest extends SDKTestBase {
         // $this->assertEquals($tables['next_start_primary_key'], $primary);
         $getRange1 = array (
             "table_name" => $usedTables[2],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 5000,
             "inclusive_start_primary_key" => array (
@@ -1058,7 +1058,7 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             )
         );
@@ -1074,7 +1074,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 10001; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[2],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -1088,7 +1088,7 @@ class GetRangeTest extends SDKTestBase {
         
         $getRange = array (
             "table_name" => $usedTables[2],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (
                 "att1",
                 "att2"
@@ -1099,21 +1099,21 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "column_filter" => array (
-                "logical_operator" => LogicalOperatorConst::AND,
+                "logical_operator" => LogicalOperatorConst::CONST_AND,
                 "sub_conditions" => array (
                     array (
                         "column_name" => "attr1",
                         "value" => 10,
-                        "comparator" => ComparatorTypeConst::GREATER_THAN
+                        "comparator" => ComparatorTypeConst::CONST_GREATER_THAN
                     ),
                     array (
                         "column_name" => "attr2",
                         "value" => "att10001",
-                        "comparator" => ComparatorTypeConst::LESS_THAN
+                        "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                     )
                 )
             )
@@ -1130,7 +1130,7 @@ class GetRangeTest extends SDKTestBase {
         for($i = 1; $i < 10001; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[2],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i
                 ),
@@ -1144,7 +1144,7 @@ class GetRangeTest extends SDKTestBase {
         
         $getRange = array (
             "table_name" => $usedTables[2],
-            "direction" => DirectionConst::BACKWARD,
+            "direction" => DirectionConst::CONST_BACKWARD,
             "columns_to_get" => array (
                 "att1",
                 "att2"
@@ -1155,39 +1155,39 @@ class GetRangeTest extends SDKTestBase {
             ),
             "exclusive_end_primary_key" => array (
                 "PK1" => array (
-                    'type' => ColumnTypeConst::INF_MAX
+                    'type' => ColumnTypeConst::CONST_INF_MAX
                 )
             ),
             "column_filter" => array (
-                "logical_operator" => LogicalOperatorConst::OR,
+                "logical_operator" => LogicalOperatorConst::CONST_OR,
                 "sub_conditions" => array (
                     array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 10,
-                                "comparator" => ComparatorTypeConst::GREATER_THAN
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_THAN
                             ),
                             array (
                                 "column_name" => "attr1",
                                 "value" => 20000,
-                                "comparator" => ComparatorTypeConst::LESS_THAN
+                                "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                             )
                         )
                     ),
                     array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr2",
                                 "value" => "att1001",
-                                "comparator" => ComparatorTypeConst::GREATER_THAN
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_THAN
                             ),
                             array (
                                 "column_name" => "attr2",
                                 "value" => "att1002",
-                                "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                             )
                         )
                     )

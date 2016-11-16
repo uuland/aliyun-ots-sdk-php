@@ -30,8 +30,8 @@ class DescribeTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::INTEGER,
-                    "PK2" => ColumnTypeConst::INTEGER
+                    "PK1" => ColumnTypeConst::CONST_INTEGER,
+                    "PK2" => ColumnTypeConst::CONST_INTEGER
                 )
             ),
             "reserved_throughput" => array (
@@ -46,8 +46,8 @@ class DescribeTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::INTEGER,
-                "PK2" => ColumnTypeConst::INTEGER
+                "PK1" => ColumnTypeConst::CONST_INTEGER,
+                "PK2" => ColumnTypeConst::CONST_INTEGER
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -65,8 +65,8 @@ class DescribeTableTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::STRING,
-                    "PK2" => ColumnTypeConst::STRING
+                    "PK1" => ColumnTypeConst::CONST_STRING,
+                    "PK2" => ColumnTypeConst::CONST_STRING
                 )
             ),
             "reserved_throughput" => array (
@@ -81,8 +81,8 @@ class DescribeTableTest extends SDKTestBase {
         $teturn = array (
             "table_name" => $tablebody['table_meta']['table_name'],
             "primary_key_schema" => array (
-                "PK1" => ColumnTypeConst::STRING,
-                "PK2" => ColumnTypeConst::STRING
+                "PK1" => ColumnTypeConst::CONST_STRING,
+                "PK2" => ColumnTypeConst::CONST_STRING
             )
         );
         $table_meta = $this->otsClient->describeTable ($tablename);
@@ -98,10 +98,10 @@ class DescribeTableTest extends SDKTestBase {
         global $usedTables;
         
         $invalidTypes = array (
-            ColumnTypeConst::DOUBLE,
-            ColumnTypeConst::BOOLEAN,
-            ColumnTypeConst::INF_MIN,
-            ColumnTypeConst::INF_MAX
+            ColumnTypeConst::CONST_DOUBLE,
+            ColumnTypeConst::CONST_BOOLEAN,
+            ColumnTypeConst::CONST_INF_MIN,
+            ColumnTypeConst::CONST_INF_MAX
         );
         
         foreach ($invalidTypes as $type) {

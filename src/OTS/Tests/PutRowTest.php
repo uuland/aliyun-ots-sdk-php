@@ -4,6 +4,7 @@ namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
 use Aliyun\OTS\ColumnTypeConst;
+use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
 require __DIR__ . "/TestBase.php";
@@ -19,8 +20,8 @@ SDKTestBase::createInitialTable ( array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING 
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING 
         ) 
     ),
     "reserved_throughput" => array (
@@ -34,8 +35,8 @@ SDKTestBase::createInitialTable ( array (
     "table_meta" => array (
         "table_name" => $usedTables[1],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING 
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING 
         ) 
     ),
     "reserved_throughput" => array (
@@ -56,7 +57,7 @@ class PutRowTest extends SDKTestBase {
     public function testTableNameOfZeroLength() {
         $tablename1 = array (
             "table_name" => "",
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -76,7 +77,7 @@ class PutRowTest extends SDKTestBase {
         // die;
         $tablename2 = array (
             "table_name" => "testU+0053",
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -108,7 +109,7 @@ class PutRowTest extends SDKTestBase {
         // ColumnNameOfZeroLength
         $tablename1 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -128,7 +129,7 @@ class PutRowTest extends SDKTestBase {
         // ColumnNameWithUnicode
         $tablename2 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -152,7 +153,7 @@ class PutRowTest extends SDKTestBase {
         }
         $tablename3 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -183,7 +184,7 @@ class PutRowTest extends SDKTestBase {
         }
         $tablename = array (
             "table_name" => $usedTables[1],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1" 
@@ -218,7 +219,7 @@ class PutRowTest extends SDKTestBase {
         // echo strlen($a);die;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 11,
                 "PK2" => "a11" 
@@ -258,7 +259,7 @@ class PutRowTest extends SDKTestBase {
         // echo strlen($a);die;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 12,
                 "PK2" => "a12" 
@@ -284,7 +285,7 @@ class PutRowTest extends SDKTestBase {
         }
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 13,
                 "PK2" => "a13" 
@@ -327,7 +328,7 @@ class PutRowTest extends SDKTestBase {
         // echo strlen($a);die;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 20,
                 "PK2" => "a20" 
@@ -357,7 +358,7 @@ class PutRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 30,
                 "PK2" => "a30" 
@@ -380,7 +381,7 @@ class PutRowTest extends SDKTestBase {
         
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 31,
                 "PK2" => "a31" 
@@ -417,7 +418,7 @@ class PutRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 40,
                 "PK2" => "a40" 
@@ -440,7 +441,7 @@ class PutRowTest extends SDKTestBase {
         
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 41,
                 "PK2" => "a41" 
@@ -476,7 +477,7 @@ class PutRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -510,7 +511,7 @@ class PutRowTest extends SDKTestBase {
         global $usedTables;
         $request = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -520,7 +521,7 @@ class PutRowTest extends SDKTestBase {
         
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -545,7 +546,7 @@ class PutRowTest extends SDKTestBase {
         
         $tablename1 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -573,7 +574,7 @@ class PutRowTest extends SDKTestBase {
         global $usedTables;
         $delete_query = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -583,7 +584,7 @@ class PutRowTest extends SDKTestBase {
         
         $put_query1 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST,
             "primary_key" => array (
                 "PK1" => 50,
                 "PK2" => "a50" 
@@ -598,11 +599,11 @@ class PutRowTest extends SDKTestBase {
         $put_query2 = array (
             "table_name" => $usedTables[0],
             "condition" => array (
-                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                 "column_filter" => array (
                     "column_name" => "attr1",
                     "value" => true,
-                    "comparator" => ComparatorTypeConst::EQUAL 
+                    "comparator" => ComparatorTypeConst::CONST_EQUAL 
                 ) 
             ),
             "primary_key" => array (
@@ -636,11 +637,11 @@ class PutRowTest extends SDKTestBase {
         $put_query3 = array (
             "table_name" => $usedTables[0],
             "condition" => array (
-                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                 "column_filter" => array (
                     "column_name" => "attr3",
                     "value" => true,
-                    "comparator" => ComparatorTypeConst::EQUAL 
+                    "comparator" => ComparatorTypeConst::CONST_EQUAL 
                 ) 
             ),
             "primary_key" => array (

@@ -4,6 +4,8 @@ namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
 use Aliyun\OTS\RowExistenceExpectationConst;
+use Aliyun\OTS\LogicalOperatorConst;
+use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\ColumnTypeConst;
 
 require __DIR__ . "/TestBase.php";
@@ -21,8 +23,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -38,7 +40,7 @@ class BatchGetRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -106,7 +108,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 10; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -238,7 +240,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 10; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -303,7 +305,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 10; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -370,7 +372,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 10; $i ++) {
             $tablename = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -386,8 +388,8 @@ class BatchGetRowTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::INTEGER,
-                    "PK2" => ColumnTypeConst::STRING
+                    "PK1" => ColumnTypeConst::CONST_INTEGER,
+                    "PK2" => ColumnTypeConst::CONST_STRING
                 )
             ),
             "reserved_throughput" => array (
@@ -400,7 +402,7 @@ class BatchGetRowTest extends SDKTestBase {
         $this->otsClient->createTable ($tablebody);
         $table = array (
             "table_name" => $usedTables[1],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -476,7 +478,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -520,17 +522,17 @@ class BatchGetRowTest extends SDKTestBase {
                         )
                     ),
                     "column_filter" => array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 1,
-                                "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                             ),
                             array (
                                 "column_name" => "attr2",
                                 "value" => "a6",
-                                "comparator" => ComparatorTypeConst::LESS_THAN
+                                "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                             )
                         )
                     )
@@ -582,7 +584,7 @@ class BatchGetRowTest extends SDKTestBase {
                     "column_filter" => array (
                         "column_name" => "attr1",
                         "value" => 100,
-                        "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                        "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                     )
                 )
             )
@@ -604,7 +606,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -651,30 +653,30 @@ class BatchGetRowTest extends SDKTestBase {
                         )
                     ),
                     "column_filter" => array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 1,
-                                "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                             ),
                             array (
                                 "column_name" => "attr2",
                                 "value" => "a6",
-                                "comparator" => ComparatorTypeConst::LESS_THAN
+                                "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                             ),
                             array (
-                                "logical_operator" => LogicalOperatorConst::OR,
+                                "logical_operator" => LogicalOperatorConst::CONST_OR,
                                 "sub_conditions" => array (
                                     array (
                                         "column_name" => "attr1",
                                         "value" => 100,
-                                        "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                     ),
                                     array (
                                         "column_name" => "attr2",
                                         "value" => "a0",
-                                        "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                     )
                                 )
                             )
@@ -700,7 +702,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -718,8 +720,8 @@ class BatchGetRowTest extends SDKTestBase {
                 "table_meta" => array (
                     "table_name" => $usedTables[1],
                     "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING
+                        "PK1" => ColumnTypeConst::CONST_INTEGER,
+                        "PK2" => ColumnTypeConst::CONST_STRING
                     )
                 ),
                 "reserved_throughput" => array (
@@ -732,7 +734,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[1],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -780,30 +782,30 @@ class BatchGetRowTest extends SDKTestBase {
                         )
                     ),
                     "column_filter" => array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 1,
-                                "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                             ),
                             array (
                                 "column_name" => "attr2",
                                 "value" => "a6",
-                                "comparator" => ComparatorTypeConst::LESS_THAN
+                                "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                             ),
                             array (
-                                "logical_operator" => LogicalOperatorConst::OR,
+                                "logical_operator" => LogicalOperatorConst::CONST_OR,
                                 "sub_conditions" => array (
                                     array (
                                         "column_name" => "attr1",
                                         "value" => 100,
-                                        "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                     ),
                                     array (
                                         "column_name" => "attr2",
                                         "value" => "a0",
-                                        "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                     )
                                 )
                             )
@@ -845,7 +847,7 @@ class BatchGetRowTest extends SDKTestBase {
                     "column_filter" => array (
                         "column_name" => "attr1",
                         "value" => 3,
-                        "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                        "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                     )
                 )
             )
@@ -875,7 +877,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -893,8 +895,8 @@ class BatchGetRowTest extends SDKTestBase {
                 "table_meta" => array (
                     "table_name" => $usedTables[1],
                     "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING
+                        "PK1" => ColumnTypeConst::CONST_INTEGER,
+                        "PK2" => ColumnTypeConst::CONST_STRING
                     )
                 ),
                 "reserved_throughput" => array (
@@ -907,7 +909,7 @@ class BatchGetRowTest extends SDKTestBase {
         for($i = 1; $i < 100; $i ++) {
             $putdata = array (
                 "table_name" => $usedTables[1],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -955,30 +957,30 @@ class BatchGetRowTest extends SDKTestBase {
                         )
                     ),
                     "column_filter" => array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 1,
-                                "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                             ),
                             array (
                                 "column_name" => "attr2",
                                 "value" => "a6",
-                                "comparator" => ComparatorTypeConst::LESS_THAN
+                                "comparator" => ComparatorTypeConst::CONST_LESS_THAN
                             ),
                             array (
-                                "logical_operator" => LogicalOperatorConst::OR,
+                                "logical_operator" => LogicalOperatorConst::CONST_OR,
                                 "sub_conditions" => array (
                                     array (
                                         "column_name" => "attr1",
                                         "value" => 100,
-                                        "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                     ),
                                     array (
                                         "column_name" => "attr2",
                                         "value" => "a0",
-                                        "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                     )
                                 )
                             )
@@ -1018,20 +1020,20 @@ class BatchGetRowTest extends SDKTestBase {
                         )
                     ),
                     "column_filter" => array (
-                        "logical_operator" => LogicalOperatorConst::AND,
+                        "logical_operator" => LogicalOperatorConst::CONST_AND,
                         "sub_conditions" => array (
                             array (
                                 "column_name" => "attr1",
                                 "value" => 3,
-                                "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                             ),
                             array (
-                                "logical_operator" => LogicalOperatorConst::NOT,
+                                "logical_operator" => LogicalOperatorConst::CONST_NOT,
                                 "sub_conditions" => array (
                                     array (
                                         "column_name" => "attr2",
                                         "value" => "a9",
-                                        "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                        "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                     )
                                 )
                             )

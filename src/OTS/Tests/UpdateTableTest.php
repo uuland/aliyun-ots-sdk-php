@@ -19,8 +19,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -34,8 +34,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[1],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -49,8 +49,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[2],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (

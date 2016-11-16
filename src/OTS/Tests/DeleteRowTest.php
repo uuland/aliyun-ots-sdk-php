@@ -4,6 +4,7 @@ namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
 use Aliyun\OTS\ColumnTypeConst;
+use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
 require __DIR__ . "/TestBase.php";
@@ -18,8 +19,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -41,7 +42,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $deleterow = array (
             "table_name" => "",
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -65,7 +66,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $deleterow = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => "aaa",
                 "PK2" => "cc",
@@ -92,7 +93,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -105,7 +106,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->putRow ($tablename);
         $deleterow = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
             "primary_key" => array (
                 "PK1" => 2,
                 "PK2" => "a2"
@@ -129,7 +130,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -142,7 +143,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->putRow ($tablename);
         $deleterow = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -173,7 +174,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $deleterow = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -195,7 +196,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $tablename = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -208,7 +209,7 @@ class DeleteRowTest extends SDKTestBase {
         $this->otsClient->putRow ($tablename);
         $deleterow = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::EXPECT_NOT_EXIST,
+            "condition" => RowExistenceExpectationConst::CONST_EXPECT_NOT_EXIST,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -230,7 +231,7 @@ class DeleteRowTest extends SDKTestBase {
         global $usedTables;
         $put_query = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -245,11 +246,11 @@ class DeleteRowTest extends SDKTestBase {
         $delete_query = array (
             "table_name" => $usedTables[0],
             "condition" => array (
-                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                 "column_filter" => array (
                     "column_name" => "attr1",
                     "value" => "asds",
-                    "comparator" => ComparatorTypeConst::EQUAL
+                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                 )
             ),
             "primary_key" => array (
@@ -275,7 +276,7 @@ class DeleteRowTest extends SDKTestBase {
         
         $put_query2 = array (
             "table_name" => $usedTables[0],
-            "condition" => RowExistenceExpectationConst::IGNORE,
+            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
             "primary_key" => array (
                 "PK1" => 1,
                 "PK2" => "a1"
@@ -290,11 +291,11 @@ class DeleteRowTest extends SDKTestBase {
         $delete_query2 = array (
             "table_name" => $usedTables[0],
             "condition" => array (
-                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                 "column_filter" => array (
                     "column_name" => "att1",
                     "value" => "asdsddd",
-                    "comparator" => ComparatorTypeConst::EQUAL
+                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                 )
             ),
             "primary_key" => array (

@@ -4,6 +4,8 @@ namespace Aliyun\OTS\Tests;
 
 use Aliyun\OTS;
 use Aliyun\OTS\RowExistenceExpectationConst;
+use Aliyun\OTS\ComparatorTypeConst;
+use Aliyun\OTS\LogicalOperatorConst;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\DirectionConst;
 
@@ -20,8 +22,8 @@ SDKTestBase::createInitialTable (array (
     "table_meta" => array (
         "table_name" => $usedTables[0],
         "primary_key_schema" => array (
-            "PK1" => ColumnTypeConst::INTEGER,
-            "PK2" => ColumnTypeConst::STRING
+            "PK1" => ColumnTypeConst::CONST_INTEGER,
+            "PK2" => ColumnTypeConst::CONST_STRING
         )
     ),
     "reserved_throughput" => array (
@@ -67,7 +69,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => 'test9',
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -105,7 +107,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -116,7 +118,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
@@ -127,7 +129,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
@@ -138,7 +140,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -185,7 +187,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -196,7 +198,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
@@ -207,7 +209,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
@@ -218,7 +220,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -241,7 +243,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -254,7 +256,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
@@ -267,7 +269,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
@@ -280,7 +282,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -332,7 +334,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -343,7 +345,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
@@ -354,7 +356,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
@@ -365,7 +367,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -388,28 +390,28 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -450,7 +452,7 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         for($i = 1; $i < 9; $i ++) {
             $put[] = array (
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -478,7 +480,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 9,
                                 "PK2" => "a9"
@@ -489,7 +491,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 10,
                                 "PK2" => "a10"
@@ -500,7 +502,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 11,
                                 "PK2" => "a11"
@@ -511,7 +513,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 12,
                                 "PK2" => "a12"
@@ -525,7 +527,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     // //////添加多行插入 put_rows
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 5,
                                 "PK2" => "a5"
@@ -538,7 +540,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 6,
                                 "PK2" => "a6"
@@ -551,7 +553,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 7,
                                 "PK2" => "a7"
@@ -564,7 +566,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 8,
                                 "PK2" => "a8"
@@ -579,28 +581,28 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -613,7 +615,7 @@ class BatchWriteRowTest extends SDKTestBase {
         $getrow = $this->otsClient->batchWriteRow ($batchWrite1);
         $getRange = array (
             "table_name" => $usedTables[0],
-            "direction" => DirectionConst::FORWARD,
+            "direction" => DirectionConst::CONST_FORWARD,
             "columns_to_get" => array (),
             "limit" => 100,
             "inclusive_start_primary_key" => array (
@@ -654,7 +656,7 @@ class BatchWriteRowTest extends SDKTestBase {
         global $usedTables;
         for($i = 1; $i < 1000; $i ++) {
             $a[] = array (
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => array (
                     "PK1" => $i,
                     "PK2" => "a" . $i
@@ -673,7 +675,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => $a,
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 5,
                                 "PK2" => "a5"
@@ -690,7 +692,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 6,
                                 "PK2" => "a6"
@@ -707,7 +709,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 7,
                                 "PK2" => "a7"
@@ -724,7 +726,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 8,
                                 "PK2" => "a8"
@@ -743,28 +745,28 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 2,
                                 "PK2" => "a2"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 3,
                                 "PK2" => "a3"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 4,
                                 "PK2" => "a4"
@@ -793,8 +795,8 @@ class BatchWriteRowTest extends SDKTestBase {
                 "table_meta" => array (
                     "table_name" => "test" . $i,
                     "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING
+                        "PK1" => ColumnTypeConst::CONST_INTEGER,
+                        "PK2" => ColumnTypeConst::CONST_STRING
                     )
                 ),
                 "reserved_throughput" => array (
@@ -813,7 +815,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => 'test1',
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -829,7 +831,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => 'test2',
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -845,7 +847,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => 'test3',
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -861,7 +863,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => 'test4',
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 1,
                                 "PK2" => "a1"
@@ -914,7 +916,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 9,
                                 "PK2" => "a9"
@@ -925,7 +927,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 10,
                                 "PK2" => "a10"
@@ -939,7 +941,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     // //////添加多行插入 put_rows
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+                            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                             "primary_key" => array (
                                 "PK1" => 510,
                                 "PK2" => "a510"
@@ -952,7 +954,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 6,
                                 "PK2" => "a6"
@@ -967,14 +969,14 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 11,
                                 "PK2" => "a11"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 12,
                                 "PK2" => "a12"
@@ -1028,7 +1030,7 @@ class BatchWriteRowTest extends SDKTestBase {
         foreach ($pkOfRows as $pk) {
             $this->otsClient->deleteRow (array (
                 "table_name" => $usedTables[0],
-                "condition" => RowExistenceExpectationConst::IGNORE,
+                "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                 "primary_key" => $pk
             ));
         }
@@ -1039,7 +1041,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 9,
                                 "PK2" => "a9"
@@ -1050,7 +1052,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 10,
                                 "PK2" => "a10"
@@ -1064,7 +1066,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     // //////添加多行插入 put_rows
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+                            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                             "primary_key" => array (
                                 "PK1" => 510,
                                 "PK2" => "a510"
@@ -1077,7 +1079,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+                            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                             "primary_key" => array (
                                 "PK1" => 6,
                                 "PK2" => "a6"
@@ -1092,14 +1094,14 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 11,
                                 "PK2" => "a11"
                             )
                         ),
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 12,
                                 "PK2" => "a12"
@@ -1132,8 +1134,8 @@ class BatchWriteRowTest extends SDKTestBase {
             "table_meta" => array (
                 "table_name" => $usedTables[1],
                 "primary_key_schema" => array (
-                    "PK1" => ColumnTypeConst::INTEGER,
-                    "PK2" => ColumnTypeConst::STRING
+                    "PK1" => ColumnTypeConst::CONST_INTEGER,
+                    "PK2" => ColumnTypeConst::CONST_STRING
                 )
             ),
             "reserved_throughput" => array (
@@ -1151,7 +1153,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[0],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 9,
                                 "PK2" => "a9"
@@ -1165,7 +1167,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     // //////添加多行插入 put_rows
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+                            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                             "primary_key" => array (
                                 "PK1" => 510,
                                 "PK2" => "a510"
@@ -1180,7 +1182,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 11,
                                 "PK2" => "a11"
@@ -1192,7 +1194,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_name" => $usedTables[1],
                     "put_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 9,
                                 "PK2" => "a9"
@@ -1206,7 +1208,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     // //////添加多行插入 put_rows
                     "update_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::EXPECT_EXIST,
+                            "condition" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                             "primary_key" => array (
                                 "PK1" => 510,
                                 "PK2" => "a510"
@@ -1221,7 +1223,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     ),
                     "delete_rows" => array (
                         array (
-                            "condition" => RowExistenceExpectationConst::IGNORE,
+                            "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                             "primary_key" => array (
                                 "PK1" => 11,
                                 "PK2" => "a11"
@@ -1255,7 +1257,7 @@ class BatchWriteRowTest extends SDKTestBase {
                 "table_name" => 'test' . $i,
                 "put_rows" => array (
                     array (
-                        "condition" => RowExistenceExpectationConst::IGNORE,
+                        "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                         "primary_key" => array (
                             "PK1" => 1,
                             "PK2" => "a1"
@@ -1293,8 +1295,8 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_meta" => array (
                         "table_name" => $usedTables[$i],
                         "primary_key_schema" => array (
-                            "PK1" => ColumnTypeConst::INTEGER,
-                            "PK2" => ColumnTypeConst::STRING
+                            "PK1" => ColumnTypeConst::CONST_INTEGER,
+                            "PK2" => ColumnTypeConst::CONST_STRING
                         )
                     ),
                     "reserved_throughput" => array (
@@ -1310,7 +1312,7 @@ class BatchWriteRowTest extends SDKTestBase {
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
                     "table_name" => $usedTables[$i],
-                    "condition" => RowExistenceExpectationConst::IGNORE,
+                    "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                     "primary_key" => array (
                         "PK1" => $k,
                         "PK2" => "a" . $k
@@ -1334,11 +1336,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr1",
                                     "value" => 19,
-                                    "comparator" => ComparatorTypeConst::EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1355,11 +1357,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
                                     "column_name" => "attr1",
                                     "value" => 99,
-                                    "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1377,11 +1379,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr2",
                                     "value" => "ab",
-                                    "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1456,8 +1458,8 @@ class BatchWriteRowTest extends SDKTestBase {
                 "table_meta" => array (
                     "table_name" => $usedTables[$i],
                     "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING
+                        "PK1" => ColumnTypeConst::CONST_INTEGER,
+                        "PK2" => ColumnTypeConst::CONST_STRING
                     )
                 ),
                 "reserved_throughput" => array (
@@ -1472,7 +1474,7 @@ class BatchWriteRowTest extends SDKTestBase {
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
                     "table_name" => $usedTables[$i],
-                    "condition" => RowExistenceExpectationConst::IGNORE,
+                    "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                     "primary_key" => array (
                         "PK1" => $k,
                         "PK2" => "a" . $k
@@ -1495,14 +1497,14 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::NOT,
+                                    "logical_operator" => LogicalOperatorConst::CONST_NOT,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 19,
-                                            "comparator" => ComparatorTypeConst::NOT_EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_NOT_EQUAL
                                         )
                                     )
                                 )
@@ -1521,27 +1523,27 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::AND,
+                                    "logical_operator" => LogicalOperatorConst::CONST_AND,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 99,
-                                            "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                         ),
                                         array (
-                                            "logical_operator" => LogicalOperatorConst::OR,
+                                            "logical_operator" => LogicalOperatorConst::CONST_OR,
                                             "sub_conditions" => array (
                                                 array (
                                                     "column_name" => "attr2",
                                                     "value" => "aa",
-                                                    "comparator" => ComparatorTypeConst::EQUAL
+                                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                                 ),
                                                 array (
                                                     "column_name" => "attr2",
                                                     "value" => "ddddd",
-                                                    "comparator" => ComparatorTypeConst::EQUAL
+                                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                                 )
                                             )
                                         )
@@ -1563,11 +1565,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr2",
                                     "value" => "ab",
-                                    "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1639,8 +1641,8 @@ class BatchWriteRowTest extends SDKTestBase {
                     "table_meta" => array (
                         "table_name" => $usedTables[$i],
                         "primary_key_schema" => array (
-                            "PK1" => ColumnTypeConst::INTEGER,
-                            "PK2" => ColumnTypeConst::STRING
+                            "PK1" => ColumnTypeConst::CONST_INTEGER,
+                            "PK2" => ColumnTypeConst::CONST_STRING
                         )
                     ),
                     "reserved_throughput" => array (
@@ -1656,7 +1658,7 @@ class BatchWriteRowTest extends SDKTestBase {
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
                     "table_name" => $usedTables[$i],
-                    "condition" => RowExistenceExpectationConst::IGNORE,
+                    "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                     "primary_key" => array (
                         "PK1" => $k,
                         "PK2" => "a" . $k
@@ -1679,11 +1681,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr1",
                                     "value" => 19,
-                                    "comparator" => ComparatorTypeConst::EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1700,11 +1702,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
                                     "column_name" => "attr1",
                                     "value" => 99,
-                                    "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1722,11 +1724,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr2",
                                     "value" => "ab",
-                                    "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -1741,7 +1743,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE
                             ),
                             "primary_key" => array (
                                 "PK1" => 119,
@@ -1757,19 +1759,19 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::AND,
+                                    "logical_operator" => LogicalOperatorConst::CONST_AND,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 10,
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         ),
                                         array (
                                             "column_name" => "attr2",
                                             "value" => "aa",
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         )
                                     )
                                 )
@@ -1789,19 +1791,19 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::OR,
+                                    "logical_operator" => LogicalOperatorConst::CONST_OR,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 11,
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         ),
                                         array (
                                             "column_name" => "attr2",
                                             "value" => "aabbb",
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         )
                                     )
                                 )
@@ -1921,8 +1923,8 @@ class BatchWriteRowTest extends SDKTestBase {
                 "table_meta" => array (
                     "table_name" => $usedTables[$i],
                     "primary_key_schema" => array (
-                        "PK1" => ColumnTypeConst::INTEGER,
-                        "PK2" => ColumnTypeConst::STRING
+                        "PK1" => ColumnTypeConst::CONST_INTEGER,
+                        "PK2" => ColumnTypeConst::CONST_STRING
                     )
                 ),
                 "reserved_throughput" => array (
@@ -1937,7 +1939,7 @@ class BatchWriteRowTest extends SDKTestBase {
             for($k = 1; $k < 100; ++ $k) {
                 $putdata = array (
                     "table_name" => $usedTables[$i],
-                    "condition" => RowExistenceExpectationConst::IGNORE,
+                    "condition" => RowExistenceExpectationConst::CONST_IGNORE,
                     "primary_key" => array (
                         "PK1" => $k,
                         "PK2" => "a" . $k
@@ -1960,14 +1962,14 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::NOT,
+                                    "logical_operator" => LogicalOperatorConst::CONST_NOT,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 19,
-                                            "comparator" => ComparatorTypeConst::NOT_EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_NOT_EQUAL
                                         )
                                     )
                                 )
@@ -1986,27 +1988,27 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::AND,
+                                    "logical_operator" => LogicalOperatorConst::CONST_AND,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 99,
-                                            "comparator" => ComparatorTypeConst::GREATER_EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_GREATER_EQUAL
                                         ),
                                         array (
-                                            "logical_operator" => LogicalOperatorConst::OR,
+                                            "logical_operator" => LogicalOperatorConst::CONST_OR,
                                             "sub_conditions" => array (
                                                 array (
                                                     "column_name" => "attr2",
                                                     "value" => "aa",
-                                                    "comparator" => ComparatorTypeConst::EQUAL
+                                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                                 ),
                                                 array (
                                                     "column_name" => "attr2",
                                                     "value" => "ddddd",
-                                                    "comparator" => ComparatorTypeConst::EQUAL
+                                                    "comparator" => ComparatorTypeConst::CONST_EQUAL
                                                 )
                                             )
                                         )
@@ -2028,11 +2030,11 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
                                     "column_name" => "attr2",
                                     "value" => "ab",
-                                    "comparator" => ComparatorTypeConst::LESS_EQUAL
+                                    "comparator" => ComparatorTypeConst::CONST_LESS_EQUAL
                                 )
                             ),
                             "primary_key" => array (
@@ -2047,7 +2049,7 @@ class BatchWriteRowTest extends SDKTestBase {
                     "put_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE
                             ),
                             "primary_key" => array (
                                 "PK1" => 119,
@@ -2063,19 +2065,19 @@ class BatchWriteRowTest extends SDKTestBase {
                     "update_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::EXPECT_EXIST,
+                                "row_existence" => RowExistenceExpectationConst::CONST_EXPECT_EXIST,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::AND,
+                                    "logical_operator" => LogicalOperatorConst::CONST_AND,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 10,
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         ),
                                         array (
                                             "column_name" => "attr2",
                                             "value" => "aa",
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         )
                                     )
                                 )
@@ -2095,19 +2097,19 @@ class BatchWriteRowTest extends SDKTestBase {
                     "delete_rows" => array (
                         array (
                             "condition" => array (
-                                "row_existence" => RowExistenceExpectationConst::IGNORE,
+                                "row_existence" => RowExistenceExpectationConst::CONST_IGNORE,
                                 "column_filter" => array (
-                                    "logical_operator" => LogicalOperatorConst::OR,
+                                    "logical_operator" => LogicalOperatorConst::CONST_OR,
                                     "sub_conditions" => array (
                                         array (
                                             "column_name" => "attr1",
                                             "value" => 11,
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         ),
                                         array (
                                             "column_name" => "attr2",
                                             "value" => "aabbb",
-                                            "comparator" => ComparatorTypeConst::EQUAL
+                                            "comparator" => ComparatorTypeConst::CONST_EQUAL
                                         )
                                     )
                                 )

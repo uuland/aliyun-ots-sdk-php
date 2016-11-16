@@ -19,8 +19,8 @@ $request = array (
     'table_meta' => array (
         'table_name' => 'MyTable', // 表名为 MyTable
         'primary_key_schema' => array (
-            'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
-            'PK1' => ColumnTypeConst::STRING
+            'PK0' => ColumnTypeConst::CONST_INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
+            'PK1' => ColumnTypeConst::CONST_STRING
         )
     ) // 第二个主键列名称为PK1, 类型为STRING
 ,
@@ -36,7 +36,7 @@ sleep (10);
 
 $request = array (
     'table_name' => 'MyTable',
-    'condition' => RowExistenceExpectationConst::IGNORE, // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
+    'condition' => RowExistenceExpectationConst::CONST_IGNORE, // condition可以为IGNORE, EXPECT_EXIST, EXPECT_NOT_EXIST
     'primary_key' => array ( // 主键
         'PK0' => 123,
         'PK1' => 'abc'
@@ -68,12 +68,12 @@ $request = array (
         'attr5'
     ), // 只读取 attr0, attr3, attr5 这几列
     'column_filter' => array (
-        "logical_operator" => LogicalOperatorConst::NOT, // 若attr10属性列不存在，则该内层逻辑表达式返回false。则当attr10属性列不存在的时候，得到返回数据。
+        "logical_operator" => LogicalOperatorConst::CONST_NOT, // 若attr10属性列不存在，则该内层逻辑表达式返回false。则当attr10属性列不存在的时候，得到返回数据。
         "sub_conditions" => array (
             array (
                 'column_name' => 'attr10',
                 'value' => 456,
-                'comparator' => ComparatorTypeConst::EQUAL,
+                'comparator' => ComparatorTypeConst::CONST_EQUAL,
                 'pass_if_missing' => false
             )
         )

@@ -4,21 +4,21 @@ namespace Aliyun\OTS;
 
 /* 该类表示逻辑运算符。 */
 class LogicalOperatorConst {
-    const NOT = 1;
-    const AND = 2;
-    const OR = 3;
+    const CONST_NOT = 1;
+    const CONST_AND = 2;
+    const CONST_OR = 3;
     static public function values() {
         return array (
-                LogicalOperationConst::AND,
-                LogicalOperationConst::OR,
-                LogicalOperationConst::NOT 
+                LogicalOperatorConst::CONST_AND,
+                LogicalOperatorConst::CONST_OR,
+                LogicalOperatorConst::CONST_NOT 
         );
     }
     static public function memebers() {
         return array (
-                'LogicalOperationConst::AND',
-                'LogicalOperationConst::OR',
-                'LogicalOperationConst::NOT' 
+                'LogicalOperatorConst::CONST_AND',
+                'LogicalOperatorConst::CONST_OR',
+                'LogicalOperatorConst::CONST_NOT' 
         );
     }
 }
