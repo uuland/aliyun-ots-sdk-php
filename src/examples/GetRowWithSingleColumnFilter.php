@@ -1,8 +1,9 @@
 <?php
-require (__DIR__ . "/../../vendor/autoload.php");
-require (__DIR__ . "/ExampleConfig.php");
+require (__DIR__ . '/../../vendor/autoload.php');
+require (__DIR__ . '/ExampleConfig.php');
 
 use Aliyun\OTS\OTSClient as OTSClient;
+use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
@@ -19,9 +20,10 @@ $request = array (
         'primary_key_schema' => array (
             'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
             'PK1' => ColumnTypeConst::STRING
-        ) // 第二个主键列名称为PK1, 类型为STRING
+        )
+    ) // 第二个主键列名称为PK1, 类型为STRING
 
-    ),
+    ,
     'reserved_throughput' => array (
         'capacity_unit' => array (
             'read' => 0, // 预留读写吞吐量设置为：0个读CU，和0个写CU
@@ -47,7 +49,7 @@ $request = array (
         'attr4' => false, // BOOLEAN类型
         'attr5' => array ( // BINARY类型
             'type' => 'BINARY',
-            'value' => "a binary string"
+            'value' => 'a binary string'
         )
     )
 );
@@ -64,32 +66,28 @@ $request = array (
         'attr0',
         'attr3',
         'attr5'
-    ) // 只读取 attr0, attr3, attr5 这几列
-
+    ), // 只读取 attr0, attr3, attr5 这几列
+    'column_filter' => array ( // 对返回的数据进行判断，只有当attr0项不为456的时候才返回数据
+        'column_name' => 'attr0',
+        'value' => 456,
+        'comparator' => ComparatorTypeConst::NOT_EQUAL
+    )
 );
 $response = $otsClient->getRow ($request);
 print json_encode ($response);
 
 /* 样例输出：
-{
-    "consumed": {
-        "capacity_unit": {
-            "read": 1,                 // 本次操作消耗了1个读CU
-            "write": 0
-        }
-    },
-    "row": {
-        "primary_key_columns": {},
-        "attribute_columns": {
-            "attr0": 456,
-            "attr3": true,
-            "attr5": {                  // 请注意BINARY类型的表示方法
-                "type": "BINARY",
-                "value": "a binary string"
-            }
-        }
-    }
-}
+ {
+ 	'consumed': {
+ 		'capacity_unit': {
+ 		'read': 1,                 // 本次操作消耗了1个读CU
+ 		'write': 0
+ 		}
+ 	},
+ 	'row': {
+ 		'primary_key_columns': {},
+ 		'attribute_columns': {}
+ 	}
+ }
 
-*/
-
+ */

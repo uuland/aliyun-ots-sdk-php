@@ -3,6 +3,8 @@ require (__DIR__ . "/../../vendor/autoload.php");
 require (__DIR__ . "/ExampleConfig.php");
 
 use Aliyun\OTS\OTSClient as OTSClient;
+use Aliyun\OTS\ComparatorTypeConst;
+use Aliyun\OTS\LogicalOperatorConst;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
@@ -49,7 +51,9 @@ $request = array (
                     )
                 ),
                 array (
-                    'condition' => RowExistenceExpectationConst::IGNORE,
+                    'condition' => array (
+                        'row_existence' => RowExistenceExpectationConst::IGNORE
+                    ),
                     'primary_key' => array (
                         'PK0' => 2,
                         'PK1' => 'Zhejiang'
@@ -62,7 +66,14 @@ $request = array (
             ),
             'update_rows' => array (
                 array ( // 第一行
-                    'condition' => RowExistenceExpectationConst::IGNORE,
+                    'condition' => array (
+                        'row_existence' => RowExistenceExpectationConst::IGNORE,
+                        'column_filter' => array (
+                            'column_name' => 'attr2',
+                            'value' => 256,
+                            'comparator' => ComparatorTypeConst::NOT_EQUAL
+                        )
+                    ),
                     'primary_key' => array (
                         'PK0' => 3,
                         'PK1' => 'Zhejiang'
@@ -73,7 +84,24 @@ $request = array (
                     )
                 ),
                 array ( // 第二行
-                    'condition' => RowExistenceExpectationConst::IGNORE,
+                    'condition' => array (
+                        'row_existence' => RowExistenceExpectationConst::IGNORE,
+                        'column_filter' => array (
+                            'logical_operator' => LogicalOperatorConst::OR,
+                            'sub_conditions' => array (
+                                array (
+                                    'column_name' => 'attr2',
+                                    'value' => 256,
+                                    'comparator' => ComparatorTypeConst::EQUAL
+                                ),
+                                array (
+                                    'column_name' => 'attr1',
+                                    'value' => 333,
+                                    'comparator' => ComparatorTypeConst::GREATER_EQUAL
+                                )
+                            )
+                        )
+                    ),
                     'primary_key' => array (
                         'PK0' => 4,
                         'PK1' => 'Jiangsu'
@@ -149,9 +177,9 @@ foreach ($response['tables'] as $tableData) {
     if ($rowData['is_ok']) {
       // 写入成功
       print "Capacity Unit Consumed: {$rowData['consumed']['capacity_unit']['write']}\n";
-    } else {
-      // 处理出错
-      print "Error: {$rowData['error']['code']} {$rowData['error']['message']}\n";
+        } else {
+            // 处理出错
+            print "Error: {$rowData['error']['code']} {$rowData['error']['message']}\n";
         }
     }
 }
