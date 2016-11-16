@@ -5,8 +5,8 @@ message Error {
 
 
 enum ColumnType {
-    INF_MIN = 0;
-    INF_MAX = 1;
+    INF_MIN = 0; // only for GetRange 
+    INF_MAX = 1; // only for GetRange
     INTEGER = 2;
     STRING = 3;
     BOOLEAN = 4;
@@ -49,8 +49,46 @@ enum RowExistenceExpectation {
     EXPECT_NOT_EXIST = 2;
 }
 
+enum ColumnConditionType {
+    CCT_RELATION                 = 1;
+    CCT_COMPOSITE                = 2;
+}
+
+enum ComparatorType {
+    CT_EQUAL                    = 1;
+    CT_NOT_EQUAL                = 2;
+    CT_GREATER_THAN             = 3;
+    CT_GREATER_EQUAL            = 4;
+    CT_LESS_THAN                = 5;
+    CT_LESS_EQUAL               = 6;
+}
+
+message RelationCondition {
+    required ComparatorType comparator     = 1;
+    required string column_name            = 2;
+    required ColumnValue column_value      = 3;
+    required bool pass_if_missing          = 4;
+}
+
+enum LogicalOperator {
+    LO_NOT                      = 1;
+    LO_AND                      = 2;
+    LO_OR                       = 3;
+}
+
+message ColumnCondition {
+    required ColumnConditionType type    = 1;
+    required bytes condition = 2;  // Serialized bytes of column condition of the type
+}
+
+message CompositeCondition {
+    required LogicalOperator combinator     = 1;
+    repeated ColumnCondition sub_conditions = 2;
+}
+
 message Condition {
     required RowExistenceExpectation row_existence = 1;
+    optional ColumnCondition column_condition      = 2;
 }
 
 message CapacityUnit {
@@ -100,7 +138,6 @@ message DescribeTableResponse {
 }
 
 message ListTableRequest {
-    required string ncvonline = 1;
 }
 
 message ListTableResponse {
@@ -118,6 +155,7 @@ message GetRowRequest {
     required string table_name = 1;
     repeated Column primary_key = 2;
     repeated string columns_to_get = 3;
+    optional ColumnCondition filter = 4;
 }
 
 message GetRowResponse {
@@ -176,6 +214,7 @@ message TableInBatchGetRowRequest {
     required string table_name = 1;
     repeated RowInBatchGetRowRequest rows = 2;
     repeated string columns_to_get = 3;
+    optional ColumnCondition filter = 4;
 }
 
 message BatchGetRowRequest {
@@ -191,11 +230,11 @@ message RowInBatchGetRowResponse {
 
 message TableInBatchGetRowResponse {
     required string table_name = 1;
-    repeated RowInBatchGetRowResponse rows = 2;
+    repeated RowInBatchGetRowResponse rows = 2; // same indices w.r.t. request
 }
 
 message BatchGetRowResponse {
-    repeated TableInBatchGetRowResponse tables = 1;
+    repeated TableInBatchGetRowResponse tables = 1; // same indices w.r.t. request
 }
 
 message PutRowInBatchWriteRowRequest {
@@ -223,7 +262,7 @@ message TableInBatchWriteRowRequest {
 }
 
 message BatchWriteRowRequest {
-    repeated TableInBatchWriteRowRequest tables = 1;
+    repeated TableInBatchWriteRowRequest tables = 1; // same indices w.r.t. request
 }
 
 message RowInBatchWriteRowResponse {
@@ -234,9 +273,9 @@ message RowInBatchWriteRowResponse {
 
 message TableInBatchWriteRowResponse {
     required string table_name = 1;
-    repeated RowInBatchWriteRowResponse put_rows = 2;
-    repeated RowInBatchWriteRowResponse update_rows = 3;
-    repeated RowInBatchWriteRowResponse delete_rows = 4;
+    repeated RowInBatchWriteRowResponse put_rows = 2; // same indices w.r.t. request
+    repeated RowInBatchWriteRowResponse update_rows = 3; // same indices w.r.t. request
+    repeated RowInBatchWriteRowResponse delete_rows = 4; // same indices w.r.t. request
 }
 
 message BatchWriteRowResponse {
@@ -253,12 +292,13 @@ message GetRangeRequest {
     required Direction direction = 2;
     repeated string columns_to_get = 3;
     optional int32 limit = 4;
-    repeated Column inclusive_start_primary_key = 5;
-    repeated Column exclusive_end_primary_key = 6;
+    repeated Column inclusive_start_primary_key = 5; // required all PKs, possibly filled with INF_MIN/INF_MAX
+    repeated Column exclusive_end_primary_key = 6; // required all PKs, possibly filled with INF_MIN/INF_MAX
+    optional ColumnCondition filter = 7;
 }
 
 message GetRangeResponse {
     required ConsumedCapacity consumed = 1;
-    repeated Column next_start_primary_key = 2;
+    repeated Column next_start_primary_key = 2; // missing means hitting the end
     repeated Row rows = 3;
 }

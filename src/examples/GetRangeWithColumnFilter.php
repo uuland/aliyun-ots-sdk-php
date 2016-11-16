@@ -6,6 +6,8 @@ use Aliyun\OTS\OTSClient as OTSClient;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 use Aliyun\OTS\DirectionConst;
+use Aliyun\OTS\ComparatorTypeConst;
+use Aliyun\OTS\LogicalOperatorConst;
 
 $otsClient = new OTSClient (array (
     'EndPoint' => EXAMPLE_END_POINT,
@@ -20,9 +22,9 @@ $request = array (
         'primary_key_schema' => array (
             'PK0' => ColumnTypeConst::INTEGER, // 第一个主键列（又叫分片键）名称为PK0, 类型为 INTEGER
             'PK1' => ColumnTypeConst::STRING
-        ) // 第二个主键列名称为PK1, 类型为STRING
-
-    ),
+        )
+    ) // 第二个主键列名称为PK1, 类型为STRING
+,
     'reserved_throughput' => array (
         'capacity_unit' => array (
             'read' => 0,
@@ -46,9 +48,9 @@ for($i = 0; $i < 6000; $i ++) {
           'attr1' => 'Hangzhou', // STRING类型
           'attr2' => 3.14, // DOUBLE类型
           'attr3' => true
-      ) // BOOLEAN类型
-
-  );
+      )
+  ) // BOOLEAN类型
+;
   $otsClient->putRow ($request);
 }
 
@@ -74,21 +76,36 @@ while (! empty ($startPK) && $limit > 0) {
       'direction' => DirectionConst::FORWARD, // 方向可以为 FORWARD 或者 BACKWARD
       'inclusive_start_primary_key' => $startPK, // 开始主键
       'exclusive_end_primary_key' => $endPK, // 结束主键
-      'limit' => $limit
+      'limit' => $limit,
+      'column_filter' => array (
+          'logical_operator' => LogicalOperatorConst::AND,
+          'sub_conditions' => array (
+              array (
+                  'column_name' => 'attr0',
+                  'value' => 456,
+                  'comparator' => ComparatorTypeConst::EQUAL
+              ),
+              array (
+                  'column_name' => 'attr1',
+                  'value' => 'Hangzhou',
+                  'comparator' => ComparatorTypeConst::GREATER_EQUAL
+              )
+          )
+      )
   );
   
   $response = $otsClient->getRange ($request);
   
   print "Read CU Consumed: {$response['consumed']['capacity_unit']['read']}\n";
   
-  foreach ($response['rows'] as $rowData) {
-    $limit --;
+  foreach ($response['rows'] as $rowData ) {
+        $limit --;
+        
+        // 处理每一行数据
+    }
     
-    // 处理每一行数据
-  }
-
-    $startPK = $response['next_start_primary_key'];
-
+    $startPK = $response ['next_start_primary_key'];
+    
     // 如果 next_start_primary_key 不为空并且 limit > 0 则循环继续
 }
 

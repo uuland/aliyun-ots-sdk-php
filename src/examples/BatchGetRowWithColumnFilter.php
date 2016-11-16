@@ -3,6 +3,7 @@ require (__DIR__ . "/../../vendor/autoload.php");
 require (__DIR__ . "/ExampleConfig.php");
 
 use Aliyun\OTS\OTSClient as OTSClient;
+use Aliyun\OTS\ComparatorTypeConst;
 use Aliyun\OTS\ColumnTypeConst;
 use Aliyun\OTS\RowExistenceExpectationConst;
 
@@ -21,6 +22,7 @@ $request = array (
             'PK1' => ColumnTypeConst::STRING
         )
     ), // 第二个主键列名称为PK1, 类型为STRING
+    
     'reserved_throughput' => array (
         'capacity_unit' => array (
             'read' => 0, // 预留读写吞吐量设置为：0个读CU，和0个写CU
@@ -80,27 +82,46 @@ $request = array (
                         'PK0' => 1,
                         'PK1' => 'Zhejiang'
                     )
-                ),
+                ), // 第一行
                 array (
                     'primary_key' => array (
                         'PK0' => 2,
                         'PK1' => 'Jiangsu'
                     )
-                ),
+                ), // 第二行
                 array (
                     'primary_key' => array (
                         'PK0' => 3,
                         'PK1' => 'Guangdong'
                     )
                 )
-            ),
-            'columns_to_get' => array (
-                'PK1',
-                'attr1'
+            ), // 第三行
+            'column_filter' => array (
+                'column_name' => 'attr1',
+                'value' => 'Shenzhen',
+                'comparator' => ComparatorTypeConst::NOT_EQUAL
             )
         )
     )
-) // columns_to_get 参数用来指定要获取的列
-;
-$response = $otsClient->batchGetRow ( $request );
-print json_encode ( $response );
+);
+
+$response = $otsClient->batchGetRow ($request);
+
+// 处理返回的每个表
+foreach ($response['tables'] as $tableData) {
+  print "Handling table {$tableData['table_name']} ...\n";
+  
+  // 处理这个表下的每行数据
+  foreach ($tableData['rows'] as $rowData) {
+    
+    if ($rowData['is_ok']) {
+      
+      // 处理读取到的数据
+    } else {
+            
+            // 处理出错
+            print "Error: {$rowData['error']['code']} {$rowData['error']['message']}\n";
+        }
+    }
+}
+
