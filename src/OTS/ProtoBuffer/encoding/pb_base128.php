@@ -68,11 +68,18 @@ class base128varint
 
         return $hexstring;
     }
+    
+    function returnOsIntegerSize() 
+    {
+        return 8 * PHP_INT_SIZE;
+    }
 
     function bindec2($bin)
     {
-        if (strlen($bin) == 64 && $bin[0] == '1') {
-            for ($i = 0; $i < 64; $i++) {
+        $osIntSize = $this->returnOsIntegerSize();
+        
+        if (strlen($bin) == $osIntSize && $bin[0] == '1') {
+            for ($i = 0; $i < $osIntSize; $i++) {
                 $bin[$i] = $bin[$i] == '1' ? '0' : '1';
             }
     
@@ -92,6 +99,8 @@ class base128varint
         $string_length = strlen($string);
 
         $i = 1;
+        
+        $osIntSize = $this->returnOsIntegerSize();
 
         while ($string_length > $i)
         {
@@ -100,8 +109,8 @@ class base128varint
             $i += 8;
         }
 
-        if (strlen($valuestring) > 64) {
-            $valuestring = substr($valuestring, strlen($valuestring) - 64, 64);
+        if (strlen($valuestring) > $osIntSize) {
+            $valuestring = substr($valuestring, strlen($valuestring) - $osIntSize, $osIntSize);
         }
 
         // now interprete it

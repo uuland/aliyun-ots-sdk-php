@@ -7,12 +7,30 @@ use Aliyun\OTS\ColumnTypeConst;
 
 require __DIR__ . "/TestBase.php";
 require __DIR__ . "/../../../vendor/autoload.php";
+
+$usedTables = array (
+        "myTable",
+        "test2",
+        "test3",
+        "test4",
+        "test",
+        "test5"
+);
+
 class CreateTableTest extends SDKTestBase {
     public function setup() {
-        $table_name = $this->otsClient->listTable (array ());
+        global $usedTables;
+        $table_name = $usedTables;
         for($i = 0; $i < count ($table_name); $i ++) {
-            $tablename['table_name'] = $table_name[$i];
-            $this->otsClient->deleteTable ($tablename);
+            $request = array (
+                    "table_name" => $table_name[$i]
+            );
+            try {
+                $this->otsClient->deleteTable ($request);
+            } catch (\Aliyun\OTS\OTSServerException $exc) {
+                if ($exc->getOTSErrorCode() == 'OTSObjectNotExist')
+                    continue;
+            }
         }
     }
     
@@ -22,9 +40,10 @@ class CreateTableTest extends SDKTestBase {
      * 创建一个表，然后DescribeTable校验TableMeta和ReservedThroughput与建表时的参数一致
      */
     public function testCreateTable() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "myTable",
+                "table_name" => $usedTables[0],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_STRING,
                     "PK2" => ColumnTypeConst::CONST_INTEGER,
@@ -41,14 +60,14 @@ class CreateTableTest extends SDKTestBase {
         );
         $this->otsClient->createTable ($tablebody);
         $tablename = array (
-            "myTable"
+            $usedTables[0]
         );
         // $tablename['mytable'] = 111;
         $this->assertEquals ($this->otsClient->listTable (array ()), $tablename);
         // $this->assertContains();
-        $table_name['table_name'] = "myTable";
+        $table_name['table_name'] = $usedTables[0];
         $teturn = array (
-            "table_name" => "myTable",
+            "table_name" => $usedTables[0],
             "primary_key_schema" => array (
                 "PK1" => ColumnTypeConst::CONST_STRING,
                 "PK2" => ColumnTypeConst::CONST_INTEGER,
@@ -163,9 +182,10 @@ class CreateTableTest extends SDKTestBase {
      * 测试CreateTable在TableMeta包含0个PK时的情况，期望返回错误消息：Failed to parse the ProtoBuf message
      */
     public function testNoPKInSchema() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test2",
+                "table_name" => $usedTables[1],
                 "primary_key_schema" => array ()
             ),
             "reserved_throughput" => array (
@@ -189,9 +209,10 @@ class CreateTableTest extends SDKTestBase {
      * 测试CreateTable和DescribeTable在TableMeta包含1个PK时的情况
      */
     public function testOnePKInSchema() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test3",
+                "table_name" => $usedTables[2],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_STRING
                 )
@@ -220,9 +241,10 @@ class CreateTableTest extends SDKTestBase {
      * 测试CreateTable和DescribeTable在TableMeta包含4个PK时的情况
      */
     public function testFourPKInSchema() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test4",
+                "table_name" => $usedTables[3],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_STRING,
                     "PK2" => ColumnTypeConst::CONST_INTEGER,
@@ -258,6 +280,7 @@ class CreateTableTest extends SDKTestBase {
      * 测试TableMeta包含1000个PK的情况，CreateTable期望返回错误消息：The number of primary key columns must be in range: [1, 4].
      */
     public function testTooMuchPKInSchema() {
+        global $usedTables;
         $key = array ();
         for($i = 1; $i < 1001; $i ++) {
             $key['a' . $i] = ColumnTypeConst::CONST_INTEGER;
@@ -265,7 +288,7 @@ class CreateTableTest extends SDKTestBase {
         // print_r($key);die;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test",
+                "table_name" => $usedTables[4],
                 "primary_key_schema" => $key
             ),
             "reserved_throughput" => array (
@@ -289,9 +312,10 @@ class CreateTableTest extends SDKTestBase {
      * 测试CreateTable和DescribeTable在TableMeta包含2个PK，类型为 INTEGER 的情况。
      */
     public function testIntegerPKInSchema() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test5",
+                "table_name" => $usedTables[5],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_INTEGER,
                     "PK2" => ColumnTypeConst::CONST_INTEGER
@@ -322,9 +346,10 @@ class CreateTableTest extends SDKTestBase {
      * 测试CreateTable和DescribeTable在TableMeta包含2个PK，类型为 STRING 的情况。
      */
     public function testStringPKInSchema() {
+        global $usedTables;
         $tablebody = array (
             "table_meta" => array (
-                "table_name" => "test5",
+                "table_name" => $usedTables[5],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_STRING,
                     "PK2" => ColumnTypeConst::CONST_STRING
@@ -356,9 +381,10 @@ class CreateTableTest extends SDKTestBase {
      * 类型为 DOUBLE / BOOELAN / BINARY / INF_MIN / INF_MAX 的情况，期望返回错误
      */
     public function testInvalidPKInSchema() {
+        global $usedTables;
         $tablebody1 = array (
             "table_meta" => array (
-                "table_name" => "test",
+                "table_name" => $usedTables[4],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_DOUBLE,
                     "PK2" => ColumnTypeConst::CONST_DOUBLE
@@ -373,7 +399,7 @@ class CreateTableTest extends SDKTestBase {
         );
         $tablebody2 = array (
             "table_meta" => array (
-                "table_name" => "test",
+                "table_name" => $usedTables[4],
                 "primary_key_schema" => array (
                     "PK1" => ColumnTypeConst::CONST_BOOLEAN,
                     "PK2" => ColumnTypeConst::CONST_BOOLEAN
@@ -406,10 +432,18 @@ class CreateTableTest extends SDKTestBase {
     }
     
     public function tearDown() {
-        $table_name = $this->otsClient->listTable (array ());
+        global $usedTables;
+        $table_name = $usedTables;
         for($i = 0; $i < count ($table_name); $i ++) {
-            $tablename['table_name'] = $table_name[$i];
-            $this->otsClient->deleteTable ($tablename );
+            $request = array (
+                    "table_name" => $table_name[$i]
+            );
+            try {
+                $this->otsClient->deleteTable ($request);
+            } catch (\Aliyun\OTS\OTSServerException $exc) {
+                if ($exc->getOTSErrorCode() == 'OTSObjectNotExist')
+                    continue;
+            }
         }
     }
 }
