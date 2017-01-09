@@ -16,7 +16,8 @@ $usedTables = array (
 SDKTestBase::cleanUp ($usedTables);
 class DescribeTableTest extends SDKTestBase {
     public function setup() {
-       $this->cleanUp ();
+       global $usedTables;
+       $this->cleanUp ($usedTables);
     }
     
     /*

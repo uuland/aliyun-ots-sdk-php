@@ -29,8 +29,8 @@ class SDKTestBase extends \PHPUnit_Framework_TestCase {
         if ($tables != null) {
             $otsClient = SDKTestBase::createOTSClient ();
             $tableNames = $otsClient->listTable (array ());
-            foreach ($tableNames as $tableName) {
-                if (in_array ($tableName, $tables))
+            foreach ($tables as $tableName) {
+                if (in_array ($tableName, $tableNames))
                     $otsClient->deleteTable (array (
                             'table_name' => $tableName
                     ));

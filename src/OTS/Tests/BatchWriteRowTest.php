@@ -14,7 +14,11 @@ require __DIR__ . "/../../../vendor/autoload.php";
 
 $usedTables = array (
     "myTable",
-    "myTable1"
+    "myTable1",
+    "test1",
+    "test2",
+    "test3",
+    "test4"
 );
 
 SDKTestBase::cleanUp ($usedTables);
@@ -341,7 +345,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             ),
                             "attribute_columns" => array (
                                 "att1" => "name1",
-                                "att2" => 256
+                                "att2" => -256.66
                             )
                         ),
                         array (
@@ -352,7 +356,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             ),
                             "attribute_columns" => array (
                                 "att1" => "name2",
-                                "att2" => 256
+                                "att2" => -256.66
                             )
                         ),
                         array (
@@ -363,7 +367,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             ),
                             "attribute_columns" => array (
                                 "att1" => "name3",
-                                "att2" => 256
+                                "att2" => -256.66
                             )
                         ),
                         array (
@@ -374,7 +378,7 @@ class BatchWriteRowTest extends SDKTestBase {
                             ),
                             "attribute_columns" => array (
                                 "att1" => "name4",
-                                "att2" => 256
+                                "att2" => -256.66
                             )
                         )
                     )
@@ -425,7 +429,7 @@ class BatchWriteRowTest extends SDKTestBase {
         
         ;
         $getrow = $this->otsClient->batchWriteRow ($batchWrite1);
-        // print_r($getrow);die;
+        
         for($i = 1; $i < 5; $i ++) {
             $body = array (
                 "table_name" => $usedTables[0],
@@ -433,11 +437,12 @@ class BatchWriteRowTest extends SDKTestBase {
                     "PK1" => $i,
                     "PK2" => "a" . $i
                 ),
-                "columns_to_get" => array ()
+                "columns_to_get" => array ('att2')
             );
             $a[] = $this->otsClient->getRow ($body);
         }
         $this->assertEquals (count ($a), 4);
+        
         for($c = 0; $c < count ($a); $c ++) {
             $this->assertEmpty ($a[$c]['row']['primary_key_columns']);
             $this->assertEmpty ($a[$c]['row']['attribute_columns']);
