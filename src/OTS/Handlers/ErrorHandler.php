@@ -25,7 +25,7 @@ class ErrorHandler
             return;
         }
 
-        $error = new \Error();
+        $error = new \ErrorResult();
         $errorCode = null;
         $errorMessage = null;
 
