@@ -1,5 +1,5 @@
 {
-	"name" : "aliyun/aliyun-ots-sdk-php",
+	"name" : "moolex/aliyun-ots-sdk-php",
 	"homepage" : "http://www.aliyun.com/product/ots",
 	"description" : "Aliyun OTS SDK for PHP",
 	"authors" : [{
